@@ -42,3 +42,11 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Impeccable machine-local settings
+.impeccable/config.local.json
+
+# Impeccable review captures and decision-page state (regenerated on demand)
+.impeccable/review/
+.impeccable/questions/
+.impeccable/build/

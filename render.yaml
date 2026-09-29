@@ -1,0 +1,28 @@
+# Render Blueprint: the TrackBoard web app as a free static site.
+# After the first deploy, add this site's URL (e.g. https://trackboard-web.onrender.com) to the
+# API service as Cors__AllowedOrigins__0, or the browser will refuse every API response.
+services:
+  - type: web
+    name: trackboard-web
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist/TrackBoard-Web/browser
+    envVars:
+      # Angular 21 needs Node 20.19+, 22.12+ or 24+.
+      - key: NODE_VERSION
+        value: "24"
+    # A single-page app: every path that is not a file is served index.html.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin

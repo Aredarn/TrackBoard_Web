@@ -28,7 +28,7 @@ npm start
 ```
 
 Open `http://localhost:4200`. In development every `/api` call is proxied to the live API at
-`https://trackboard-u9uj.onrender.com` (see [proxy.conf.json](proxy.conf.json)), so no CORS
+`https://trackboard-backend.onrender.com` (see [proxy.conf.json](proxy.conf.json)), so no CORS
 setup is needed. The API runs on Render's free plan and sleeps when idle: the first request
 can take up to a minute, and the page says so while it waits.
 

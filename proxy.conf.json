@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://trackboard-u9uj.onrender.com",
+    "target": "https://trackboard-backend.onrender.com",
     "secure": true,
     "changeOrigin": true,
     "logLevel": "warn"

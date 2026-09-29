@@ -103,7 +103,7 @@ Apache-2.0, firmware public), free, and account-optional for the app itself.
 
 - Real circuits that ship in the app: Pannonia-ring, Nordschleife (BTG), Euro-ring,
   Hungaroring, Mugello, Circuit Paul Ricard (GP), Kakucs ring (plus reverse).
-- The live API: `https://trackboard-u9uj.onrender.com`. Real user and lap counts are small and
+- The live API: `https://trackboard-backend.onrender.com`. Real user and lap counts are small and
   unknown; the site must not invent driver counts, lap counts, testimonials, or accuracy
   claims. Demo content shown before real data exists must be labelled as such.
 - No logo or wordmark exists yet.

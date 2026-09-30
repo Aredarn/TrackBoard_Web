@@ -255,6 +255,86 @@ export interface UploadTarget {
   publicUrl: string;
 }
 
+// ── Events (track days) ──────────────────────────────────────────────────────
+
+export type EventStatus = 'Upcoming' | 'Live' | 'Finished';
+
+export interface EventGroup {
+  id: string;
+  name: string;
+}
+
+export interface EventSummary {
+  id: string;
+  name: string;
+  trackId: string;
+  trackName: string;
+  trackCountry: string;
+  startsAt: string;
+  endsAt: string;
+  status: EventStatus;
+  hostDisplayName: string;
+  entryCount: number;
+  isHost: boolean;
+  isJoined: boolean;
+  myGroupId: string | null;
+  /** Only present for the host. */
+  joinCode: string | null;
+}
+
+export interface EventEntry {
+  userId: string;
+  displayName: string;
+  groupId: string | null;
+  joinedAt: string;
+}
+
+export interface EventDetail {
+  event: EventSummary;
+  groups: EventGroup[];
+  entries: EventEntry[];
+}
+
+export interface SaveEvent {
+  name: string;
+  trackId?: string;
+  startsAt: string;
+  endsAt: string;
+  groups: { id?: string; name: string }[];
+}
+
+export interface EventBoardEntry {
+  rank: number | null;
+  groupRank: number | null;
+  userId: string;
+  displayName: string;
+  groupId: string | null;
+  bestLapMs: number | null;
+  gapToLeaderMs: number | null;
+  gapToGroupLeaderMs: number | null;
+  bestLapSectors: SectorSplit[];
+  lapCount: number;
+  lastLapMs: number | null;
+  lastLapIsBest: boolean;
+  onTrack: boolean;
+  lastActivityAt: string | null;
+  vehicle: LeaderboardVehicle | null;
+  gpsSource: GpsSource | null;
+}
+
+export interface EventBoard {
+  eventId: string;
+  name: string;
+  trackId: string;
+  trackName: string;
+  status: EventStatus;
+  startsAt: string;
+  endsAt: string;
+  groups: EventGroup[];
+  entries: EventBoardEntry[];
+  generatedAt: string;
+}
+
 /** RFC 7807 body the API returns on every error. */
 export interface ProblemDetails {
   type?: string;

@@ -33,6 +33,40 @@ export const date = (iso: string | null | undefined) => (iso ? dateFmt.format(ne
 export const dateTime = (iso: string | null | undefined) => (iso ? dateTimeFmt.format(new Date(iso)) : '—');
 export const clock = (d: Date) => timeFmt.format(d);
 
+const dayFmt = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+
+/** "Sat 4 Oct 2026, 09:00–17:00", or both ends in full when the event spans days. */
+export function eventWindow(startsAt: string, endsAt: string): string {
+  const a = new Date(startsAt);
+  const b = new Date(endsAt);
+  return a.toDateString() === b.toDateString()
+    ? `${dayFmt.format(a)}, ${clock(a)}–${clock(b)}`
+    : `${dayFmt.format(a)} ${clock(a)} – ${dayFmt.format(b)} ${clock(b)}`;
+}
+
+/** An ISO instant as the value a datetime-local input expects, in the browser's time zone. */
+export function toLocalInput(iso: string | Date): string {
+  const d = new Date(iso);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+/** A datetime-local value (browser time zone) as a UTC ISO instant, or null when blank or invalid. */
+export function fromLocalInput(value: string): string | null {
+  if (!value) return null;
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? null : d.toISOString();
+}
+
+/** "3 min ago", "2 h ago": how long since a driver's last upload. */
+export function ago(iso: string | null, now = Date.now()): string {
+  if (!iso) return '—';
+  const minutes = Math.max(0, Math.round((now - Date.parse(iso)) / 60_000));
+  if (minutes < 1) return 'just now';
+  if (minutes < 60) return `${minutes} min ago`;
+  return `${Math.round(minutes / 60)} h ago`;
+}
+
 /** Which rig timed the lap. The ESP32 connects over Wi-Fi or Bluetooth; both are the same module. */
 export function gpsLabel(source: GpsSource): string {
   switch (source) {

@@ -18,6 +18,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/track').then((m) => m.TrackPage),
   },
   {
+    path: 'events/:id',
+    title: 'Event — TrackBoard',
+    loadComponent: () => import('./pages/event').then((m) => m.EventPage),
+  },
+  {
     path: 'drivers/:id',
     title: 'Driver — TrackBoard',
     loadComponent: () => import('./pages/driver').then((m) => m.DriverPage),
@@ -53,6 +58,16 @@ export const routes: Routes = [
         path: 'sessions/:id',
         title: 'Session — TrackBoard',
         loadComponent: () => import('./pages/me/session').then((m) => m.SessionPage),
+      },
+      {
+        path: 'events',
+        title: 'Events — TrackBoard',
+        loadComponent: () => import('./pages/me/events').then((m) => m.EventsPage),
+      },
+      {
+        path: 'events/:id',
+        title: 'Manage event — TrackBoard',
+        loadComponent: () => import('./pages/me/event-manage').then((m) => m.EventManagePage),
       },
       {
         path: 'garage',

@@ -77,6 +77,7 @@ export class MeLayout {
   protected readonly tabs = [
     { path: '/me', label: 'Record', exact: true },
     { path: '/me/sessions', label: 'Sessions', exact: false },
+    { path: '/me/events', label: 'Events', exact: false },
     { path: '/me/garage', label: 'Garage', exact: true },
     { path: '/me/tracks', label: 'My tracks', exact: true },
     { path: '/me/account', label: 'Account', exact: true },

@@ -3,7 +3,11 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import {
+  EventBoard,
+  EventDetail,
+  EventSummary,
   Leaderboard,
+  SaveEvent,
   Paged,
   Profile,
   ProfileStats,
@@ -110,6 +114,48 @@ export class ApiService {
 
   session(id: string): Observable<Session> {
     return this.http.get<Session>(`${this.base}/sessions/${id}`);
+  }
+
+  // ── Events ────────────────────────────────────────────────────────────────
+
+  myEvents(): Observable<EventSummary[]> {
+    return this.http.get<EventSummary[]>(`${this.base}/events`);
+  }
+
+  event(id: string): Observable<EventDetail> {
+    return this.http.get<EventDetail>(`${this.base}/events/${id}`);
+  }
+
+  eventBoard(id: string): Observable<EventBoard> {
+    return this.http.get<EventBoard>(`${this.base}/events/${id}/board`);
+  }
+
+  eventByCode(code: string): Observable<EventDetail> {
+    return this.http.get<EventDetail>(`${this.base}/events/code/${encodeURIComponent(code)}`);
+  }
+
+  createEvent(body: SaveEvent): Observable<EventDetail> {
+    return this.http.post<EventDetail>(`${this.base}/events`, body);
+  }
+
+  updateEvent(id: string, body: SaveEvent): Observable<EventDetail> {
+    return this.http.put<EventDetail>(`${this.base}/events/${id}`, body);
+  }
+
+  deleteEvent(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.base}/events/${id}`);
+  }
+
+  joinEvent(code: string, groupId: string | null): Observable<EventDetail> {
+    return this.http.post<EventDetail>(`${this.base}/events/join`, { code, groupId });
+  }
+
+  setEntryGroup(eventId: string, userId: string, groupId: string | null): Observable<EventDetail> {
+    return this.http.put<EventDetail>(`${this.base}/events/${eventId}/entries/${userId}`, { groupId });
+  }
+
+  removeEntry(eventId: string, userId: string): Observable<void> {
+    return this.http.delete<void>(`${this.base}/events/${eventId}/entries/${userId}`);
   }
 
   vehicles(ownerId: string): Observable<Paged<Vehicle>> {

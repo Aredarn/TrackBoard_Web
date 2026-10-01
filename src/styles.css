@@ -74,6 +74,8 @@
 
   --font-sans: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
   --font-typed: 'Courier Prime', 'Courier New', monospace;
+  --font-hand: 'Caveat Variable', 'Caveat', 'Segoe Print', cursive;
+  --marker: #1b1b1d;
 
   --s1: 4px;
   --s2: 8px;
@@ -118,18 +120,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Wide screens leave bare cork beside the page column: a few spare pins are stuck in it. */
+/* Wide screens leave bare cork beside the page column: one spare pin is stuck in it each side. */
 @media (min-width: 1400px) {
   body {
     background:
-      var(--pin-red) calc(50% - 704px) 150px / 78px 61px no-repeat,
-      var(--pin-yellow-left) calc(50% - 678px) 520px / 78px 61px no-repeat,
-      var(--pin-white) calc(50% - 710px) 930px / 78px 61px no-repeat,
-      var(--pin-blue-left) calc(50% - 686px) 1380px / 78px 61px no-repeat,
-      var(--pin-green-left) calc(50% + 624px) 260px / 78px 61px no-repeat,
-      var(--pin-red-left) calc(50% + 640px) 700px / 78px 61px no-repeat,
-      var(--pin-blue) calc(50% + 618px) 1120px / 78px 61px no-repeat,
-      var(--pin-yellow) calc(50% + 636px) 1560px / 78px 61px no-repeat,
+      var(--pin-red) calc(50% - 704px) 190px / 78px 61px no-repeat,
+      var(--pin-blue-left) calc(50% + 630px) 820px / 78px 61px no-repeat,
       var(--cork) var(--board);
   }
 }
@@ -351,6 +347,44 @@ select {
 
 .pin-white {
   --pin-img: var(--pin-white);
+}
+
+/* The driver's Porsche key, hung on a pin: gold ring, black car-shaped smart key and a
+   black leather shield fob with a gold crest-like shield. */
+.car-key {
+  display: block;
+  width: 130px;
+  height: 214px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 230' width='140' height='230'%3E%3Cdefs%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f6dc7c'/%3E%3Cstop offset='.5' stop-color='%23d4a634'/%3E%3Cstop offset='1' stop-color='%23a77c1e'/%3E%3C/linearGradient%3E%3ClinearGradient id='ring' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%239a7420'/%3E%3Cstop offset='.45' stop-color='%23fbe49a'/%3E%3Cstop offset='1' stop-color='%23a57b1f'/%3E%3C/linearGradient%3E%3ClinearGradient id='lea' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%230d0d0e'/%3E%3Cstop offset='.42' stop-color='%232c2c30'/%3E%3Cstop offset='1' stop-color='%230b0b0c'/%3E%3C/linearGradient%3E%3ClinearGradient id='body' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23050506'/%3E%3Cstop offset='.35' stop-color='%2326262a'/%3E%3Cstop offset='.55' stop-color='%233a3a3f'/%3E%3Cstop offset='1' stop-color='%23060607'/%3E%3C/linearGradient%3E%3ClinearGradient id='chrome' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23f3f3f3'/%3E%3Cstop offset='.5' stop-color='%239a9a9e'/%3E%3Cstop offset='1' stop-color='%23e6e6e8'/%3E%3C/linearGradient%3E%3Cfilter id='sh' x='-40%25' y='-20%25' width='180%25' height='150%25'%3E%3CfeDropShadow dx='6' dy='9' stdDeviation='3.6' flood-color='%23281404' flood-opacity='.42'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url%28%23sh%29'%3E%3Cg transform='rotate%2826 70 35%29'%3E%3Cpath d='M66 30 C66 26 74 26 74 30 L74 50 L66 50 Z' fill='url%28%23lea%29'/%3E%3Cpath d='M70 46 C84 46 91 52 91 64 C91 76 87 82 88 92 C89 104 92 112 91 124 C90 136 82 142 70 142 C58 142 50 136 49 124 C48 112 51 104 52 92 C53 82 49 76 49 64 C49 52 56 46 70 46 Z' fill='url%28%23body%29'/%3E%3Cpath d='M70 46 C84 46 91 52 91 64 C91 76 87 82 88 92 C89 104 92 112 91 124 C90 136 82 142 70 142 C58 142 50 136 49 124 C48 112 51 104 52 92 C53 82 49 76 49 64 C49 52 56 46 70 46 Z' fill='none' stroke='url%28%23chrome%29' stroke-width='2.4'/%3E%3Cpath d='M56 56 C60 50 66 49 70 49' fill='none' stroke='%23fff' stroke-opacity='.35' stroke-width='1.4' stroke-linecap='round'/%3E%3CclipPath id='cs'%3E%3Cpath d='M65.5 52 L74.5 52 C74.5 58.05 73.78 60.8 70 63 C66.22 60.8 65.5 58.05 65.5 52 Z'/%3E%3C/clipPath%3E%3Cg clip-path='url%28%23cs%29'%3E%3Crect x='65.5' y='52' width='9' height='11' fill='url%28%23gold%29'/%3E%3Crect x='65.5' y='53.76' width='4.5' height='3.880799999999999' fill='%23c3231c'/%3E%3Crect x='65.5' y='53.76' width='4.5' height='0.48509999999999986' fill='%23141414'/%3E%3Crect x='65.5' y='54.730199999999996' width='4.5' height='0.48509999999999986' fill='%23141414'/%3E%3Crect x='65.5' y='55.700399999999995' width='4.5' height='0.48509999999999986' fill='%23141414'/%3E%3Crect x='65.5' y='56.6706' width='4.5' height='0.48509999999999986' fill='%23141414'/%3E%3Crect x='70' y='57.6408' width='4.5' height='5.359200000000001' fill='%23c3231c'/%3E%3Crect x='70' y='57.6408' width='4.5' height='0.6699000000000002' fill='%23141414'/%3E%3Crect x='70' y='58.980599999999995' width='4.5' height='0.6699000000000002' fill='%23141414'/%3E%3Crect x='70' y='60.3204' width='4.5' height='0.6699000000000002' fill='%23141414'/%3E%3Crect x='70' y='61.6602' width='4.5' height='0.6699000000000002' fill='%23141414'/%3E%3Cpath d='M70.27 55.11828 l0.6300000000000001 -0.55 l0.6300000000000001 0.55 l0.6300000000000001 -0.55 l0.6300000000000001 0.55' fill='none' stroke='%23141414' stroke-width='0.31500000000000006'/%3E%3Cpath d='M70.27 56.47656 l0.6300000000000001 -0.55 l0.6300000000000001 0.55 l0.6300000000000001 -0.55 l0.6300000000000001 0.55' fill='none' stroke='%23141414' stroke-width='0.31500000000000006'/%3E%3Cpath d='M65.77 59.24856 l0.6300000000000001 -0.55 l0.6300000000000001 0.55 l0.6300000000000001 -0.55 l0.6300000000000001 0.55' fill='none' stroke='%23141414' stroke-width='0.31500000000000006'/%3E%3Cpath d='M65.77 60.85632 l0.6300000000000001 -0.55 l0.6300000000000001 0.55 l0.6300000000000001 -0.55 l0.6300000000000001 0.55' fill='none' stroke='%23141414' stroke-width='0.31500000000000006'/%3E%3Crect x='65.5' y='53.46' width='9' height='0.27' fill='%23141414'/%3E%3Cpath d='M68.47 56.1008 L71.53 56.1008 C71.53 58.300799999999995 70.9 59.1808 70 59.7308 C69.1 59.1808 68.47 58.300799999999995 68.47 56.1008 Z' fill='url%28%23gold%29' stroke='%23141414' stroke-width='0.27'/%3E%3Cpath d='M69.46 58.4108 q0.27 -1.54 0.9 -1.4300000000000002 q-0.18 0.6599999999999999 0.09 1.54 z' fill='%23141414'/%3E%3C/g%3E%3Cpath d='M65.5 52 L74.5 52 C74.5 58.05 73.78 60.8 70 63 C66.22 60.8 65.5 58.05 65.5 52 Z' fill='none' stroke='%238a6a1c' stroke-width='0.40499999999999997'/%3E%3Crect x='63' y='67' width='14' height='3.4' rx='1' fill='%23b3161a'/%3E%3Crect x='59' y='76' width='22' height='13' rx='3.5' fill='%233b3c40'/%3E%3Cpath d='M66.6 83 L66.6 80.4 A2.6 2.6 0 0 1 71.8 80.4' fill='none' stroke='%23fff' stroke-width='1.2'/%3E%3Crect x='65.4' y='83' width='6.6' height='5' rx='1' fill='%23fff'/%3E%3Crect x='59' y='91' width='22' height='13' rx='3.5' fill='%233b3c40'/%3E%3Cpath d='M67.4 97 L67.4 94.4 A2.6 2.6 0 0 1 72.6 94.4 L72.6 97' fill='none' stroke='%23fff' stroke-width='1.2'/%3E%3Crect x='66.2' y='97' width='7.6' height='5' rx='1' fill='%23fff'/%3E%3Crect x='59' y='106' width='22' height='13' rx='3.5' fill='%233b3c40'/%3E%3Cpath d='M62.5 115.5 C64 112.1 67 111.1 70 111.1 C73.5 111.1 75.6 112.9 77.5 115.5' fill='none' stroke='%23fff' stroke-width='1.1'/%3E%3Cpath d='M62.5 115.5 L77.5 115.5' stroke='%23fff' stroke-width='1.1'/%3E%3Crect x='59' y='121' width='22' height='13' rx='3.5' fill='%233b3c40'/%3E%3Cpath d='M62.5 130.5 C64 127.1 67 126.1 70 126.1 C73.5 126.1 75.6 127.9 77.5 130.5' fill='none' stroke='%23fff' stroke-width='1.1'/%3E%3Cpath d='M62.5 130.5 L77.5 130.5' stroke='%23fff' stroke-width='1.1'/%3E%3Crect x='66' y='141' width='8' height='9' rx='1.5' fill='url%28%23chrome%29'/%3E%3C/g%3E%3Cg transform='rotate%28-17 70 35%29'%3E%3Cpath d='M62.5 31 C62.5 25 77.5 25 77.5 31 L79 66 L61 66 Z' fill='url%28%23lea%29'/%3E%3Cpath d='M64.6 34 L65 64 M75.4 34 L75 64' stroke='%236d6d72' stroke-width='.8' stroke-dasharray='2.4 1.8'/%3E%3Cpath d='M40 62 L100 62 C100 96 96 122 70 137 C44 122 40 96 40 62 Z' fill='url%28%23lea%29'/%3E%3Cpath d='M45 67 L95 67 C95 95 91 116 70 130 C49 116 45 95 45 67 Z' fill='none' stroke='%2377777c' stroke-width='.9' stroke-dasharray='3 2.2'/%3E%3Cpath d='M44 64 C56 62.6 84 62.6 96 64' fill='none' stroke='%23fff' stroke-opacity='.18' stroke-width='1.2'/%3E%3CclipPath id='fs'%3E%3Cpath d='M54.0 76 L86.0 76 C86.0 98.0 83.44 108.0 70 116 C56.56 108.0 54.0 98.0 54.0 76 Z'/%3E%3C/clipPath%3E%3Cg clip-path='url%28%23fs%29'%3E%3Crect x='54.0' y='76' width='32' height='40' fill='url%28%23gold%29'/%3E%3Crect x='54.0' y='82.4' width='16.0' height='14.112' fill='%23c3231c'/%3E%3Crect x='54.0' y='82.4' width='16.0' height='1.764' fill='%23141414'/%3E%3Crect x='54.0' y='85.92800000000001' width='16.0' height='1.764' fill='%23141414'/%3E%3Crect x='54.0' y='89.456' width='16.0' height='1.764' fill='%23141414'/%3E%3Crect x='54.0' y='92.98400000000001' width='16.0' height='1.764' fill='%23141414'/%3E%3Crect x='70' y='96.512' width='16.0' height='19.488' fill='%23c3231c'/%3E%3Crect x='70' y='96.512' width='16.0' height='2.436' fill='%23141414'/%3E%3Crect x='70' y='101.384' width='16.0' height='2.436' fill='%23141414'/%3E%3Crect x='70' y='106.256' width='16.0' height='2.436' fill='%23141414'/%3E%3Crect x='70' y='111.128' width='16.0' height='2.436' fill='%23141414'/%3E%3Cpath d='M70.96 87.3392 l2.24 -2.0 l2.24 2.0 l2.24 -2.0 l2.24 2.0' fill='none' stroke='%23141414' stroke-width='1.12'/%3E%3Cpath d='M70.96 92.2784 l2.24 -2.0 l2.24 2.0 l2.24 -2.0 l2.24 2.0' fill='none' stroke='%23141414' stroke-width='1.12'/%3E%3Cpath d='M54.96 102.3584 l2.24 -2.0 l2.24 2.0 l2.24 -2.0 l2.24 2.0' fill='none' stroke='%23141414' stroke-width='1.12'/%3E%3Cpath d='M54.96 108.2048 l2.24 -2.0 l2.24 2.0 l2.24 -2.0 l2.24 2.0' fill='none' stroke='%23141414' stroke-width='1.12'/%3E%3Crect x='54.0' y='82.10000000000001' width='32' height='0.96' fill='%23141414'/%3E%3Cpath d='M64.56 90.912 L75.44 90.912 C75.44 98.912 73.2 102.112 70 104.112 C66.8 102.112 64.56 98.912 64.56 90.912 Z' fill='url%28%23gold%29' stroke='%23141414' stroke-width='0.96'/%3E%3Cpath d='M68.08 99.312 q0.96 -5.6000000000000005 3.2 -5.2 q-0.64 2.4 0.32 5.6000000000000005 z' fill='%23141414'/%3E%3C/g%3E%3Cpath d='M54.0 76 L86.0 76 C86.0 98.0 83.44 108.0 70 116 C56.56 108.0 54.0 98.0 54.0 76 Z' fill='none' stroke='%238a6a1c' stroke-width='1.44'/%3E%3Ctext x='70' y='81.12' text-anchor='middle' font-family='Archivo, Arial, sans-serif' font-weight='800' font-size='4.992000000000001' letter-spacing='0.64' fill='%23141414'%3EPORSCHE%3C/text%3E%3C/g%3E%3Ccircle cx='70' cy='20' r='15' fill='none' stroke='url%28%23ring%29' stroke-width='3.4'/%3E%3Cpath d='M59 11 A15 15 0 0 1 80 9.5' fill='none' stroke='%23fff' stroke-opacity='.6' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  transform-origin: 50% 4px;
+}
+
+.car-key:hover {
+  animation: key-sway 1.6s var(--ease-out);
+}
+
+@keyframes key-sway {
+  20% {
+    rotate: 5deg;
+  }
+
+  45% {
+    rotate: -3.5deg;
+  }
+
+  70% {
+    rotate: 1.6deg;
+  }
+
+  100% {
+    rotate: 0deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .car-key:hover {
+    animation: none;
+  }
 }
 
 /* A spare pin stuck in the cork, holding nothing. */
@@ -639,66 +673,97 @@ table.classification {
 
 /* ── Controls ───────────────────────────────────────────────────────────── */
 
+/* Buttons are written on the paper in black marker. Hover (or keyboard focus) rings the
+   word with a red marker; a click scribbles it out. The primary action is underlined. */
+@property --ring {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--s2);
+  gap: 6px;
   min-height: 44px;
-  padding: 0 18px;
-  border: 2px solid var(--stamp);
-  border-radius: 2px;
-  background: var(--stamp);
-  color: var(--on-stamp);
-  font-weight: 800;
-  font-stretch: 112%;
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  padding: 2px 14px 6px;
+  border: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M3 6 C50 3 120 8 197 4' fill='none' stroke='%231b1b1d' stroke-width='2.6' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") left 12px bottom 6px / calc(100% - 24px) 8px no-repeat;
+  color: var(--marker);
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.55rem;
+  line-height: 1;
   text-decoration: none;
+  white-space: nowrap;
+  rotate: -0.8deg;
   cursor: pointer;
-  transition:
-    background-color 140ms var(--ease-out),
-    transform 90ms var(--ease-out);
 }
 
-.btn:hover {
-  background: var(--stamp-deep);
-  border-color: var(--stamp-deep);
+.btn.plain,
+.btn.danger {
+  background: none;
 }
 
-.btn:active {
-  transform: translateY(1px);
+.btn.danger {
+  color: var(--fault);
+}
+
+.btn::after,
+.btn::before {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+
+/* The ring: drawn round the word as the pointer arrives. */
+.btn::after {
+  inset: -7px -10px -5px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60' preserveAspectRatio='none'%3E%3Cpath d='M40 7 C95 -1 172 3 192 21 C207 37 168 55 100 55 C42 55 5 47 6 31 C7 15 44 6 112 6 C141 6 163 10 176 16' fill='none' stroke='%23d3302a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: conic-gradient(from 300deg, #000 var(--ring), transparent 0);
+  transition: --ring 380ms var(--ease-out);
+}
+
+.btn:hover::after,
+.btn:focus-visible::after {
+  --ring: 360deg;
+}
+
+.btn:focus-visible {
+  outline: none;
+}
+
+/* The scribble: struck through on press, left to right. */
+.btn::before {
+  inset: 4px 6px 6px;
+  z-index: 1;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 52' preserveAspectRatio='none'%3E%3Cpath d='M2.0 6 L9.4 44 L16.8 10 L24.2 41 L31.6 4 L39.0 46 L46.4 12 L53.8 39 L61.2 7 L68.6 45 L76.0 9 L83.4 42 L90.8 5 L98.2 47 L105.6 11 L113.0 40 L120.4 6 L127.8 44 L135.2 8 L142.6 43 L150.0 5 L157.4 46 L164.8 10 L172.2 41 L179.6 7 L187.0 45 L194.4 9' fill='none' stroke='%23d3302a' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke' opacity='.92'/%3E%3Cpath d='M4 18 C60 30 130 12 196 28' fill='none' stroke='%23d3302a' stroke-width='3' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M3 34 C70 24 140 38 197 30' fill='none' stroke='%23d3302a' stroke-width='3' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 240ms var(--ease-out);
+}
+
+.btn:active::before,
+.btn.struck::before {
+  clip-path: inset(0 0 0 0);
 }
 
 .btn:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.45;
 }
 
-.btn.plain {
-  background: transparent;
-  border-color: var(--rule-strong);
-  color: var(--ink);
+.btn:disabled::after,
+.btn:disabled::before {
+  display: none;
 }
 
-.btn.plain:hover {
-  background: var(--paper-2);
-}
-
-.btn.danger {
-  background: var(--fault);
-  border-color: var(--fault);
-  color: var(--paper);
-}
-
-.on-board .btn.plain {
-  border-color: var(--board-ink);
-  color: var(--board-ink);
-}
-
-.on-board .btn.plain:hover {
-  background: var(--board-deep);
+@media (prefers-reduced-motion: reduce) {
+  .btn::after,
+  .btn::before {
+    transition: none;
+  }
 }
 
 /* Entry-form fields: typed into ruled boxes. */

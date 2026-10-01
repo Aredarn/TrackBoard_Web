@@ -29,6 +29,7 @@
               "@fontsource-variable/archivo/wdth.css",
               "@fontsource/courier-prime/400.css",
               "@fontsource/courier-prime/700.css",
+              "@fontsource-variable/caveat/wght.css",
               "src/styles.css"
             ]
           },

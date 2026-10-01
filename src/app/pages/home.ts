@@ -24,8 +24,10 @@ import { Stamp } from '../ui/stamp';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page home">
-      <span class="loose-pin spare-a" aria-hidden="true"></span>
-      <span class="loose-pin spare-b" aria-hidden="true"></span>
+      <div class="key-hook" aria-hidden="true">
+        <span class="car-key"></span>
+        <span class="loose-pin"></span>
+      </div>
       @if (auth.user(); as user) {
         <header class="intro sheet taped">
           <h1>Welcome back, {{ firstName() }}</h1>
@@ -195,28 +197,32 @@ import { Stamp } from '../ui/stamp';
       position: relative;
     }
 
-    /* Spare pins in the bare cork to the right of the intro page. */
-    .spare-a,
-    .spare-b {
+    /* The car key hangs on a pin in the bare cork right of the intro page. The pin's needle
+       point (49px in, 53px down its 78x61 image) goes through the top of the key ring. */
+    .key-hook {
       position: absolute;
+      top: 0;
+      right: 60px;
       display: none;
+      width: 130px;
+      height: 262px;
     }
 
-    .spare-a {
-      top: 34px;
-      right: 92px;
-      --pin-img: var(--pin-blue-left);
+    .key-hook .car-key {
+      position: absolute;
+      top: 48px;
+      left: 0;
     }
 
-    .spare-b {
-      top: 128px;
-      right: 168px;
-      --pin-img: var(--pin-yellow);
+    .key-hook .loose-pin {
+      position: absolute;
+      top: 0;
+      left: 16px;
+      --pin-img: var(--pin-white);
     }
 
     @media (min-width: 1180px) {
-      .spare-a,
-      .spare-b {
+      .key-hook {
         display: block;
       }
     }

@@ -31,8 +31,14 @@ colors:
   fault-soft: "rgb(179 38 30 / 0.08)"
   tape: "#121212"
   tape-ink: "#f2f2ee"
-  pin-head: "#c9c6bd"
+  marker: "#1b1b1d"
+  marker-red: "#d3302a"
 typography:
+  hand:
+    fontFamily: "'Caveat Variable', 'Caveat', 'Segoe Print', cursive"
+    fontSize: "1.55rem"
+    fontWeight: 700
+    lineHeight: 1
   display:
     fontFamily: "'Archivo Variable', 'Archivo', system-ui, sans-serif"
     fontSize: "clamp(2rem, 1.2rem + 2.6vw, 3.4rem)"
@@ -88,27 +94,22 @@ spacing:
   s8: "72px"
 components:
   button-primary:
-    backgroundColor: "{colors.stamp}"
-    textColor: "{colors.on-stamp}"
-    rounded: "{rounded.tag}"
-    padding: "0 18px"
+    backgroundColor: "transparent"
+    textColor: "{colors.marker}"
+    typography: "{typography.hand}"
+    padding: "2px 14px 6px"
     height: "44px"
-  button-primary-hover:
-    backgroundColor: "{colors.stamp-deep}"
-    textColor: "{colors.on-stamp}"
   button-plain:
     backgroundColor: "transparent"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.tag}"
-    padding: "0 18px"
+    textColor: "{colors.marker}"
+    typography: "{typography.hand}"
+    padding: "2px 14px 6px"
     height: "44px"
-  button-plain-hover:
-    backgroundColor: "{colors.paper-2}"
   button-danger:
-    backgroundColor: "{colors.fault}"
-    textColor: "{colors.paper}"
-    rounded: "{rounded.tag}"
-    padding: "0 18px"
+    backgroundColor: "transparent"
+    textColor: "{colors.fault}"
+    typography: "{typography.hand}"
+    padding: "2px 14px 6px"
     height: "44px"
   field-input:
     backgroundColor: "{colors.paper-2}"
@@ -183,21 +184,21 @@ This system explicitly refuses the dark racing dashboard with a red timing tower
 A cork board, a dark graphite rail, near-white paper, pale sticky notes, near-black ink, and three meaningful inks (violet, green, yellow highlighter) plus a fault red.
 
 ### Primary
-- **Stamp Violet** (stamp): overall best times and splits, the lap-record impression, every rubber stamp, the primary button, the current Dymo place in the rail, the top strip on the lit phone tab, the outline of the lit Me button, focus rings on paper and on the day board, the best-sector callouts on the circuit map. Hover deepens to **Stamp Violet Deep** (stamp-deep). **Stamp Wash** (stamp-soft) is the hover fill for clickable classification rows and Me index rows.
+- **Stamp Violet** (stamp): overall best times and splits, the lap-record impression, every rubber stamp, the current Dymo place in the rail, the top strip on the lit phone tab, the outline of the lit Me button, focus rings on paper and on the day board, the best-sector callouts on the circuit map. Hover deepens to **Stamp Violet Deep** (stamp-deep). **Stamp Wash** (stamp-soft) is the hover fill for clickable classification rows and Me index rows.
 
 ### Secondary
 - **Personal-Best Green** (pb): personal bests only (the PB tag and PB lap times), the "ok" notice, and the PB stamp tone. **PB Wash** (pb-soft) backs success notices.
 
 ### Tertiary
 - **Highlighter Yellow** (hl-bg, with hl-ink text): the signed-in driver's own row in any classification or top list, the "you are P-n" line when your row is off the sheet, and the legend swatch. Also the text selection colour and the focus ring on the dark rail and tab bar.
-- **Steward Red** (fault, fault-soft): errors, voided sessions, the danger button, the not-found stamp. Never used for "slower".
+- **Steward Red** (fault, fault-soft): errors, voided sessions, the danger button's handwriting, the not-found stamp. Never used for "slower".
 
 ### Neutral
 - **Cork Board** (board, #c39a6b) and **Cork Shade** (board-deep): page ground under a cork texture (`--cork`, an SVG noise tile of mottling, dark granules and pale flecks); board-deep is the hover fill for plain buttons on the board. **Board Rule** (board-rule) is the divider on the board.
 - **Board Ink** (board-ink) and **Board Ink Dim** (board-ink-dim): text on the board (intros, welcome line, "Track boards" heading, back links).
 - **Board Focus** (board-focus): the focus ring for anything sitting on the board; deep violet (#2d1b85).
 - **Rail Graphite** (rail), **Rail Ink** (rail-ink), **Rail Ink Dim** (rail-ink-dim), **Rail Rule** (rail-rule): the header, footer and phone tab bar. Dark graphite. Dim ink is footer prose and unlit tabs; the rule is the 1px edge against the board and the outline of the theme toggle and Me button.
-- **Sheet White** (paper) and **Sheet Tint** (paper-2): sheet surface; tint fills input boxes, plain-button hover and photo initials.
+- **Sheet White** (paper) and **Sheet Tint** (paper-2): sheet surface; tint fills input boxes, and photo initials.
 - **Ink** (ink), **Ink 2** (ink-2), **Ink 3** (ink-3): primary, secondary (dim, letterheads, table heads, sub-lines) and tertiary (meta labels, placeholders, gapped laps) text on paper.
 - **Hairline** (rule) and **Ink Rule** (rule-strong): row rules and the heavy rules under letterheads, rubrics and table heads.
 - **Dymo Tape** (tape, tape-ink) and **Pin Head** (pin-head): navigation labels and drawing pins.
@@ -210,7 +211,7 @@ A cork board, a dark graphite rail, near-white paper, pale sticky notes, near-bl
 
 **The Rail Rule.** Chrome lives on the dark rail, which is dark graphite; sheets never carry site navigation.
 
-**The Stamp Ink Rule.** Violet means overall best, primary action, the current place, or a stamp. Nothing else. A session best is plain ink with an SB tag (bold, with a plain-ink square mark on best sectors); a PB is green with a PB tag.
+**The Stamp Ink Rule.** Violet means overall best, the current place, or a stamp; never a button. Nothing else. A session best is plain ink with an SB tag (bold, with a plain-ink square mark on best sectors); a PB is green with a PB tag.
 
 **The Colour-Plus-Print Rule.** A timing colour is never the only cue: every coloured time carries a printed tag (OB, PB, SB, You) or a square best-mark, and fastest splits carry screen-reader text.
 
@@ -236,7 +237,7 @@ A cork board, a dark graphite rail, near-white paper, pale sticky notes, near-bl
 ### Named Rules
 **The Tabular Rule.** Every number is tabular and lining, site-wide (set on body). Time columns are right-aligned.
 
-**The Typewriter Rule.** Courier is for facts typed onto a sheet (refs, printed time, rig, provenance notes). It is not used for headings or for buttons.
+**The Typewriter Rule.** Courier is for facts typed onto a sheet (refs, printed time, rig, provenance notes). It is not used for headings or for buttons; buttons are handwritten in Caveat.
 
 ## Layout
 
@@ -263,7 +264,7 @@ Depth is physical and minimal: a sheet lies on the board with one soft contact-p
 - **Sheet on board** (`box-shadow: 0 1px 1px rgb(60 32 8 / 0.22), 0 12px 24px -12px rgb(60 32 8 / 0.55)`, tinted to the cork): every paper sheet. The only shadow in the system.
 
 ### Named Rules
-**The Flat Sheet Rule.** One shadow, on sheets only. Buttons, tags, tape, pins, tables, the rail and the tab bar are flat.
+**The Flat Sheet Rule.** One shadow, on sheets only. Buttons, tags, tables, the rail and the tab bar are flat; pins, tape, notes and the car key carry their own small cast shadows.
 
 ## Shapes
 
@@ -272,12 +273,14 @@ Square by default: sheets, inputs, tables, switches, index rows and tape have no
 ## Components
 
 ### Buttons
-Rubber-stamp solid, heavy caps, compact.
-- **Shape:** near-square (2px), 2px border, min height 44px.
-- **Primary:** Stamp Violet fill and border, white text; 800 weight, 0.82rem, 0.08em tracking, uppercase, width 112%; padding 0 18px. A trailing arrow icon marks "open" actions.
-- **Hover / Active:** fill deepens to Stamp Violet Deep over 140ms; press drops 1px. Focus is a 3px violet outline offset 2px.
-- **Plain:** transparent with an ink border and ink text; hover fills Sheet Tint. On the board the border and text become Board Ink and hover fills Board Shade.
-- **Danger:** Steward Red fill, paper text; used for account deletion only.
+Written on the paper by hand, in black marker. No fill, no border.
+- **Type:** Caveat (variable, 700), 1.55rem, line-height 1, tilted -0.8deg; marker ink #1b1b1d. Min height 44px, padding 2px 14px 6px.
+- **Primary:** underlined with a quick hand-drawn black marker stroke. A trailing arrow icon marks "open" actions.
+- **Plain:** the same handwriting without the underline.
+- **Danger:** written in Steward Red; account deletion only.
+- **Hover / keyboard focus:** a red marker (#d3302a) rings the word, drawn on round the loop in 380ms (a conic mask animating a registered `--ring` angle); the loop overshoots where it closes. Focus uses the ring instead of an outline.
+- **Press:** a red marker scribble strikes the word out left to right in 240ms. A document click handler keeps `.struck` on the button for 900ms so the scribble shows through the page change.
+- **Disabled:** 45% opacity, no ring, no scribble.
 - **Text link with arrow:** 700-weight underlined link with a 16px arrow, for "All sessions", "All personal bests" and similar onward links.
 
 ### Timing Tags
@@ -288,7 +291,8 @@ Rubber-stamp solid, heavy caps, compact.
 - **Background:** Sheet White on the board, text in Ink.
 - **Shadow Strategy:** the single sheet shadow (see Elevation).
 - **Pinned pad sheet** (`.sheet.pinned`): track sheets, the event board, driver pages and the home feature. A perforation line of punched holes (board-coloured, a shade deeper) runs across at 34px (24px on phones) with a half-round notch at each end, and two push pins are pressed into the stub above it. The pins are drawn 3D, after a classic map pin: a glossy flared dome, a narrow handle and a flat cap on a steel needle, leaning about 22deg with a soft shadow cast down-left onto the board (`--pin-red`, `--pin-blue`, `--pin-yellow`, `--pin-green`, `--pin-white`, each with a `-left` lean variant; a 78x61 image, 56x44 on phones, with the needle point placed in the paper). Red by default, or `.pin-blue`, `.pin-yellow`, `.pin-green`, `.pin-white`. `.pin-top` puts a single pin at the top centre of a small note.
-- **Spare pins** (`.loose-pin`, and body background layers at 1400px and wider): pins stuck in bare cork holding nothing, in the gutters either side of the page column and beside the home intro (1180px and wider). Never under or over content.
+- **Spare pins** (`.loose-pin`, and body background layers at 1400px and wider): just one pin in each gutter beside the page column, stuck in bare cork holding nothing. Keep them sparse; never under or over content.
+- **Car key** (`.car-key`, home only, 1180px and wider): a Porsche key hung on a white pin in the bare cork right of the intro page: a gold split ring carrying a black car-shaped smart key (chrome edge, red reflector strip, four grey buttons with unlock, lock and boot icons, a tiny crest at the nose, emergency-key tip) and a stitched black leather shield fob with a gold crest-like shield. The shields are simplified (banner, red and black striped quarters, gold quarters, small centre shield) rather than a reproduction of the trademarked crest. It sways briefly on hover (off under reduced motion).
 - **Clear tape** (`.taped`): a 96x26 strip of translucent cream tape with torn ends, across the top centre at -3deg (`--tape-tilt`). Spiral pages are also taped down at both bottom corners with diagonal strips. Home intros are taped pad sheets; track slips alternate a centre pin and a strip of tape.
 - **Dymo label** (`.dymo-label`): the "Track boards" heading, black tape stuck on the cork at -1deg.
 - **Paper tag** (`.paper-tag`): the back links above track and event sheets and the "All N tracks" link: a small paper slip at -1deg with a short shadow.
@@ -329,7 +333,7 @@ Loading is a sheet coming off the printer: a caps placard and dashed rule lines 
 ### Do:
 - **Do** put every classification on a pinned, perforated paper sheet over the cork board, with 2px ink rules under the rubric and table head and 1px hairlines between rows.
 - **Do** keep the board warm tan cork and carry the chrome on the dark rail.
-- **Do** keep violet for overall best, the primary action, the current place and stamps; show a session best as plain ink with an SB tag and a PB in green with a PB tag.
+- **Do** keep violet for overall best, the current place and stamps (never buttons); show a session best as plain ink with an SB tag and a PB in green with a PB tag.
 - **Do** pair every timing colour with a printed tag or best-mark.
 - **Do** mark the signed-in driver's row with the highlighter (hl-bg / hl-ink) and nothing else.
 - **Do** apply the `#tb-ink` filter to a stamp's frame and struck word only, never to its typed subline or to body text.

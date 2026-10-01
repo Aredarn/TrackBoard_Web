@@ -21,6 +21,7 @@ const ME_AREA = /^\/(me|garage|my-tracks|account)(\/|$|\?)/;
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, RouterLinkActive, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '(document:click)': 'strike($event)' },
   template: `
     <!-- Worn rubber-stamp ink, referenced by every stamp on the site. -->
     <svg class="defs" aria-hidden="true" focusable="false">
@@ -393,6 +394,14 @@ const ME_AREA = /^\/(me|garage|my-tracks|account)(\/|$|\?)/;
   `,
 })
 export class App {
+  /** Leave a clicked button scribbled out for a moment, so the strike shows through the page change. */
+  protected strike(event: Event): void {
+    const btn = (event.target as Element | null)?.closest?.('.btn');
+    if (!btn || (btn as HTMLButtonElement).disabled) return;
+    btn.classList.add('struck');
+    setTimeout(() => btn.classList.remove('struck'), 900);
+  }
+
   protected readonly auth = inject(AuthService);
   protected readonly env = environment;
   private readonly router = inject(Router);

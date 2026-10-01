@@ -120,15 +120,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Wide screens leave bare cork beside the page column: one spare pin is stuck in it each side. */
-@media (min-width: 1400px) {
-  body {
-    background:
-      var(--pin-red) calc(50% - 704px) 190px / 78px 61px no-repeat,
-      var(--pin-blue-left) calc(50% + 630px) 820px / 78px 61px no-repeat,
-      var(--cork) var(--board);
-  }
-}
 
 img,
 svg {

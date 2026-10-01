@@ -189,7 +189,7 @@ A cork board, a dark graphite rail, near-white paper, pale sticky notes, near-bl
 - **Personal-Best Green** (pb): personal bests only (the PB tag and PB lap times), the "ok" notice, and the PB stamp tone. **PB Wash** (pb-soft) backs success notices.
 
 ### Tertiary
-- **Highlighter Yellow** (hl-bg, with hl-ink text): the signed-in driver's own row in any classification or top list, the "you are P-n" line when your row is off the sheet, and the legend swatch. Also the text selection colour, the focus ring on the dark rail and tab bar, and the board focus ring at night.
+- **Highlighter Yellow** (hl-bg, with hl-ink text): the signed-in driver's own row in any classification or top list, the "you are P-n" line when your row is off the sheet, and the legend swatch. Also the text selection colour and the focus ring on the dark rail and tab bar.
 - **Steward Red** (fault, fault-soft): errors, voided sessions, the danger button, the not-found stamp. Never used for "slower".
 
 ### Neutral

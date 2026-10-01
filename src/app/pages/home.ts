@@ -23,7 +23,9 @@ import { Stamp } from '../ui/stamp';
   imports: [RouterLink, Gate, CircuitMap, Icon, Stamp, ...TIMING_PIPES],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="page">
+    <div class="page home">
+      <span class="loose-pin spare-a" aria-hidden="true"></span>
+      <span class="loose-pin spare-b" aria-hidden="true"></span>
       @if (auth.user(); as user) {
         <header class="intro sheet taped">
           <h1>Welcome back, {{ firstName() }}</h1>
@@ -189,6 +191,36 @@ import { Stamp } from '../ui/stamp';
     </div>
   `,
   styles: `
+    .home {
+      position: relative;
+    }
+
+    /* Spare pins in the bare cork to the right of the intro page. */
+    .spare-a,
+    .spare-b {
+      position: absolute;
+      display: none;
+    }
+
+    .spare-a {
+      top: 34px;
+      right: 92px;
+      --pin-img: var(--pin-blue-left);
+    }
+
+    .spare-b {
+      top: 128px;
+      right: 168px;
+      --pin-img: var(--pin-yellow);
+    }
+
+    @media (min-width: 1180px) {
+      .spare-a,
+      .spare-b {
+        display: block;
+      }
+    }
+
     /* The intro is a page taped to the board, so its prose sits on paper, not on cork. */
     .intro {
       max-width: 60rem;

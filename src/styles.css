@@ -2,8 +2,8 @@
  * TrackBoard — the paddock noticeboard.
  * A cork board with paper on it: classification sheets torn off a pad and pinned up,
  * spiral-notebook pages for the driver's own records, and sticky notes stuck on at an angle.
- * Violet rubber-stamp ink, a highlighter for your own line, and a dark rail the header and
- * tab bar run along. Night dims the room: dark cork, and every sheet becomes a carbon copy.
+ * Push pins, clear tape and Dymo labels hold it all up. Violet rubber-stamp ink, a
+ * highlighter for your own line, and a dark rail the header and tab bar run along.
  */
 
 :root {
@@ -18,12 +18,12 @@
   --board-focus: #2d1b85;
   --cork: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.045' numOctaves='3' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.32 0 0 0 0 0.15 2 0 0 0 -.8'/%3E%3C/filter%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.28' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.21 0 0 0 0 0.08 4.5 0 0 0 -2.3'/%3E%3C/filter%3E%3Cfilter id='l'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.38' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.76 0 0 0 0 0.55 0 4.5 0 0 -2.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23m%29' opacity='0.45'/%3E%3Crect width='100%25' height='100%25' filter='url%28%23d%29' opacity='0.7'/%3E%3Crect width='100%25' height='100%25' filter='url%28%23l%29' opacity='0.55'/%3E%3C/svg%3E");
 
-  /* The rail: header, footer and phone tab bar. Dark graphite in both themes. */
+  /* The rail: header, footer and phone tab bar. Dark graphite, the frame the board hangs in. */
   --rail: #1d1f23;
   --rail-ink: #eceef1;
   --rail-ink-dim: #a9adb4;
   --rail-rule: #30333a;
-  /* Focus ring on the dark rail and tab bar, in both themes. */
+  /* Focus ring on the dark rail and tab bar. */
   --rail-focus: #f7e86a;
 
   /* The sheet */
@@ -53,7 +53,10 @@
 
   --focus: var(--stamp);
   --sheet-shadow: 0 1px 1px rgb(60 32 8 / 0.22), 0 12px 24px -12px rgb(60 32 8 / 0.55);
-  --pin-head: #c9c6bd;
+  --pin: #d2392e;
+  --pin-blue: #2a64c4;
+  --pin-yellow: #e9bf27;
+  --pin-green: #23894a;
 
   /* Sticky notes: pale stock, an accent on the cork rather than the ground. */
   --note-yellow: #fbe68c;
@@ -77,87 +80,6 @@
   --page-max: 1240px;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Night: the carbon copy. Graphite flimsy with a pale impression. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='day']) {
-    color-scheme: dark;
-    --board: #3a2c1f;
-    --board-deep: #33261a;
-    --board-ink: #f3eadf;
-    --board-ink-dim: #d6c6b1;
-    --board-rule: #574332;
-    --cork: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.045' numOctaves='3' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.08 0 0 0 0 0.05 2 0 0 0 -.8'/%3E%3C/filter%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.28' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0 0.025 4.5 0 0 0 -2.3'/%3E%3C/filter%3E%3Cfilter id='l'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.38' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.3 0 0 0 0 0.2 0 4.5 0 0 -2.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23m%29' opacity='0.6'/%3E%3Crect width='100%25' height='100%25' filter='url%28%23d%29' opacity='0.8'/%3E%3Crect width='100%25' height='100%25' filter='url%28%23l%29' opacity='0.45'/%3E%3C/svg%3E");
-    --board-focus: #f7e86a;
-    --rail: #0e0f11;
-    --rail-ink: #e4e6ea;
-    --rail-ink-dim: #9a9ea6;
-    --rail-rule: #25272c;
-    --paper: #1c1e23;
-    --paper-2: #24272d;
-    --ink: #e8e9ee;
-    --ink-2: #b1b4bd;
-    --ink-3: #989ba5;
-    --rule: #33363e;
-    --rule-strong: #c9cbd1;
-    --stamp: #a58eff;
-    --stamp-deep: #b9a6ff;
-    --on-stamp: #140e2a;
-    --stamp-soft: rgb(165 142 255 / 0.13);
-    --pb: #58cc8e;
-    --pb-soft: rgb(88 204 142 / 0.13);
-    --hl-bg: rgb(247 232 106 / 0.2);
-    --hl-ink: #fbf4c2;
-    --fault: #ff8175;
-    --fault-soft: rgb(255 129 117 / 0.1);
-    --tape: #050505;
-    --sheet-shadow: 0 1px 1px rgb(0 0 0 / 0.5), 0 16px 30px -12px rgb(0 0 0 / 0.8);
-    --pin-head: #6e6b64;
-  --note-yellow: #d8c46c;
-  --note-pink: #d2a6b1;
-  --note-blue: #9fbbd2;
-  --note-lilac: #b5a8d8;
-    --note-yellow: #d8c46c;
-    --note-pink: #d2a6b1;
-    --note-blue: #9fbbd2;
-    --note-lilac: #b5a8d8;
-  }
-}
-
-:root[data-theme='night'] {
-  color-scheme: dark;
-  --board: #3a2c1f;
-  --board-deep: #33261a;
-  --board-ink: #f3eadf;
-  --board-ink-dim: #d6c6b1;
-  --board-rule: #574332;
-  --cork: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.045' numOctaves='3' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.08 0 0 0 0 0.05 2 0 0 0 -.8'/%3E%3C/filter%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.28' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0 0.025 4.5 0 0 0 -2.3'/%3E%3C/filter%3E%3Cfilter id='l'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.38' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.3 0 0 0 0 0.2 0 4.5 0 0 -2.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23m%29' opacity='0.6'/%3E%3Crect width='100%25' height='100%25' filter='url%28%23d%29' opacity='0.8'/%3E%3Crect width='100%25' height='100%25' filter='url%28%23l%29' opacity='0.45'/%3E%3C/svg%3E");
-  --board-focus: #f7e86a;
-  --rail: #0e0f11;
-  --rail-ink: #e4e6ea;
-  --rail-ink-dim: #9a9ea6;
-  --rail-rule: #25272c;
-  --paper: #1c1e23;
-  --paper-2: #24272d;
-  --ink: #e8e9ee;
-  --ink-2: #b1b4bd;
-  --ink-3: #989ba5;
-  --rule: #33363e;
-  --rule-strong: #c9cbd1;
-  --stamp: #a58eff;
-  --stamp-deep: #b9a6ff;
-  --on-stamp: #140e2a;
-  --stamp-soft: rgb(165 142 255 / 0.13);
-  --pb: #58cc8e;
-  --pb-soft: rgb(88 204 142 / 0.13);
-  --hl-bg: rgb(247 232 106 / 0.2);
-  --hl-ink: #fbf4c2;
-  --fault: #ff8175;
-  --fault-soft: rgb(255 129 117 / 0.1);
-  --tape: #050505;
-  --sheet-shadow: 0 1px 1px rgb(0 0 0 / 0.5), 0 16px 30px -12px rgb(0 0 0 / 0.8);
-  --pin-head: #6e6b64;
 }
 
 /* ── Base ───────────────────────────────────────────────────────────────── */
@@ -300,8 +222,19 @@ select {
   pointer-events: none;
 }
 
-/* A sticky note: pastel stock, stuck on rather than pinned, never quite straight.
-   It keeps its colour and dark ink in both themes; night only takes the glare off. */
+.sheet.spiral::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  left: -40px;
+  right: -40px;
+  bottom: -24px;
+  height: 48px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='48'%3E%3Cg transform='rotate%2840 40 24%29'%3E%3Cpath d='M8 15 L72 15 L70 19 L73 24 L70 29 L72 33 L8 33 L10 29 L7 24 L10 19 Z' fill='rgb%28246 241 222 / .62%29'/%3E%3Cpath d='M9 15.6 L71 15.6' stroke='rgb%28255 255 255 / .55%29' stroke-width='1'/%3E%3Cpath d='M9 32.4 L71 32.4' stroke='rgb%28120 96 60 / .18%29' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") left bottom / 80px 48px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='48'%3E%3Cg transform='rotate%28-40 40 24%29'%3E%3Cpath d='M8 15 L72 15 L70 19 L73 24 L70 29 L72 33 L8 33 L10 29 L7 24 L10 19 Z' fill='rgb%28246 241 222 / .62%29'/%3E%3Cpath d='M9 15.6 L71 15.6' stroke='rgb%28255 255 255 / .55%29' stroke-width='1'/%3E%3Cpath d='M9 32.4 L71 32.4' stroke='rgb%28120 96 60 / .18%29' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") right bottom / 80px 48px no-repeat;
+  pointer-events: none;
+}
+
+/* A sticky note: pastel stock, stuck on rather than pinned, never quite straight. */
 .sheet.sticky {
   --perf-y: 0px;
   --paper: var(--note, var(--note-yellow));
@@ -351,25 +284,100 @@ select {
   --note: var(--note-lilac);
 }
 
-/* Drawing pins at the two top corners. */
+/* Push pins: a glossy plastic head with a highlight, casting a short shadow down-right. */
 .sheet.pinned::before,
-.sheet.pinned::after {
+.sheet.pinned::after,
+.pin-top::before {
   content: '';
   position: absolute;
-  top: 10px;
-  width: 13px;
-  height: 13px;
+  z-index: 2;
+  top: 7px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: var(--pin-head);
-  border: 2px solid color-mix(in srgb, var(--pin-head) 60%, #000);
+  background:
+    radial-gradient(circle at 34% 30%, rgb(255 255 255 / 0.85) 0 1.6px, rgb(255 255 255 / 0) 4px),
+    radial-gradient(circle at 45% 40%, var(--pin) 0 45%, color-mix(in srgb, var(--pin) 62%, #000) 100%);
+  box-shadow: 3px 4px 3px -1px rgb(40 20 4 / 0.42), inset -1px -2px 2px rgb(0 0 0 / 0.18);
+  pointer-events: none;
 }
 
 .sheet.pinned::before {
-  left: 12px;
+  left: 11px;
 }
 
 .sheet.pinned::after {
-  right: 12px;
+  right: 11px;
+}
+
+/* One pin in the middle of the top edge, for small notes. */
+.pin-top::before {
+  left: 50%;
+  translate: -50% 0;
+  top: 5px;
+}
+
+.pin-blue {
+  --pin: var(--pin-blue);
+}
+
+.pin-yellow {
+  --pin: var(--pin-yellow);
+}
+
+.pin-green {
+  --pin: var(--pin-green);
+}
+
+/* A strip of clear tape across the top edge, with torn ends. */
+.taped::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: -12px;
+  left: 50%;
+  width: 96px;
+  height: 26px;
+  translate: -50% 0;
+  rotate: var(--tape-tilt, -3deg);
+  background: linear-gradient(rgb(255 255 255 / 0.3), rgb(255 255 255 / 0.05) 40%, rgb(120 96 60 / 0.06)), rgb(246 241 222 / 0.55);
+  clip-path: polygon(0 0, 100% 0, 97% 18%, 100% 36%, 97% 54%, 100% 72%, 97% 88%, 100% 100%, 0 100%, 3% 84%, 0 66%, 3% 48%, 0 30%, 3% 14%);
+  pointer-events: none;
+}
+
+/* A paper tag on the board, for the few links that live off the sheets. */
+.paper-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  rotate: -1deg;
+  box-shadow: 0 1px 1px rgb(60 32 8 / 0.25), 0 5px 9px -5px rgb(60 32 8 / 0.5);
+}
+
+.paper-tag:hover {
+  text-decoration: underline;
+}
+
+/* Dymo tape stuck to the cork as a heading. */
+.dymo-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 18px;
+  background: var(--tape);
+  color: var(--tape-ink);
+  font-weight: 700;
+  font-stretch: 118%;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  rotate: -1deg;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 5px) 50%, 100% 100%, 0 100%, 5px 50%);
 }
 
 .letterhead {
@@ -792,10 +800,11 @@ table.classification {
   }
 
   .sheet.pinned::before,
-  .sheet.pinned::after {
-    top: 6px;
-    width: 10px;
-    height: 10px;
+  .sheet.pinned::after,
+  .pin-top::before {
+    top: 4px;
+    width: 15px;
+    height: 15px;
   }
 
   .c-wide {

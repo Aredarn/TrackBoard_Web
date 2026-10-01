@@ -42,11 +42,11 @@ const IDLE_POLL_MS = 60_000;
   template: `
     <div class="page">
       @if (!screen()) {
-        <p class="crumbs on-board">
+        <p class="crumbs">
           @if (auth.signedIn()) {
-            <a routerLink="/events"><tb-icon name="arrowLeft" [size]="16" /> Events</a>
+            <a class="paper-tag" routerLink="/events"><tb-icon name="arrowLeft" [size]="16" /> Events</a>
           } @else {
-            <a routerLink="/tracks"><tb-icon name="arrowLeft" [size]="16" /> Tracks</a>
+            <a class="paper-tag" routerLink="/tracks"><tb-icon name="arrowLeft" [size]="16" /> Tracks</a>
           }
         </p>
       }

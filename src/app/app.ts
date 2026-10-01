@@ -5,7 +5,6 @@ import { filter, map } from 'rxjs';
 import { environment } from '../environments/environment';
 import { AuthService } from './core/auth.service';
 import { initials } from './core/format';
-import { ThemeService } from './core/theme.service';
 import { Icon, IconName } from './ui/icon';
 
 interface Place {
@@ -53,15 +52,6 @@ const ME_AREA = /^\/(me|garage|my-tracks|account)(\/|$|\?)/;
         </nav>
 
         <div class="rail-end">
-          <button
-            type="button"
-            class="theme"
-            (click)="theme.toggle()"
-            [attr.aria-label]="theme.night() ? 'Switch to day sheets (light)' : 'Switch to carbon copies (dark)'"
-            [attr.title]="theme.night() ? 'Day sheets' : 'Carbon copies'"
-          >
-            <tb-icon [name]="theme.night() ? 'sun' : 'moon'" />
-          </button>
           @if (auth.user(); as user) {
             <a class="me" routerLink="/me" [class.lit]="inMeArea()" [attr.aria-current]="inMeArea() ? 'page' : null">
               <span class="me-badge" aria-hidden="true">{{ initialsOf(user.displayName) }}</span>
@@ -146,13 +136,15 @@ const ME_AREA = /^\/(me|garage|my-tracks|account)(\/|$|\?)/;
     main {
       flex: 1;
       padding-block: var(--s5) var(--s8);
+      /* Tape ends and tilted notes may poke past the gutter; never let them scroll the page. */
+      overflow-x: clip;
     }
 
     main:focus {
       outline: none;
     }
 
-    /* The rail the sheets hang from: dark graphite in both themes. */
+    /* The rail the board hangs from: dark graphite. */
     .rail {
       --focus: var(--rail-focus);
       position: sticky;
@@ -232,22 +224,6 @@ const ME_AREA = /^\/(me|garage|my-tracks|account)(\/|$|\?)/;
     .dymo.lit {
       background: var(--stamp);
       color: var(--on-stamp);
-    }
-
-    .theme {
-      display: inline-grid;
-      place-items: center;
-      width: 40px;
-      height: 36px;
-      border: 1px solid var(--rail-rule);
-      border-radius: 2px;
-      background: transparent;
-      color: var(--rail-ink);
-      cursor: pointer;
-    }
-
-    .theme:hover {
-      background: color-mix(in srgb, var(--rail) 80%, var(--rail-ink));
     }
 
     .me {
@@ -343,7 +319,6 @@ const ME_AREA = /^\/(me|garage|my-tracks|account)(\/|$|\?)/;
       }
 
       .places,
-      .theme,
       .me {
         display: none;
       }
@@ -419,7 +394,6 @@ const ME_AREA = /^\/(me|garage|my-tracks|account)(\/|$|\?)/;
 })
 export class App {
   protected readonly auth = inject(AuthService);
-  protected readonly theme = inject(ThemeService);
   protected readonly env = environment;
   private readonly router = inject(Router);
 

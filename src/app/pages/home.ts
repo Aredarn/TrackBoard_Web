@@ -25,7 +25,7 @@ import { Stamp } from '../ui/stamp';
   template: `
     <div class="page">
       @if (auth.user(); as user) {
-        <header class="intro on-board">
+        <header class="intro sheet taped">
           <h1>Welcome back, {{ firstName() }}</h1>
           <p>Your event, your latest session and where you stand, then every track board.</p>
         </header>
@@ -98,9 +98,9 @@ import { Stamp } from '../ui/stamp';
           </article>
         </div>
 
-        <h2 class="boards-title on-board">Track boards</h2>
+        <h2 class="boards-title dymo-label">Track boards</h2>
       } @else {
-        <header class="intro on-board">
+        <header class="intro sheet taped">
           <h1>Best laps, posted by the drivers who set them.</h1>
           <p>
             Every track published from the TrackPro app keeps a classification of each driver's fastest ranked lap,
@@ -108,7 +108,7 @@ import { Stamp } from '../ui/stamp';
           </p>
           <div class="actions">
             <a class="btn" routerLink="/register">Create a free account</a>
-            <a class="btn plain on-board-btn" routerLink="/tracks">Browse the tracks</a>
+            <a class="btn plain" routerLink="/tracks">Browse the tracks</a>
           </div>
         </header>
       }
@@ -116,7 +116,7 @@ import { Stamp } from '../ui/stamp';
       <tb-gate [status]="tracks.status()" [error]="tracks.error()" [empty]="!feature()" (retry)="tracks.reload()">
         <div class="board">
           @if (feature(); as f) {
-            <article class="sheet pinned feature">
+            <article class="sheet pinned pin-blue feature">
               <div class="feature-body">
                 <div>
                   <h2 class="feature-title"><a [routerLink]="['/tracks', f.id]">{{ f.name }}</a></h2>
@@ -152,7 +152,7 @@ import { Stamp } from '../ui/stamp';
 
           <div class="side">
             @for (s of slips(); track s.track.id) {
-              <a class="sheet sticky slip" [class]="slipColour($index)" [routerLink]="['/tracks', s.track.id]">
+              <a class="sheet sticky slip" [class]="slipColour($index)" [class.pin-top]="$index % 2 === 0" [class.taped]="$index % 2 === 1" [routerLink]="['/tracks', s.track.id]">
                 <span class="slip-name">{{ s.track.name }}</span>
                 <span class="slip-meta dim">{{ s.track.country }} · {{ s.track.rankedLapCount }} ranked laps</span>
                 @if (s.leader; as l) {
@@ -164,7 +164,7 @@ import { Stamp } from '../ui/stamp';
             }
 
             @if (!auth.signedIn()) {
-              <article class="sheet sticky lilac notice-sheet">
+              <article class="sheet sticky pin-top pin-green notice-sheet" [class]="slipColour(slips().length)">
                 <h2>Running a track day?</h2>
                 <p class="dim">
                   Create an event, hand out its code, and every lap your drivers set lands on one live board, overall
@@ -174,7 +174,7 @@ import { Stamp } from '../ui/stamp';
               </article>
             }
 
-            <a class="all on-board" routerLink="/tracks">All {{ trackCount() }} <tb-icon name="arrowRight" [size]="16" /></a>
+            <a class="all paper-tag" routerLink="/tracks">All {{ trackCount() }} <tb-icon name="arrowRight" [size]="16" /></a>
           </div>
         </div>
 
@@ -189,9 +189,11 @@ import { Stamp } from '../ui/stamp';
     </div>
   `,
   styles: `
+    /* The intro is a page taped to the board, so its prose sits on paper, not on cork. */
     .intro {
       max-width: 60rem;
-      padding-block: var(--s4) var(--s6);
+      margin: var(--s4) 0 var(--s7);
+      rotate: -0.4deg;
     }
 
     .intro h1 {
@@ -206,20 +208,11 @@ import { Stamp } from '../ui/stamp';
       margin-top: var(--s3);
       max-width: 58ch;
       font-size: 1.05rem;
-      color: var(--board-ink-dim);
+      color: var(--ink-2);
     }
 
     .intro .actions {
       margin-top: var(--s5);
-    }
-
-    .on-board-btn {
-      border-color: var(--board-ink);
-      color: var(--board-ink);
-    }
-
-    .on-board-btn:hover {
-      background: var(--board-deep);
     }
 
     /* The driver's own three sheets. */
@@ -339,12 +332,7 @@ import { Stamp } from '../ui/stamp';
     }
 
     .boards-title {
-      margin: var(--s7) 0 var(--s4);
-      font-weight: 800;
-      font-stretch: 118%;
-      font-size: 1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      margin: var(--s7) 0 var(--s5);
     }
 
     /* Track boards */
@@ -454,6 +442,11 @@ import { Stamp } from '../ui/stamp';
 
     .notice-sheet {
       --tilt: 0.8deg;
+      padding-top: 30px;
+    }
+
+    .slip.pin-top {
+      padding-top: 28px;
     }
 
     .slip-name {

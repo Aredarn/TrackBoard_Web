@@ -3,7 +3,6 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { AuthService } from '../../core/auth.service';
 import { load } from '../../core/load';
-import { ThemeService } from '../../core/theme.service';
 import { Gate } from '../../ui/gate';
 import { Icon, IconName } from '../../ui/icon';
 import { PhotoFrame } from '../../ui/photo-frame';
@@ -52,13 +51,6 @@ interface Place {
           <tb-icon name="arrowRight" [size]="18" />
         </a>
       }
-      <button type="button" class="row" (click)="theme.toggle()">
-        <tb-icon [name]="theme.night() ? 'sun' : 'moon'" [size]="22" />
-        <span class="row-text">
-          <span class="row-label">{{ theme.night() ? 'Day sheets' : 'Carbon copies' }}</span>
-          <span class="row-what">{{ theme.night() ? 'Switch to the light theme' : 'Switch to the dark theme' }}</span>
-        </span>
-      </button>
       <button type="button" class="row" (click)="auth.signOut()">
         <tb-icon name="signOut" [size]="22" />
         <span class="row-text">
@@ -144,7 +136,6 @@ interface Place {
 export class MeHubPage {
   private readonly api = inject(ApiService);
   protected readonly auth = inject(AuthService);
-  protected readonly theme = inject(ThemeService);
 
   protected readonly profile = load({ stream: () => this.api.profile() });
 

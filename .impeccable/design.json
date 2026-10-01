@@ -4,67 +4,351 @@
   "title": "Design System: TrackBoard",
   "extensions": {
     "colorMeta": {
-      "stamp": { "role": "primary", "displayName": "Stamp Violet", "canonical": "#5b3fc4", "night": "#a58eff", "tonalRamp": ["#1c1240", "#2c1d66", "#3d2890", "#4a31a8", "#5b3fc4", "#8069d6", "#b3a5ea", "#e6e0fa"] },
-      "stamp-deep": { "role": "primary", "displayName": "Stamp Violet Deep", "canonical": "#4a31a8", "night": "#b9a6ff" },
-      "on-stamp": { "role": "primary", "displayName": "On Stamp", "canonical": "#ffffff", "night": "#140e2a" },
-      "stamp-soft": { "role": "primary", "displayName": "Stamp Wash", "canonical": "rgb(91 63 196 / 0.09)", "night": "rgb(165 142 255 / 0.13)" },
-      "pb": { "role": "secondary", "displayName": "Personal-Best Green", "canonical": "#0f7a43", "night": "#58cc8e", "tonalRamp": ["#062414", "#0a3d23", "#0c5a32", "#0f7a43", "#2f9c62", "#62bf8c", "#a5dcbd", "#e0f4e8"] },
-      "pb-soft": { "role": "secondary", "displayName": "PB Wash", "canonical": "rgb(15 122 67 / 0.1)", "night": "rgb(88 204 142 / 0.13)" },
-      "hl-bg": { "role": "tertiary", "displayName": "Highlighter Yellow", "canonical": "#f7e86a", "night": "rgb(247 232 106 / 0.2)", "tonalRamp": ["#3d3710", "#6b611c", "#a3952b", "#d6c63f", "#f7e86a", "#f9ee8e", "#fbf4c2", "#fdfae3"] },
-      "hl-ink": { "role": "tertiary", "displayName": "Highlighter Ink", "canonical": "#17181a", "night": "#fbf4c2" },
-      "fault": { "role": "tertiary", "displayName": "Steward Red", "canonical": "#b3261e", "night": "#ff8175", "tonalRamp": ["#3a0c09", "#5e1510", "#8a1d16", "#b3261e", "#d4524a", "#ff8175", "#ffbdb6", "#ffe9e6"] },
-      "fault-soft": { "role": "tertiary", "displayName": "Steward Wash", "canonical": "rgb(179 38 30 / 0.08)", "night": "rgb(255 129 117 / 0.1)" },
-      "board": { "role": "neutral", "displayName": "Cork Board", "canonical": "#c39a6b", "night": "#3a2c1f", "tonalRamp": ["#1c130a", "#33261a", "#3a2c1f", "#574332", "#9c7447", "#b38957", "#c39a6b", "#d6c6b1"] },
-      "board-deep": { "role": "neutral", "displayName": "Cork Shade", "canonical": "#b38957", "night": "#33261a" },
-      "board-ink": { "role": "neutral", "displayName": "Board Ink", "canonical": "#1c130a", "night": "#f3eadf" },
-      "board-ink-dim": { "role": "neutral", "displayName": "Board Ink Dim", "canonical": "#3a2817", "night": "#d6c6b1" },
-      "board-rule": { "role": "neutral", "displayName": "Board Rule", "canonical": "#9c7447", "night": "#574332" },
-      "board-focus": { "role": "neutral", "displayName": "Board Focus", "canonical": "#2d1b85", "night": "#f7e86a" },
-      "rail": { "role": "neutral", "displayName": "Rail Graphite", "canonical": "#1d1f23", "night": "#0e0f11", "tonalRamp": ["#0e0f11", "#1d1f23", "#25272c", "#30333a", "#5a5e66", "#9a9ea6", "#a9adb4", "#eceef1"] },
-      "rail-ink": { "role": "neutral", "displayName": "Rail Ink", "canonical": "#eceef1", "night": "#e4e6ea" },
-      "rail-ink-dim": { "role": "neutral", "displayName": "Rail Ink Dim", "canonical": "#a9adb4", "night": "#9a9ea6" },
-      "rail-rule": { "role": "neutral", "displayName": "Rail Rule", "canonical": "#30333a", "night": "#25272c" },
-      "paper": { "role": "neutral", "displayName": "Sheet White", "canonical": "#fbfbf8", "night": "#1c1e23", "tonalRamp": ["#17181a", "#45474c", "#64666c", "#9a9ba0", "#d6d5ce", "#e7e6df", "#f1f0ea", "#fbfbf8"] },
-      "paper-2": { "role": "neutral", "displayName": "Sheet Tint", "canonical": "#f1f0ea", "night": "#24272d" },
-      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#17181a", "night": "#e8e9ee", "tonalRamp": ["#0b0c0d", "#17181a", "#2e3034", "#45474c", "#64666c", "#9a9ba0", "#d6d5ce", "#f1f0ea"] },
-      "ink-2": { "role": "neutral", "displayName": "Ink 2", "canonical": "#45474c", "night": "#b1b4bd" },
-      "ink-3": { "role": "neutral", "displayName": "Ink 3", "canonical": "#64666c", "night": "#989ba5" },
-      "rule": { "role": "neutral", "displayName": "Hairline", "canonical": "#d6d5ce", "night": "#33363e" },
-      "rule-strong": { "role": "neutral", "displayName": "Ink Rule", "canonical": "#17181a", "night": "#c9cbd1" },
-      "tape": { "role": "neutral", "displayName": "Dymo Tape", "canonical": "#121212", "night": "#050505" },
-      "tape-ink": { "role": "neutral", "displayName": "Dymo Letters", "canonical": "#f2f2ee" },
-      "pin-head": { "role": "neutral", "displayName": "Pin Head", "canonical": "#c9c6bd", "night": "#6e6b64" }
+      "stamp": {
+        "role": "primary",
+        "displayName": "Stamp Violet",
+        "canonical": "#5b3fc4",
+        "tonalRamp": [
+          "#1c1240",
+          "#2c1d66",
+          "#3d2890",
+          "#4a31a8",
+          "#5b3fc4",
+          "#8069d6",
+          "#b3a5ea",
+          "#e6e0fa"
+        ]
+      },
+      "stamp-deep": {
+        "role": "primary",
+        "displayName": "Stamp Violet Deep",
+        "canonical": "#4a31a8"
+      },
+      "on-stamp": {
+        "role": "primary",
+        "displayName": "On Stamp",
+        "canonical": "#ffffff"
+      },
+      "stamp-soft": {
+        "role": "primary",
+        "displayName": "Stamp Wash",
+        "canonical": "rgb(91 63 196 / 0.09)"
+      },
+      "pb": {
+        "role": "secondary",
+        "displayName": "Personal-Best Green",
+        "canonical": "#0f7a43",
+        "tonalRamp": [
+          "#062414",
+          "#0a3d23",
+          "#0c5a32",
+          "#0f7a43",
+          "#2f9c62",
+          "#62bf8c",
+          "#a5dcbd",
+          "#e0f4e8"
+        ]
+      },
+      "pb-soft": {
+        "role": "secondary",
+        "displayName": "PB Wash",
+        "canonical": "rgb(15 122 67 / 0.1)"
+      },
+      "hl-bg": {
+        "role": "tertiary",
+        "displayName": "Highlighter Yellow",
+        "canonical": "#f7e86a",
+        "tonalRamp": [
+          "#3d3710",
+          "#6b611c",
+          "#a3952b",
+          "#d6c63f",
+          "#f7e86a",
+          "#f9ee8e",
+          "#fbf4c2",
+          "#fdfae3"
+        ]
+      },
+      "hl-ink": {
+        "role": "tertiary",
+        "displayName": "Highlighter Ink",
+        "canonical": "#17181a"
+      },
+      "fault": {
+        "role": "tertiary",
+        "displayName": "Steward Red",
+        "canonical": "#b3261e",
+        "tonalRamp": [
+          "#3a0c09",
+          "#5e1510",
+          "#8a1d16",
+          "#b3261e",
+          "#d4524a",
+          "#ff8175",
+          "#ffbdb6",
+          "#ffe9e6"
+        ]
+      },
+      "fault-soft": {
+        "role": "tertiary",
+        "displayName": "Steward Wash",
+        "canonical": "rgb(179 38 30 / 0.08)"
+      },
+      "board": {
+        "role": "neutral",
+        "displayName": "Cork Board",
+        "canonical": "#c39a6b",
+        "tonalRamp": [
+          "#1c130a",
+          "#33261a",
+          "#3a2c1f",
+          "#574332",
+          "#9c7447",
+          "#b38957",
+          "#c39a6b",
+          "#d6c6b1"
+        ]
+      },
+      "board-deep": {
+        "role": "neutral",
+        "displayName": "Cork Shade",
+        "canonical": "#b38957"
+      },
+      "board-ink": {
+        "role": "neutral",
+        "displayName": "Board Ink",
+        "canonical": "#1c130a"
+      },
+      "board-ink-dim": {
+        "role": "neutral",
+        "displayName": "Board Ink Dim",
+        "canonical": "#3a2817"
+      },
+      "board-rule": {
+        "role": "neutral",
+        "displayName": "Board Rule",
+        "canonical": "#9c7447"
+      },
+      "board-focus": {
+        "role": "neutral",
+        "displayName": "Board Focus",
+        "canonical": "#2d1b85"
+      },
+      "rail": {
+        "role": "neutral",
+        "displayName": "Rail Graphite",
+        "canonical": "#1d1f23",
+        "tonalRamp": [
+          "#0e0f11",
+          "#1d1f23",
+          "#25272c",
+          "#30333a",
+          "#5a5e66",
+          "#9a9ea6",
+          "#a9adb4",
+          "#eceef1"
+        ]
+      },
+      "rail-ink": {
+        "role": "neutral",
+        "displayName": "Rail Ink",
+        "canonical": "#eceef1"
+      },
+      "rail-ink-dim": {
+        "role": "neutral",
+        "displayName": "Rail Ink Dim",
+        "canonical": "#a9adb4"
+      },
+      "rail-rule": {
+        "role": "neutral",
+        "displayName": "Rail Rule",
+        "canonical": "#30333a"
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Sheet White",
+        "canonical": "#fbfbf8",
+        "tonalRamp": [
+          "#17181a",
+          "#45474c",
+          "#64666c",
+          "#9a9ba0",
+          "#d6d5ce",
+          "#e7e6df",
+          "#f1f0ea",
+          "#fbfbf8"
+        ]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Sheet Tint",
+        "canonical": "#f1f0ea"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#17181a",
+        "tonalRamp": [
+          "#0b0c0d",
+          "#17181a",
+          "#2e3034",
+          "#45474c",
+          "#64666c",
+          "#9a9ba0",
+          "#d6d5ce",
+          "#f1f0ea"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink 2",
+        "canonical": "#45474c"
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink 3",
+        "canonical": "#64666c"
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#d6d5ce"
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Ink Rule",
+        "canonical": "#17181a"
+      },
+      "tape": {
+        "role": "neutral",
+        "displayName": "Dymo Tape",
+        "canonical": "#121212"
+      },
+      "tape-ink": {
+        "role": "neutral",
+        "displayName": "Dymo Letters",
+        "canonical": "#f2f2ee"
+      },
+      "pin": {
+        "role": "accent",
+        "displayName": "Push Pin",
+        "canonical": "#d2392e",
+        "variants": {
+          "blue": "#2a64c4",
+          "yellow": "#e9bf27",
+          "green": "#23894a"
+        }
+      },
+      "note-yellow": {
+        "role": "accent",
+        "displayName": "Sticky Yellow",
+        "canonical": "#fbe68c"
+      },
+      "note-pink": {
+        "role": "accent",
+        "displayName": "Sticky Pink",
+        "canonical": "#f6c8d2"
+      },
+      "note-blue": {
+        "role": "accent",
+        "displayName": "Sticky Blue",
+        "canonical": "#c3dcef"
+      },
+      "note-lilac": {
+        "role": "accent",
+        "displayName": "Sticky Lilac",
+        "canonical": "#dcd0f6"
+      }
     },
     "typographyMeta": {
-      "display": { "displayName": "Sheet Title", "purpose": "One per sheet: track, driver or page name. Phones: clamp(1.7rem, 7.5vw, 2.2rem)." },
-      "headline": { "displayName": "Tile Heading", "purpose": "Heading of a small sheet: dashboard tiles, notice sheets, empty-board sheets." },
-      "title": { "displayName": "Rubric", "purpose": "Uppercase section heading over a 2px ink rule, typed aside at right; same caps voice heads 'Track boards' on the board." },
-      "figure": { "displayName": "Figure", "purpose": "Lap times in condensed tabular numerals; positions at 800 / 1.35rem; dashboard big figures 800 / 2.6rem / width 80%." },
-      "body": { "displayName": "Body", "purpose": "Prose and table cells; tabular lining numerals everywhere." },
-      "label": { "displayName": "Label", "purpose": "Table heads and meta labels, uppercase; phone tab labels at 0.68rem." },
-      "typed": { "displayName": "Typed", "purpose": "Courier facts typed on the sheet: letterheads, refs, rig codes, footers, sub-lines, map notes." }
+      "display": {
+        "displayName": "Sheet Title",
+        "purpose": "One per sheet: track, driver or page name. Phones: clamp(1.7rem, 7.5vw, 2.2rem)."
+      },
+      "headline": {
+        "displayName": "Tile Heading",
+        "purpose": "Heading of a small sheet: dashboard tiles, notice sheets, empty-board sheets."
+      },
+      "title": {
+        "displayName": "Rubric",
+        "purpose": "Uppercase section heading over a 2px ink rule, typed aside at right; same caps voice heads 'Track boards' on the board."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Lap times in condensed tabular numerals; positions at 800 / 1.35rem; dashboard big figures 800 / 2.6rem / width 80%."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose and table cells; tabular lining numerals everywhere."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Table heads and meta labels, uppercase; phone tab labels at 0.68rem."
+      },
+      "typed": {
+        "displayName": "Typed",
+        "purpose": "Courier facts typed on the sheet: letterheads, refs, rig codes, footers, sub-lines, map notes."
+      }
     },
     "shadows": [
-      { "name": "sheet", "value": "0 1px 1px rgb(60 32 8 / 0.22), 0 12px 24px -12px rgb(60 32 8 / 0.55)", "purpose": "A paper sheet on the cork, tinted to the cork. Sticky notes add a lifted bottom corner." },
-      { "name": "sheet-night", "value": "0 1px 1px rgb(0 0 0 / 0.5), 0 16px 30px -12px rgb(0 0 0 / 0.8)", "purpose": "Same, on the charcoal night board." }
+      {
+        "name": "sheet",
+        "value": "0 1px 1px rgb(60 32 8 / 0.22), 0 12px 24px -12px rgb(60 32 8 / 0.55)",
+        "purpose": "A paper sheet on the cork, tinted to the cork. Sticky notes add a lifted bottom corner."
+      }
     ],
     "textures": [
-      { "name": "cork", "value": "300px SVG tile: fractalNoise .045 mottling, .28 dark granules, .38 pale flecks, thresholded through feColorMatrix; a darker set at night", "purpose": "Cork texture so the board plainly reads as a board." }
+      {
+        "name": "cork",
+        "value": "300px SVG tile: fractalNoise .045 mottling, .28 dark granules, .38 pale flecks, thresholded through feColorMatrix",
+        "purpose": "Cork texture so the board plainly reads as a board."
+      }
     ],
     "motion": [
-      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "All state transitions (140-180ms) and the circuit trace." },
-      { "name": "circuit-trace", "value": "1.5s ease-out, 120ms / 220ms delay", "purpose": "Outline casing and core draw in once on load; static under reduced motion." },
-      { "name": "print-lines", "value": "1.6s ease-out infinite, 140ms stagger", "purpose": "Loading lines drawing across like a sheet printing." }
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All state transitions (140-180ms) and the circuit trace."
+      },
+      {
+        "name": "circuit-trace",
+        "value": "1.5s ease-out, 120ms / 220ms delay",
+        "purpose": "Outline casing and core draw in once on load; static under reduced motion."
+      },
+      {
+        "name": "print-lines",
+        "value": "1.6s ease-out infinite, 140ms stagger",
+        "purpose": "Loading lines drawing across like a sheet printing."
+      }
     ],
     "breakpoints": [
-      { "name": "track-phone", "value": "560px" },
-      { "name": "phone-reflow", "value": "640px" },
-      { "name": "tab-bar", "value": "760px" },
-      { "name": "sheet-stack", "value": "880px" },
-      { "name": "board-stack", "value": "960px" }
+      {
+        "name": "track-phone",
+        "value": "560px"
+      },
+      {
+        "name": "phone-reflow",
+        "value": "640px"
+      },
+      {
+        "name": "tab-bar",
+        "value": "760px"
+      },
+      {
+        "name": "sheet-stack",
+        "value": "880px"
+      },
+      {
+        "name": "board-stack",
+        "value": "960px"
+      }
     ],
     "filters": [
-      { "name": "tb-ink", "value": "feTurbulence fractalNoise 0.9 / 2 octaves, feDisplacementMap scale 2.2, discrete alpha speckle", "purpose": "Worn rubber-stamp ink. Defined once in the app shell; applied to stamp frames and struck words only." }
+      {
+        "name": "tb-ink",
+        "value": "feTurbulence fractalNoise 0.9 / 2 octaves, feDisplacementMap scale 2.2, discrete alpha speckle",
+        "purpose": "Worn rubber-stamp ink. Defined once in the app shell; applied to stamp frames and struck words only."
+      }
     ]
   },
   "components": [
@@ -150,38 +434,81 @@
   ],
   "narrative": {
     "northStar": "The Paddock Noticeboard",
-    "overview": "Every page is paper on a cork board: results posted the way the timekeeper posts them. Three kinds of paper share the board: classification sheets torn off a pad and pinned up (a perforated stub with the pins above the tear), spiral-notebook pages for the driver's own records (forms and single-document pages), and pastel sticky notes stuck on by hand, each at its own small angle and a little off the line. Sheets are bright paper with hard ink rules and dense, tabular classifications. The board is cork: warm tan by day and dark cork at night, with granules and flecks so it plainly reads as a board. A dark graphite rail runs along the top (wordmark, Dymo-tape places, theme toggle, Me) and the bottom (footer, and on phones the tab bar), the same dark in both themes. Violet rubber-stamp ink is the one accent, and it only ever means something: overall best, the primary action, the current place, or a stamp. Because every time is self-reported, the classification carries a PROVISIONAL stamp rather than any claim of verification.\n\nDensity is that of a timing sheet: condensed Archivo figures in tabular numerals, hairline row rules, heavy caps rubrics over 2px rules, typed Courier metadata. Decoration is limited to what a real noticeboard would have: flat drawing pins, notched Dymo tape, worn stamp ink, a highlighter stroke across your own line. At night every sheet becomes a neutral graphite carbon copy: pale grey impression on dark graphite flimsy, with no blue cast. Sticky notes keep their colour and dark ink at night, a shade dimmer.\n\nThis system explicitly refuses the dark racing dashboard with a red timing tower. The sister Android app TrackPro keeps its own, deliberately different DESIGN.md; the two are related by name and timing conventions, not by look.",
+    "overview": "Every page is paper on a cork board: results posted the way the timekeeper posts them. Three kinds of paper share the board: classification sheets torn off a pad and pinned up (a perforated stub with the pins above the tear), spiral-notebook pages for the driver's own records (forms and single-document pages), and pastel sticky notes stuck on by hand, each at its own small angle and a little off the line. Sheets are bright paper with hard ink rules and dense, tabular classifications. The board is warm tan cork, with granules and flecks so it plainly reads as a board. A dark graphite rail runs along the top (wordmark, Dymo-tape places, theme toggle, Me) and the bottom (footer, and on phones the tab bar). Violet rubber-stamp ink is the one accent, and it only ever means something: overall best, the primary action, the current place, or a stamp. Because every time is self-reported, the classification carries a PROVISIONAL stamp rather than any claim of verification.\n\nDensity is that of a timing sheet: condensed Archivo figures in tabular numerals, hairline row rules, heavy caps rubrics over 2px rules, typed Courier metadata. Decoration is limited to what a real noticeboard would have: glossy push pins, strips of clear tape, notched Dymo tape, worn stamp ink, a highlighter stroke across your own line. There is one theme, light; there is no night mode.\n\nThis system explicitly refuses the dark racing dashboard with a red timing tower. The sister Android app TrackPro keeps its own, deliberately different DESIGN.md; the two are related by name and timing conventions, not by look.",
     "keyCharacteristics": [
-      "Cork board ground (warm tan by day, dark cork at night), paper on top; content sits directly on the board only for short intros, the welcome line and on-board headings.",
-      "A dark graphite rail carries the chrome in both themes: sticky header, footer and the phone tab bar.",
+      "Cork board ground, paper on top. Nothing to read sits on bare cork: intros are taped paper pages, the board heading is a Dymo label, and the few loose links are paper tags.",
+      "A dark graphite rail carries the chrome: sticky header, footer and the phone tab bar.",
       "One accent, violet stamp ink, with a fixed meaning set; green is reserved for personal bests; yellow highlighter marks only your own row.",
       "Hard ink rules (2px strong, 1px light) do the structural work; corners are square.",
       "Two type voices: condensed/expanded Archivo for figures and headings, Courier Prime for typed metadata.",
-      "Night mode is a neutral graphite carbon copy, not an inverted dashboard."
+      "One light theme only; no night mode and no theme toggle."
     ],
     "rules": [
-      { "name": "The Neutral Ground Rule", "body": "The board (the 60% ground) is cork: warm tan by day, dark cork at night. Never green, orange, red or bright blue. Colour belongs to the inks on the sheets and to the pale sticky notes.", "section": "colors" },
-      { "name": "The Rail Rule", "body": "Chrome lives on the dark rail, which is dark graphite in both themes; sheets never carry site navigation.", "section": "colors" },
-      { "name": "The Stamp Ink Rule", "body": "Violet means overall best, primary action, the current place, or a stamp. Nothing else. A session best is plain ink with an SB tag (bold, with a plain-ink square mark on best sectors); a PB is green with a PB tag.", "section": "colors" },
-      { "name": "The Colour-Plus-Print Rule", "body": "A timing colour is never the only cue: every coloured time carries a printed tag (OB, PB, SB, You) or a square best-mark, and fastest splits carry screen-reader text.", "section": "colors" },
-      { "name": "The One Highlighter Rule", "body": "Yellow belongs to your own line. It is never a decorative fill, never a hover, and clickable-row hover does not override it. (Focus rings on dark grounds are the one exception: an outline, never a fill.)", "section": "colors" },
-      { "name": "The Tabular Rule", "body": "Every number is tabular and lining, site-wide (set on body). Time columns are right-aligned.", "section": "typography" },
-      { "name": "The Typewriter Rule", "body": "Courier is for facts typed onto a sheet (refs, printed time, rig, provenance notes). It is not used for headings or for buttons.", "section": "typography" },
-      { "name": "The Essential Columns Rule", "body": "On phones, tables reflow to the essential columns (Pos, Driver, Best lap, Gap) and hide the rest; secondary facts (car, rig, track, date) fold into a dim sub-line under the first cell. Tables never rely on horizontal scroll to be legible.", "section": "layout" },
-      { "name": "The Sheet First Rule", "body": "The classification, not the map or the chrome, owns the first viewport.", "section": "layout" },
-      { "name": "The Thumb Rule", "body": "On phones every place is one tap away in the bottom tab bar; the header carries only the wordmark.", "section": "layout" },
-      { "name": "The Flat Sheet Rule", "body": "One shadow, on sheets only. Buttons, tags, tape, pins, tables, the rail and the tab bar are flat.", "section": "elevation" }
+      {
+        "name": "The Neutral Ground Rule",
+        "body": "The board (the 60% ground) is warm tan cork. Never green, orange, red or bright blue. Colour belongs to the inks on the sheets and to the pale sticky notes.",
+        "section": "colors"
+      },
+      {
+        "name": "The Rail Rule",
+        "body": "Chrome lives on the dark rail, which is dark graphite; sheets never carry site navigation.",
+        "section": "colors"
+      },
+      {
+        "name": "The Stamp Ink Rule",
+        "body": "Violet means overall best, primary action, the current place, or a stamp. Nothing else. A session best is plain ink with an SB tag (bold, with a plain-ink square mark on best sectors); a PB is green with a PB tag.",
+        "section": "colors"
+      },
+      {
+        "name": "The Colour-Plus-Print Rule",
+        "body": "A timing colour is never the only cue: every coloured time carries a printed tag (OB, PB, SB, You) or a square best-mark, and fastest splits carry screen-reader text.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Highlighter Rule",
+        "body": "Yellow belongs to your own line. It is never a decorative fill, never a hover, and clickable-row hover does not override it. (Focus rings on dark grounds are the one exception: an outline, never a fill.)",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Every number is tabular and lining, site-wide (set on body). Time columns are right-aligned.",
+        "section": "typography"
+      },
+      {
+        "name": "The Typewriter Rule",
+        "body": "Courier is for facts typed onto a sheet (refs, printed time, rig, provenance notes). It is not used for headings or for buttons.",
+        "section": "typography"
+      },
+      {
+        "name": "The Essential Columns Rule",
+        "body": "On phones, tables reflow to the essential columns (Pos, Driver, Best lap, Gap) and hide the rest; secondary facts (car, rig, track, date) fold into a dim sub-line under the first cell. Tables never rely on horizontal scroll to be legible.",
+        "section": "layout"
+      },
+      {
+        "name": "The Sheet First Rule",
+        "body": "The classification, not the map or the chrome, owns the first viewport.",
+        "section": "layout"
+      },
+      {
+        "name": "The Thumb Rule",
+        "body": "On phones every place is one tap away in the bottom tab bar; the header carries only the wordmark.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Sheet Rule",
+        "body": "One shadow, on sheets only. Buttons, tags, tape, pins, tables, the rail and the tab bar are flat.",
+        "section": "elevation"
+      }
     ],
     "dos": [
       "Do put every classification on a pinned, perforated paper sheet over the cork board, with 2px ink rules under the rubric and table head and 1px hairlines between rows.",
-      "Do keep the board cork (warm tan by day, dark cork at night) and carry the chrome on the dark rail in both themes.",
+      "Do keep the board warm tan cork and carry the chrome on the dark rail.",
       "Do keep violet for overall best, the primary action, the current place and stamps; show a session best as plain ink with an SB tag and a PB in green with a PB tag.",
       "Do pair every timing colour with a printed tag or best-mark.",
       "Do mark the signed-in driver's row with the highlighter (hl-bg / hl-ink) and nothing else.",
       "Do apply the `#tb-ink` filter to a stamp's frame and struck word only, never to its typed subline or to body text.",
       "Do cut Dymo labels with notched ends via clip-path and keep them flat.",
       "Do draw pins as flat discs with a darker rim.",
-      "Do render night as a neutral graphite carbon copy, remapped through the same tokens.",
       "Do on phones put every place in the bottom tab bar, hide wide columns and fold their facts into a typed sub-line under the first cell.",
       "Do draw new icons on the 24-unit grid at 1.75 stroke with square caps and mitred joins.",
       "Do place map callouts by clearance from the outline, never on the line.",
@@ -189,7 +516,7 @@
     ],
     "donts": [
       "Don't build a dark racing dashboard or a red timing tower.",
-      "Don't make the board green, orange, red or bright blue, and don't tint night sheets blue.",
+      "Don't make the board green, orange, red or bright blue.",
       "Don't put kicker or eyebrow labels above headings; the title stands alone under the letterhead rule.",
       "Don't emboss, bevel or shade the Dymo tape, and don't give pins highlights or 3D shading.",
       "Don't use violet for session bests, links at rest, decoration or generic emphasis.",

@@ -27,7 +27,7 @@ interface Row {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
-      <p class="crumbs on-board"><a routerLink="/tracks"><tb-icon name="arrowLeft" [size]="16" /> All tracks</a></p>
+      <p class="crumbs"><a class="paper-tag" routerLink="/tracks"><tb-icon name="arrowLeft" [size]="16" /> All tracks</a></p>
 
       <article class="sheet pinned">
         <div class="letterhead">

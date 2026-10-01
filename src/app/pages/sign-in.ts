@@ -10,7 +10,7 @@ import { problemMessage } from '../core/format';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
-      <article class="sheet pinned form-sheet">
+      <article class="sheet spiral form-sheet">
         <h1 class="sheet-title">Sign in</h1>
         <p class="dim lede">Use the same account as the TrackPro app.</p>
 

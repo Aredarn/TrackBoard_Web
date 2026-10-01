@@ -14,12 +14,12 @@
       "hl-ink": { "role": "tertiary", "displayName": "Highlighter Ink", "canonical": "#17181a", "night": "#fbf4c2" },
       "fault": { "role": "tertiary", "displayName": "Steward Red", "canonical": "#b3261e", "night": "#ff8175", "tonalRamp": ["#3a0c09", "#5e1510", "#8a1d16", "#b3261e", "#d4524a", "#ff8175", "#ffbdb6", "#ffe9e6"] },
       "fault-soft": { "role": "tertiary", "displayName": "Steward Wash", "canonical": "rgb(179 38 30 / 0.08)", "night": "rgb(255 129 117 / 0.1)" },
-      "board": { "role": "neutral", "displayName": "Graphite Board", "canonical": "#dad9d4", "night": "#121315", "tonalRamp": ["#101113", "#121315", "#2a2c31", "#4d4f55", "#a3a7af", "#bdbcb5", "#cfcec8", "#dad9d4"] },
-      "board-deep": { "role": "neutral", "displayName": "Board Shade", "canonical": "#cfcec8", "night": "#101113" },
-      "board-ink": { "role": "neutral", "displayName": "Board Ink", "canonical": "#1c1d20", "night": "#e4e6ea" },
-      "board-ink-dim": { "role": "neutral", "displayName": "Board Ink Dim", "canonical": "#4d4f55", "night": "#a3a7af" },
-      "board-rule": { "role": "neutral", "displayName": "Board Rule", "canonical": "#bdbcb5", "night": "#2a2c31" },
-      "board-focus": { "role": "neutral", "displayName": "Board Focus", "canonical": "#5b3fc4", "night": "#f7e86a" },
+      "board": { "role": "neutral", "displayName": "Cork Board", "canonical": "#c39a6b", "night": "#3a2c1f", "tonalRamp": ["#1c130a", "#33261a", "#3a2c1f", "#574332", "#9c7447", "#b38957", "#c39a6b", "#d6c6b1"] },
+      "board-deep": { "role": "neutral", "displayName": "Cork Shade", "canonical": "#b38957", "night": "#33261a" },
+      "board-ink": { "role": "neutral", "displayName": "Board Ink", "canonical": "#1c130a", "night": "#f3eadf" },
+      "board-ink-dim": { "role": "neutral", "displayName": "Board Ink Dim", "canonical": "#3a2817", "night": "#d6c6b1" },
+      "board-rule": { "role": "neutral", "displayName": "Board Rule", "canonical": "#9c7447", "night": "#574332" },
+      "board-focus": { "role": "neutral", "displayName": "Board Focus", "canonical": "#2d1b85", "night": "#f7e86a" },
       "rail": { "role": "neutral", "displayName": "Rail Graphite", "canonical": "#1d1f23", "night": "#0e0f11", "tonalRamp": ["#0e0f11", "#1d1f23", "#25272c", "#30333a", "#5a5e66", "#9a9ea6", "#a9adb4", "#eceef1"] },
       "rail-ink": { "role": "neutral", "displayName": "Rail Ink", "canonical": "#eceef1", "night": "#e4e6ea" },
       "rail-ink-dim": { "role": "neutral", "displayName": "Rail Ink Dim", "canonical": "#a9adb4", "night": "#9a9ea6" },
@@ -45,11 +45,11 @@
       "typed": { "displayName": "Typed", "purpose": "Courier facts typed on the sheet: letterheads, refs, rig codes, footers, sub-lines, map notes." }
     },
     "shadows": [
-      { "name": "sheet", "value": "0 1px 1px rgb(0 0 0 / 0.12), 0 12px 26px -14px rgb(0 0 0 / 0.38)", "purpose": "A paper sheet lying on the graphite board. The only shadow in the system." },
+      { "name": "sheet", "value": "0 1px 1px rgb(60 32 8 / 0.22), 0 12px 24px -12px rgb(60 32 8 / 0.55)", "purpose": "A paper sheet on the cork, tinted to the cork. Sticky notes add a lifted bottom corner." },
       { "name": "sheet-night", "value": "0 1px 1px rgb(0 0 0 / 0.5), 0 16px 30px -12px rgb(0 0 0 / 0.8)", "purpose": "Same, on the charcoal night board." }
     ],
     "textures": [
-      { "name": "board-grain", "value": "SVG feTurbulence fractalNoise .9 / 3 octaves, alpha .55, rect opacity .16, 180px tile", "purpose": "Faint grain over the board so it reads as a surface." }
+      { "name": "cork", "value": "300px SVG tile: fractalNoise .045 mottling, .28 dark granules, .38 pale flecks, thresholded through feColorMatrix; a darker set at night", "purpose": "Cork texture so the board plainly reads as a board." }
     ],
     "motion": [
       { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "All state transitions (140-180ms) and the circuit trace." },
@@ -120,7 +120,7 @@
       "name": "Pinned Sheet",
       "kind": "card",
       "refersTo": "sheet",
-      "description": "Paper on the graphite board: one shadow, two flat pins, letterhead only when it carries facts.",
+      "description": "Paper on the cork board: one shadow, a perforated stub with two flat pins, letterhead only when it carries facts.",
       "html": "<div class=\"ds-board\"><article class=\"ds-sheet\"><div class=\"ds-lh\"><span>Doc CL-F100</span><span>Printed 10:20</span></div><h1 class=\"ds-title\">Kakucs ring</h1></article></div>",
       "css": ".ds-board { padding: 24px; background: var(--board, #dad9d4); } .ds-sheet { position: relative; padding: 36px 32px 28px; background: var(--paper, #fbfbf8); color: var(--ink, #17181a); box-shadow: 0 1px 1px rgb(0 0 0 / 0.12), 0 12px 26px -14px rgb(0 0 0 / 0.38); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; } .ds-sheet::before, .ds-sheet::after { content: ''; position: absolute; top: 10px; width: 13px; height: 13px; border-radius: 50%; background: var(--pin-head, #c9c6bd); border: 2px solid #79776f; } .ds-sheet::before { left: 12px; } .ds-sheet::after { right: 12px; } .ds-lh { display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid var(--rule-strong, #17181a); font-family: 'Courier Prime', 'Courier New', monospace; font-size: 0.78rem; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-2, #45474c); } .ds-title { margin: 16px 0 0; font-weight: 800; font-stretch: 112%; font-size: 2.6rem; line-height: 1.02; letter-spacing: -0.015em; }"
     },
@@ -150,9 +150,9 @@
   ],
   "narrative": {
     "northStar": "The Paddock Noticeboard",
-    "overview": "Every page is a sheet of paper pinned to a graphite board: results posted the way the timekeeper posts them. Sheets are bright paper with hard ink rules and dense, tabular classifications. The board is a pale warm grey by day and charcoal at night, with a faint grain so it reads as a surface. A dark graphite rail runs along the top (wordmark, Dymo-tape places, theme toggle, Me) and the bottom (footer, and on phones the tab bar), the same dark in both themes. Violet rubber-stamp ink is the one accent, and it only ever means something: overall best, the primary action, the current place, or a stamp. Because every time is self-reported, the classification carries a PROVISIONAL stamp rather than any claim of verification.\n\nDensity is that of a timing sheet: condensed Archivo figures in tabular numerals, hairline row rules, heavy caps rubrics over 2px rules, typed Courier metadata. Decoration is limited to what a real noticeboard would have: flat drawing pins, notched Dymo tape, worn stamp ink, a highlighter stroke across your own line. At night every sheet becomes a neutral graphite carbon copy: pale grey impression on dark graphite flimsy, with no blue cast.\n\nThis system explicitly refuses the dark racing dashboard with a red timing tower. The sister Android app TrackPro keeps its own, deliberately different DESIGN.md; the two are related by name and timing conventions, not by look.",
+    "overview": "Every page is paper on a cork board: results posted the way the timekeeper posts them. Three kinds of paper share the board: classification sheets torn off a pad and pinned up (a perforated stub with the pins above the tear), spiral-notebook pages for the driver's own records (forms and single-document pages), and pastel sticky notes stuck on by hand, each at its own small angle and a little off the line. Sheets are bright paper with hard ink rules and dense, tabular classifications. The board is cork: warm tan by day and dark cork at night, with granules and flecks so it plainly reads as a board. A dark graphite rail runs along the top (wordmark, Dymo-tape places, theme toggle, Me) and the bottom (footer, and on phones the tab bar), the same dark in both themes. Violet rubber-stamp ink is the one accent, and it only ever means something: overall best, the primary action, the current place, or a stamp. Because every time is self-reported, the classification carries a PROVISIONAL stamp rather than any claim of verification.\n\nDensity is that of a timing sheet: condensed Archivo figures in tabular numerals, hairline row rules, heavy caps rubrics over 2px rules, typed Courier metadata. Decoration is limited to what a real noticeboard would have: flat drawing pins, notched Dymo tape, worn stamp ink, a highlighter stroke across your own line. At night every sheet becomes a neutral graphite carbon copy: pale grey impression on dark graphite flimsy, with no blue cast. Sticky notes keep their colour and dark ink at night, a shade dimmer.\n\nThis system explicitly refuses the dark racing dashboard with a red timing tower. The sister Android app TrackPro keeps its own, deliberately different DESIGN.md; the two are related by name and timing conventions, not by look.",
     "keyCharacteristics": [
-      "Neutral graphite board ground (pale warm grey by day, charcoal at night), paper sheets on top; content sits directly on the board only for short intros, the welcome line and on-board headings.",
+      "Cork board ground (warm tan by day, dark cork at night), paper on top; content sits directly on the board only for short intros, the welcome line and on-board headings.",
       "A dark graphite rail carries the chrome in both themes: sticky header, footer and the phone tab bar.",
       "One accent, violet stamp ink, with a fixed meaning set; green is reserved for personal bests; yellow highlighter marks only your own row.",
       "Hard ink rules (2px strong, 1px light) do the structural work; corners are square.",
@@ -160,7 +160,7 @@
       "Night mode is a neutral graphite carbon copy, not an inverted dashboard."
     ],
     "rules": [
-      { "name": "The Neutral Ground Rule", "body": "The board (the 60% ground) stays a neutral graphite: pale warm grey by day, charcoal at night. Never green, orange, red or bright blue. Colour belongs to the inks on the sheets.", "section": "colors" },
+      { "name": "The Neutral Ground Rule", "body": "The board (the 60% ground) is cork: warm tan by day, dark cork at night. Never green, orange, red or bright blue. Colour belongs to the inks on the sheets and to the pale sticky notes.", "section": "colors" },
       { "name": "The Rail Rule", "body": "Chrome lives on the dark rail, which is dark graphite in both themes; sheets never carry site navigation.", "section": "colors" },
       { "name": "The Stamp Ink Rule", "body": "Violet means overall best, primary action, the current place, or a stamp. Nothing else. A session best is plain ink with an SB tag (bold, with a plain-ink square mark on best sectors); a PB is green with a PB tag.", "section": "colors" },
       { "name": "The Colour-Plus-Print Rule", "body": "A timing colour is never the only cue: every coloured time carries a printed tag (OB, PB, SB, You) or a square best-mark, and fastest splits carry screen-reader text.", "section": "colors" },
@@ -173,8 +173,8 @@
       { "name": "The Flat Sheet Rule", "body": "One shadow, on sheets only. Buttons, tags, tape, pins, tables, the rail and the tab bar are flat.", "section": "elevation" }
     ],
     "dos": [
-      "Do put every classification on a paper sheet over the graphite board, with 2px ink rules under the rubric and table head and 1px hairlines between rows.",
-      "Do keep the board neutral graphite (pale warm grey by day, charcoal at night) and carry the chrome on the dark rail in both themes.",
+      "Do put every classification on a pinned, perforated paper sheet over the cork board, with 2px ink rules under the rubric and table head and 1px hairlines between rows.",
+      "Do keep the board cork (warm tan by day, dark cork at night) and carry the chrome on the dark rail in both themes.",
       "Do keep violet for overall best, the primary action, the current place and stamps; show a session best as plain ink with an SB tag and a PB in green with a PB tag.",
       "Do pair every timing colour with a printed tag or best-mark.",
       "Do mark the signed-in driver's row with the highlighter (hl-bg / hl-ink) and nothing else.",

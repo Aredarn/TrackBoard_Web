@@ -8,7 +8,7 @@ import { Stamp } from '../ui/stamp';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
-      <article class="sheet pinned lost">
+      <article class="sheet sticky yellow lost">
         <tb-stamp text="Not classified" tone="fault" [tilt]="-5" />
         <h1 class="sheet-title">Nothing is posted here</h1>
         <p class="dim">The address may be mistyped, or the sheet was taken down.</p>
@@ -23,7 +23,7 @@ import { Stamp } from '../ui/stamp';
       justify-items: start;
       max-width: 40rem;
       margin-inline: auto;
-      padding-top: var(--s7);
+      --tilt: -2deg;
     }
   `,
 })

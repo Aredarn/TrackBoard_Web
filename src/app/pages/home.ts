@@ -32,7 +32,7 @@ import { Stamp } from '../ui/stamp';
 
         <div class="dash">
           <!-- Your event: the live one with your place, else the next one, else how to get in one. -->
-          <article class="sheet pinned tile">
+          <article class="sheet sticky yellow tile">
             @if (liveEvent(); as ev) {
               <div class="tile-head">
                 <h2>{{ ev.name }}</h2>
@@ -62,7 +62,7 @@ import { Stamp } from '../ui/stamp';
           </article>
 
           <!-- Latest session -->
-          <article class="sheet pinned tile">
+          <article class="sheet sticky blue tile">
             <h2>Latest session</h2>
             <tb-gate [status]="latest.status()" [error]="latest.error()" [empty]="!latestSession()" (retry)="latest.reload()">
               @if (latestSession(); as s) {
@@ -80,7 +80,7 @@ import { Stamp } from '../ui/stamp';
           </article>
 
           <!-- Where you stand -->
-          <article class="sheet pinned tile">
+          <article class="sheet sticky pink tile">
             <h2>Your places</h2>
             <tb-gate [status]="stats.status()" [error]="stats.error()" [empty]="ranked().length === 0" (retry)="stats.reload()">
               <ul class="mine">
@@ -152,7 +152,7 @@ import { Stamp } from '../ui/stamp';
 
           <div class="side">
             @for (s of slips(); track s.track.id) {
-              <a class="sheet slip" [routerLink]="['/tracks', s.track.id]">
+              <a class="sheet sticky slip" [class]="slipColour($index)" [routerLink]="['/tracks', s.track.id]">
                 <span class="slip-name">{{ s.track.name }}</span>
                 <span class="slip-meta dim">{{ s.track.country }} · {{ s.track.rankedLapCount }} ranked laps</span>
                 @if (s.leader; as l) {
@@ -164,7 +164,7 @@ import { Stamp } from '../ui/stamp';
             }
 
             @if (!auth.signedIn()) {
-              <article class="sheet pinned notice-sheet">
+              <article class="sheet sticky lilac notice-sheet">
                 <h2>Running a track day?</h2>
                 <p class="dim">
                   Create an event, hand out its code, and every lap your drivers set lands on one live board, overall
@@ -228,6 +228,22 @@ import { Stamp } from '../ui/stamp';
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
       gap: var(--s5);
       align-items: start;
+    }
+
+    /* Stuck on by hand: each note at its own angle and a little off the line. */
+    .tile:nth-child(1) {
+      --tilt: -1.6deg;
+      --nudge-y: 6px;
+    }
+
+    .tile:nth-child(2) {
+      --tilt: 1.2deg;
+      --nudge-y: -4px;
+    }
+
+    .tile:nth-child(3) {
+      --tilt: -0.7deg;
+      --nudge-y: 12px;
     }
 
     .tile {
@@ -415,24 +431,29 @@ import { Stamp } from '../ui/stamp';
     }
 
     .slip {
-      --perf-y: 12px;
       display: grid;
       gap: 2px;
-      padding: calc(var(--perf-y) + 12px) 20px 18px;
+      padding: 22px 20px 18px;
       text-decoration: none;
       transition: transform 180ms var(--ease-out);
     }
 
     .slip:nth-of-type(odd) {
-      rotate: -0.5deg;
+      --tilt: -1.4deg;
+      --nudge-x: -6px;
     }
 
     .slip:nth-of-type(even) {
-      rotate: 0.4deg;
+      --tilt: 1.1deg;
+      --nudge-x: 10px;
     }
 
     .slip:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+    }
+
+    .notice-sheet {
+      --tilt: 0.8deg;
     }
 
     .slip-name {
@@ -492,8 +513,12 @@ import { Stamp } from '../ui/stamp';
         --map-max-h: 240px;
       }
 
-      .slip {
-        rotate: none !important;
+      .slip:nth-of-type(odd) {
+        --nudge-x: -2px;
+      }
+
+      .slip:nth-of-type(even) {
+        --nudge-x: 4px;
       }
 
       .dash {
@@ -509,6 +534,11 @@ export class HomePage {
   protected readonly plural = plural;
 
   protected readonly myId = computed(() => this.auth.user()?.id ?? null);
+  /** Sticky-note colour for the nth track slip, so neighbours never match. */
+  protected slipColour(i: number): string {
+    return ['yellow', 'pink', 'blue', 'lilac'][i % 4];
+  }
+
   protected readonly firstName = computed(() => this.auth.user()?.displayName.split(/\s+/)[0] ?? '');
 
   // ── The driver's own ──

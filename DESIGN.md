@@ -164,14 +164,14 @@ components:
 
 **Creative North Star: "The Paddock Noticeboard"**
 
-Every page is a sheet of paper pinned to a graphite board: results posted the way the timekeeper posts them. Sheets are bright paper with hard ink rules and dense, tabular classifications. The board is a pale warm grey by day and charcoal at night, with a faint grain so it reads as a surface. A dark graphite rail runs along the top (wordmark, Dymo-tape places, theme toggle, Me) and the bottom (footer, and on phones the tab bar), the same dark in both themes. Violet rubber-stamp ink is the one accent, and it only ever means something: overall best, the primary action, the current place, or a stamp. Because every time is self-reported, the classification carries a PROVISIONAL stamp rather than any claim of verification.
+Every page is paper on a cork board: results posted the way the timekeeper posts them. Three kinds of paper share the board: classification sheets torn off a pad and pinned up (a perforated stub with the pins above the tear), spiral-notebook pages for the driver's own records (forms and single-document pages), and pastel sticky notes stuck on by hand, each at its own small angle and a little off the line. Sheets are bright paper with hard ink rules and dense, tabular classifications. The board is cork: warm tan by day and dark cork at night, with granules and flecks so it plainly reads as a board. A dark graphite rail runs along the top (wordmark, Dymo-tape places, theme toggle, Me) and the bottom (footer, and on phones the tab bar), the same dark in both themes. Violet rubber-stamp ink is the one accent, and it only ever means something: overall best, the primary action, the current place, or a stamp. Because every time is self-reported, the classification carries a PROVISIONAL stamp rather than any claim of verification.
 
-Density is that of a timing sheet: condensed Archivo figures in tabular numerals, hairline row rules, heavy caps rubrics over 2px rules, typed Courier metadata. Decoration is limited to what a real noticeboard would have: flat drawing pins, notched Dymo tape, worn stamp ink, a highlighter stroke across your own line. At night every sheet becomes a neutral graphite carbon copy: pale grey impression on dark graphite flimsy, with no blue cast.
+Density is that of a timing sheet: condensed Archivo figures in tabular numerals, hairline row rules, heavy caps rubrics over 2px rules, typed Courier metadata. Decoration is limited to what a real noticeboard would have: flat drawing pins, notched Dymo tape, worn stamp ink, a highlighter stroke across your own line. At night every sheet becomes a neutral graphite carbon copy: pale grey impression on dark graphite flimsy, with no blue cast. Sticky notes keep their colour and dark ink at night, a shade dimmer.
 
 This system explicitly refuses the dark racing dashboard with a red timing tower. The sister Android app TrackPro keeps its own, deliberately different DESIGN.md; the two are related by name and timing conventions, not by look.
 
 **Key Characteristics:**
-- Neutral graphite board ground (pale warm grey by day, charcoal at night), paper sheets on top; content sits directly on the board only for short intros, the welcome line and on-board headings.
+- Cork board ground (warm tan by day, dark cork at night), paper on top; content sits directly on the board only for short intros, the welcome line and on-board headings.
 - A dark graphite rail carries the chrome in both themes: sticky header, footer and the phone tab bar.
 - One accent, violet stamp ink, with a fixed meaning set; green is reserved for personal bests; yellow highlighter marks only your own row.
 - Hard ink rules (2px strong, 1px light) do the structural work; corners are square.
@@ -180,7 +180,7 @@ This system explicitly refuses the dark racing dashboard with a red timing tower
 
 ## Colors
 
-A neutral graphite board and rail, near-white paper, near-black ink, and three meaningful inks (violet, green, yellow highlighter) plus a fault red.
+A cork board, a dark graphite rail, near-white paper, pale sticky notes, near-black ink, and three meaningful inks (violet, green, yellow highlighter) plus a fault red.
 
 ### Primary
 - **Stamp Violet** (stamp): overall best times and splits, the lap-record impression, every rubber stamp, the primary button, the current Dymo place in the rail, the top strip on the lit phone tab, the outline of the lit Me button, focus rings on paper and on the day board, the best-sector callouts on the circuit map. Hover deepens to **Stamp Violet Deep** (stamp-deep). **Stamp Wash** (stamp-soft) is the hover fill for clickable classification rows and Me index rows.
@@ -193,7 +193,7 @@ A neutral graphite board and rail, near-white paper, near-black ink, and three m
 - **Steward Red** (fault, fault-soft): errors, voided sessions, the danger button, the not-found stamp. Never used for "slower".
 
 ### Neutral
-- **Graphite Board** (board) and **Board Shade** (board-deep): page ground, with a faint fractal-noise grain at 0.16 opacity; board-deep is the hover fill for plain buttons on the board. **Board Rule** (board-rule) is the divider on the board.
+- **Cork Board** (board, #c39a6b) and **Cork Shade** (board-deep): page ground under a cork texture (`--cork`, an SVG noise tile of mottling, dark granules and pale flecks; a darker tile at night); board-deep is the hover fill for plain buttons on the board. **Board Rule** (board-rule) is the divider on the board.
 - **Board Ink** (board-ink) and **Board Ink Dim** (board-ink-dim): text on the board (intros, welcome line, "Track boards" heading, back links).
 - **Board Focus** (board-focus): the focus ring for anything sitting on the board; violet by day, highlighter yellow at night.
 - **Rail Graphite** (rail), **Rail Ink** (rail-ink), **Rail Ink Dim** (rail-ink-dim), **Rail Rule** (rail-rule): the header, footer and phone tab bar. Dark in both themes (night drops it to near-black). Dim ink is footer prose and unlit tabs; the rule is the 1px edge against the board and the outline of the theme toggle and Me button.
@@ -202,10 +202,12 @@ A neutral graphite board and rail, near-white paper, near-black ink, and three m
 - **Hairline** (rule) and **Ink Rule** (rule-strong): row rules and the heavy rules under letterheads, rubrics and table heads.
 - **Dymo Tape** (tape, tape-ink) and **Pin Head** (pin-head): navigation labels and drawing pins.
 
-Night ("carbon copy") remaps every token through the same names: charcoal board (#121315), near-black rail (#0e0f11), neutral graphite sheets (paper #1c1e23, ink #e8e9ee, ink-2 #b1b4bd, rules #33363e, strong rule #c9cbd1), lighter violet (#a58eff) and green (#58cc8e), highlighter at 20% alpha with pale yellow ink. It applies from `prefers-color-scheme: dark` unless the user picked day, or from an explicit night choice. Full values are in the sidecar.
+- **Sticky notes** (note-yellow #fbe68c, note-pink #f6c8d2, note-blue #c3dcef, note-lilac #dcd0f6; dimmed at night to #d8c46c, #d2a6b1, #9fbbd2, #b5a8d8): pale stock with fixed dark ink (#1f1a10) in both themes; inside a note the sheet tokens are remapped so tables, buttons and stamps keep their contrast.
+
+Night ("carbon copy") remaps every token through the same names: dark cork board (#3a2c1f), near-black rail (#0e0f11), neutral graphite sheets (paper #1c1e23, ink #e8e9ee, ink-2 #b1b4bd, rules #33363e, strong rule #c9cbd1), lighter violet (#a58eff) and green (#58cc8e), highlighter at 20% alpha with pale yellow ink. It applies from `prefers-color-scheme: dark` unless the user picked day, or from an explicit night choice. Full values are in the sidecar.
 
 ### Named Rules
-**The Neutral Ground Rule.** The board (the 60% ground) stays a neutral graphite: pale warm grey by day, charcoal at night. Never green, orange, red or bright blue. Colour belongs to the inks on the sheets.
+**The Neutral Ground Rule.** The board (the 60% ground) is cork: warm tan by day, dark cork at night. Never green, orange, red or bright blue. Colour belongs to the inks on the sheets and to the pale sticky notes.
 
 **The Rail Rule.** Chrome lives on the dark rail, which is dark graphite in both themes; sheets never carry site navigation.
 
@@ -241,9 +243,9 @@ Night ("carbon copy") remaps every token through the same names: charcoal board 
 
 Content sits in a centered page column (max 1240px) with a fluid gutter (clamp(16px, 3.2vw, 40px)). Spacing follows an 8-step scale from 4px to 72px; sheet padding is fluid (about 20 to 44px). The rail header is sticky, 64px tall, full-bleed with its row inside the page column.
 
-Places: Home, Tracks, Events and My laps (signed in only) as Dymo tape in the rail, plus Me (or Sign in). Everything on the account side (Me, Garage, My tracks, Account) lights Me. Single-document pages (My laps, Events, event management, Me, Garage, My tracks, Account) share one plain sheet layout: one unpinned sheet in the page column, at least 60vh tall. My laps switches between Personal bests and Sessions with a two-cell ink-ruled switch beside the sheet title; the lit cell is solid ink with paper text. Me is a hub sheet: a profile summary (96px photo, sheet title, typed facts, links) above ruled index rows.
+Places: Home, Tracks, Events and My laps (signed in only) as Dymo tape in the rail, plus Me (or Sign in). Everything on the account side (Me, Garage, My tracks, Account) lights Me. Single-document pages (My laps, Events, event management, Me, Garage, My tracks, Account) share one spiral-notebook layout: one spiral page in the page column, at least 60vh tall. My laps switches between Personal bests and Sessions with a two-cell ink-ruled switch beside the sheet title; the lit cell is solid ink with paper text. Me is a hub sheet: a profile summary (96px photo, sheet title, typed facts, links) above ruled index rows.
 
-Home signed in is a dashboard: a welcome line on the board, then three pinned tile sheets in an auto-fit grid (min 320px): your live or next event with your position, your latest session, your places; then "Track boards". Signed out: an on-board intro with two actions, the boards, and a pinned "Running a track day?" notice sheet in the side column. The track boards are a 2fr : 1fr grid (feature sheet with top five and map; slips to the side) that stacks at 960px. The track sheet opens with a two-column header (facts left, circuit map right) and the classification directly below, above the fold on desktop; it stacks at 880px (title, facts, classification, then map) and at 560px the PROVISIONAL stamp moves beside the title at 0.78 scale.
+Home signed in is a dashboard: a welcome line on the board, then three sticky-note tiles in an auto-fit grid (min 320px), each tilted and nudged differently,: your live or next event with your position, your latest session, your places; then "Track boards". Signed out: an on-board intro with two actions, the boards, and a lilac sticky "Running a track day?" notice in the side column; track slips are sticky notes cycling yellow, pink, blue, lilac. The track boards are a 2fr : 1fr grid (feature sheet with top five and map; slips to the side) that stacks at 960px. The track sheet opens with a two-column header (facts left, circuit map right) and the classification directly below, above the fold on desktop; it stacks at 880px (title, facts, classification, then map) and at 560px the PROVISIONAL stamp moves beside the title at 0.78 scale.
 
 Phones (760px and under): the rail header keeps only the wordmark (and Sign in when signed out); places, theme toggle and Me move to a fixed 64px bottom tab bar (plus safe-area inset), and main and footer pad themselves clear of it. At 640px and under the reflow is global: the gutter drops to 10px, sheets pad 18px 14px 20px, pins shrink to 10px, wide columns hide, typed sub-lines appear under the first cell, table cells tighten to 6px side padding, sheet titles shrink, rubrics close up to 24px above.
 
@@ -286,10 +288,12 @@ Rubber-stamp solid, heavy caps, compact.
 - **Corner Style:** square.
 - **Background:** Sheet White on the board, text in Ink.
 - **Shadow Strategy:** the single sheet shadow (see Elevation).
-- **Pins:** pinned sheets (track sheets, home feature, dashboard tiles, notice sheets) carry two flat pin discs at the top corners, 12px in and 10px down. Single-document layout sheets and slips are unpinned.
+- **Pinned pad sheet** (`.sheet.pinned`): track sheets, the event board, driver pages and the home feature. A perforation line of punched holes (board-coloured, a shade deeper) runs across at 34px (24px on phones) with a half-round notch at each end, and two flat pin discs sit in the stub above it, 12px in and 10px down.
+- **Spiral notebook page** (`.sheet.spiral`): the single-document layout (My laps, Events, Me, Garage, My tracks, Account) and the sign-in and register forms. Metal coils (22px pitch, spaced to whole coils) come out of punched holes and over the top edge, 14px above the page.
+- **Sticky note** (`.sheet.sticky` plus yellow, pink, blue or lilac): home dashboard tiles, track slips, the "Running a track day?" notice and the not-found page. Rotated by `--tilt` (about ±0.7 to 2deg) and offset by `--nudge-x`/`--nudge-y` so neighbours never line up or share a colour; a slightly deeper glue strip at the top and a lifted bottom corner in the shadow.
 - **Letterhead:** only on document sheets that carry distinct facts: the track sheet (doc ref and printed time) and the driver record (ref). Typed, uppercase, 0.78rem, over a 2px ink rule.
 - **Footer:** typed 0.78rem over a hairline; carries counting rules and provenance.
-- **Dashboard tile:** a pinned sheet with a headline, a dim fact line, an optional big figure, and one action.
+- **Dashboard tile:** a sticky note (yellow, blue, pink, in that order) with a headline, a dim fact line, an optional big figure, and one action.
 
 ### Inputs / Fields
 - **Style:** ruled entry boxes: Sheet Tint fill, no side borders, a 2px ink bottom rule, square, min height 46px, Courier Prime at 1rem, violet caret. Label above in 0.72rem uppercase label type.
@@ -320,8 +324,8 @@ Loading is a sheet coming off the printer: a caps placard and dashed rule lines 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** put every classification on a paper sheet over the graphite board, with 2px ink rules under the rubric and table head and 1px hairlines between rows.
-- **Do** keep the board neutral graphite (pale warm grey by day, charcoal at night) and carry the chrome on the dark rail in both themes.
+- **Do** put every classification on a pinned, perforated paper sheet over the cork board, with 2px ink rules under the rubric and table head and 1px hairlines between rows.
+- **Do** keep the board cork (warm tan by day, dark cork at night) and carry the chrome on the dark rail in both themes.
 - **Do** keep violet for overall best, the primary action, the current place and stamps; show a session best as plain ink with an SB tag and a PB in green with a PB tag.
 - **Do** pair every timing colour with a printed tag or best-mark.
 - **Do** mark the signed-in driver's row with the highlighter (hl-bg / hl-ink) and nothing else.

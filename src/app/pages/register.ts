@@ -11,7 +11,7 @@ import { safeReturn } from './sign-in';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
-      <article class="sheet pinned form-sheet">
+      <article class="sheet spiral form-sheet">
         <h1 class="sheet-title">Create an account</h1>
         <p class="dim lede">
           One account for the website and the TrackPro app. Sign in on the phone with it and your ranked laps post themselves.

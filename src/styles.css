@@ -665,7 +665,7 @@ table.classification {
 /* ── Controls ───────────────────────────────────────────────────────────── */
 
 /* Buttons are written on the paper in black marker. Hover (or keyboard focus) rings the
-   word with a red marker; a click scribbles it out. The primary action is underlined. */
+   word with a red marker; a click scribbles it out. Every button is underlined alike. */
 @property --ring {
   syntax: '<angle>';
   inherits: false;
@@ -691,11 +691,6 @@ table.classification {
   white-space: nowrap;
   rotate: -0.8deg;
   cursor: pointer;
-}
-
-.btn.plain,
-.btn.danger {
-  background: none;
 }
 
 .btn.danger {

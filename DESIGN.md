@@ -275,8 +275,7 @@ Square by default: sheets, inputs, tables, switches, index rows and tape have no
 ### Buttons
 Written on the paper by hand, in black marker. No fill, no border.
 - **Type:** Caveat (variable, 700), 1.55rem, line-height 1, tilted -0.8deg; marker ink #1b1b1d. Min height 44px, padding 2px 14px 6px.
-- **Primary:** underlined with a quick hand-drawn black marker stroke. A trailing arrow icon marks "open" actions.
-- **Plain:** the same handwriting without the underline.
+- **Underline:** every button, primary or plain, is underlined with the same quick hand-drawn black marker stroke, so no button reads as more important by style. A trailing arrow icon marks "open" actions.
 - **Danger:** written in Steward Red; account deletion only.
 - **Hover / keyboard focus:** a red marker (#d3302a) rings the word, drawn on round the loop in 380ms (a conic mask animating a registered `--ring` angle); the loop overshoots where it closes. Focus uses the ring instead of an outline.
 - **Press:** a red marker scribble strikes the word out left to right in 240ms. A document click handler keeps `.struck` on the button for 900ms so the scribble shows through the page change.

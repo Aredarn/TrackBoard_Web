@@ -415,9 +415,10 @@ import { Stamp } from '../ui/stamp';
     }
 
     .slip {
+      --perf-y: 12px;
       display: grid;
       gap: 2px;
-      padding: 18px 20px;
+      padding: calc(var(--perf-y) + 12px) 20px 18px;
       text-decoration: none;
       transition: transform 180ms var(--ease-out);
     }

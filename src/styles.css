@@ -240,13 +240,27 @@ select {
 
 /* ── Sheet ──────────────────────────────────────────────────────────────── */
 
+/* Every sheet is a page torn from a pad: a stub at the top, a perforation line of punched
+   holes across it, and a half-round notch at each end where the tear starts. The holes show
+   the board through, so they are drawn in the board colour, a touch deeper for the hole wall. */
 .sheet {
   --focus: var(--stamp);
+  --perf-y: 22px;
+  --perf-hole: color-mix(in srgb, var(--board) 82%, #000);
   position: relative;
-  background: var(--paper);
   color: var(--ink);
   box-shadow: var(--sheet-shadow);
-  padding: clamp(20px, 3.4vw, 44px) clamp(16px, 3.4vw, 44px) clamp(20px, 3vw, 36px);
+  background:
+    radial-gradient(circle at 0 50%, var(--perf-hole) 0 4.5px, transparent 5px) 0 calc(var(--perf-y) - 6px) / 12px 12px no-repeat,
+    radial-gradient(circle at 100% 50%, var(--perf-hole) 0 4.5px, transparent 5px) 100% calc(var(--perf-y) - 6px) / 12px 12px no-repeat,
+    radial-gradient(circle, var(--perf-hole) 0 2px, transparent 2.5px) 4px calc(var(--perf-y) - 4px) / 11px 8px repeat-x,
+    linear-gradient(var(--paper), var(--paper));
+  padding: calc(var(--perf-y) + clamp(14px, 2.6vw, 32px)) clamp(16px, 3.4vw, 44px) clamp(20px, 3vw, 36px);
+}
+
+/* The pins go through the stub, above the perforation. */
+.sheet.pinned {
+  --perf-y: 34px;
 }
 
 /* Drawing pins at the two top corners. */
@@ -673,7 +687,12 @@ table.classification {
   }
 
   .sheet {
-    padding: 18px 14px 20px;
+    --perf-y: 16px;
+    padding: calc(var(--perf-y) + 14px) 14px 20px;
+  }
+
+  .sheet.pinned {
+    --perf-y: 24px;
   }
 
   .sheet.pinned::before,

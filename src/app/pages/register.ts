@@ -81,7 +81,7 @@ import { safeReturn } from './sign-in';
   `,
 })
 export class RegisterPage {
-  readonly returnUrl = input<string>('/me');
+  readonly returnUrl = input<string>('/');
 
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);

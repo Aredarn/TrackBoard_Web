@@ -22,21 +22,24 @@ import { TIMING_PIPES } from '../../ui/pipes';
           <thead>
             <tr>
               <th scope="col">Track</th>
-              <th scope="col">Layout</th>
-              <th scope="col" class="num">Length</th>
-              <th scope="col" class="num">Sectors</th>
+              <th scope="col" class="c-wide">Layout</th>
+              <th scope="col" class="num c-wide">Length</th>
+              <th scope="col" class="num c-wide">Sectors</th>
               <th scope="col">Visibility</th>
               <th scope="col" class="num">Ranked laps</th>
-              <th scope="col">Geometry</th>
+              <th scope="col" class="c-wide">Geometry</th>
             </tr>
           </thead>
           <tbody>
             @for (t of tracks.value()?.items; track t.id) {
               <tr>
-                <td><a [routerLink]="['/tracks', t.id]">{{ t.name }}</a><span class="dim"> · {{ t.country }}</span></td>
-                <td>{{ t.type }}</td>
-                <td class="num">{{ t.lengthMeters | km }}</td>
-                <td class="num">{{ t.sectorCount ? t.sectorCount + 1 : '—' }}</td>
+                <td class="wrap">
+                  <a [routerLink]="['/tracks', t.id]">{{ t.name }}</a><span class="dim"> · {{ t.country }}</span>
+                  <span class="sub-line typed">{{ t.type }} · {{ t.lengthMeters | km }}{{ t.geometryLocked ? ' · frozen' : '' }}</span>
+                </td>
+                <td class="c-wide">{{ t.type }}</td>
+                <td class="num c-wide">{{ t.lengthMeters | km }}</td>
+                <td class="num c-wide">{{ t.sectorCount ? t.sectorCount + 1 : '—' }}</td>
                 <td>
                   @if (t.visibility === 'Published') {
                     <span class="tag ob">Published</span>
@@ -45,7 +48,7 @@ import { TIMING_PIPES } from '../../ui/pipes';
                   }
                 </td>
                 <td class="num">{{ t.rankedLapCount }}</td>
-                <td class="dim">{{ t.geometryLocked ? 'Frozen' : 'Editable' }}</td>
+                <td class="dim c-wide">{{ t.geometryLocked ? 'Frozen' : 'Editable' }}</td>
               </tr>
             }
           </tbody>

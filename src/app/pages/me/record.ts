@@ -5,30 +5,15 @@ import { RouterLink } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { ApiService } from '../../core/api.service';
 import { Gate } from '../../ui/gate';
-import { PhotoFrame } from '../../ui/photo-frame';
 import { TIMING_PIPES } from '../../ui/pipes';
 
 @Component({
   selector: 'tb-record-page',
-  imports: [RouterLink, DecimalPipe, Gate, PhotoFrame, ...TIMING_PIPES],
+  imports: [RouterLink, DecimalPipe, Gate, ...TIMING_PIPES],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <tb-gate [status]="data.status()" [error]="data.error()" (retry)="data.reload()">
       @if (data.value(); as d) {
-        <header class="who">
-          <tb-photo [url]="d.profile.avatarUrl" [name]="d.profile.displayName" [size]="112" [alt]="'Your photo'" />
-          <div>
-            <h1 class="sheet-title">{{ d.profile.displayName }}</h1>
-            <p class="dim">
-              {{ d.profile.country || 'Country not set' }} · on TrackBoard since {{ d.profile.memberSince | day }}
-            </p>
-            <p class="links">
-              <a [routerLink]="['/drivers', d.profile.id]">View my public page</a>
-              <a routerLink="/me/account">Edit profile</a>
-            </p>
-          </div>
-        </header>
-
         <h2 class="rubric">Career <small>voided sessions and GPS-gap laps not counted</small></h2>
         <p class="summary">
           <strong>{{ d.stats.sessionCount | number }}</strong> sessions ·
@@ -53,18 +38,23 @@ import { TIMING_PIPES } from '../../ui/pipes';
               <thead>
                 <tr>
                   <th scope="col">Track</th>
-                  <th scope="col" class="num">Personal best</th>
-                  <th scope="col" class="num">Board pos</th>
-                  <th scope="col" class="num">Ranked lap</th>
-                  <th scope="col">Car</th>
-                  <th scope="col" class="num">Laps</th>
-                  <th scope="col">Set on</th>
+                  <th scope="col" class="num">Best</th>
+                  <th scope="col" class="num"><abbr title="Position on the track's public board">Pos</abbr></th>
+                  <th scope="col" class="num c-wide">Ranked lap</th>
+                  <th scope="col" class="c-wide">Car</th>
+                  <th scope="col" class="num c-wide">Laps</th>
+                  <th scope="col" class="c-wide">Set on</th>
                 </tr>
               </thead>
               <tbody>
                 @for (pb of d.stats.personalBests; track pb.trackId) {
                   <tr>
-                    <td><a [routerLink]="['/tracks', pb.trackId]">{{ pb.trackName }}</a><span class="dim"> · {{ pb.country }}</span></td>
+                    <td class="wrap">
+                      <a [routerLink]="['/tracks', pb.trackId]">{{ pb.trackName }}</a><span class="dim"> · {{ pb.country }}</span>
+                      <span class="sub-line typed">
+                        {{ pb.lapCount }} laps · {{ pb.setAt | day }}{{ pb.rankedLapMs !== null && pb.rankedLapMs !== pb.bestLapMs ? ' · ranked ' : '' }}{{ pb.rankedLapMs !== null && pb.rankedLapMs !== pb.bestLapMs ? (pb.rankedLapMs | lap) : '' }}
+                      </span>
+                    </td>
                     <td class="time num pb">{{ pb.bestLapMs | lap }}<span class="tag">PB</span></td>
                     <td class="pos num">
                       @if (pb.rank !== null) {
@@ -73,7 +63,7 @@ import { TIMING_PIPES } from '../../ui/pipes';
                         <span class="dim unranked">—</span>
                       }
                     </td>
-                    <td class="num">
+                    <td class="num c-wide">
                       @if (pb.rankedLapMs === null) {
                         <span class="dim">Not ranked</span>
                       } @else if (pb.rankedLapMs !== pb.bestLapMs) {
@@ -82,9 +72,9 @@ import { TIMING_PIPES } from '../../ui/pipes';
                         <span class="dim">same</span>
                       }
                     </td>
-                    <td class="dim">{{ pb.vehicle ? pb.vehicle.manufacturer + ' ' + pb.vehicle.model : '—' }}</td>
-                    <td class="num">{{ pb.lapCount }}</td>
-                    <td class="dim">{{ pb.setAt | day }}</td>
+                    <td class="dim c-wide">{{ pb.vehicle ? pb.vehicle.manufacturer + ' ' + pb.vehicle.model : '—' }}</td>
+                    <td class="num c-wide">{{ pb.lapCount }}</td>
+                    <td class="dim c-wide">{{ pb.setAt | day }}</td>
                   </tr>
                 }
               </tbody>

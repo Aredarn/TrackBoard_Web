@@ -15,7 +15,7 @@ import { Stamp } from '../../ui/stamp';
   imports: [RouterLink, DecimalPipe, Gate, Stamp, Icon, ...TIMING_PIPES],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p class="crumbs"><a routerLink="/me/sessions"><tb-icon name="arrowLeft" [size]="16" /> Sessions</a></p>
+    <p class="crumbs"><a routerLink="/laps/sessions"><tb-icon name="arrowLeft" [size]="16" /> Sessions</a></p>
 
     <tb-gate [status]="session.status()" [error]="session.error()" (retry)="session.reload()">
       @if (session.value(); as s) {
@@ -76,9 +76,9 @@ import { Stamp } from '../../ui/stamp';
                   <th scope="col" class="num">Lap</th>
                   <th scope="col" class="num">Time</th>
                   <th scope="col" class="num">To best</th>
-                  <th scope="col" class="bar-col"><span class="sr-only">Time lost, drawn</span></th>
+                  <th scope="col" class="bar-col c-wide"><span class="sr-only">Time lost, drawn</span></th>
                   @for (i of sectorColumns(); track i) {
-                    <th scope="col" class="num">S{{ i + 1 }}</th>
+                    <th scope="col" class="num c-wide">S{{ i + 1 }}</th>
                   }
                   <th scope="col">Board</th>
                 </tr>
@@ -96,11 +96,11 @@ import { Stamp } from '../../ui/stamp';
                       }
                     </td>
                     <td class="num dim">{{ lap.timeMs - (best() ?? lap.timeMs) | gap: '—' }}</td>
-                    <td class="bar-col" aria-hidden="true">
+                    <td class="bar-col c-wide" aria-hidden="true">
                       <span class="bar" [style.width.%]="barWidth(lap)"></span>
                     </td>
                     @for (i of sectorColumns(); track i) {
-                      <td class="num" [class.sb]="isBestSector(lap, i)">
+                      <td class="num c-wide" [class.sb]="isBestSector(lap, i)">
                         @if (split(lap, i); as ms) {
                           <span [class.best-mark]="isBestSector(lap, i)">{{ ms | lap }}</span>
                         } @else {

@@ -39,7 +39,7 @@ import { Stamp } from '../ui/stamp';
                   <p class="bio">{{ d.bio }}</p>
                 }
                 @if (isMe()) {
-                  <p class="own typed">This is your public page. <a routerLink="/me/account">Edit what it shows</a>.</p>
+                  <p class="own typed">This is your public page. <a routerLink="/account">Edit what it shows</a>.</p>
                 }
               </div>
               @if (wins() > 0) {
@@ -58,17 +58,18 @@ import { Stamp } from '../ui/stamp';
                       <th scope="col" class="num">Pos</th>
                       <th scope="col" class="num">Best lap</th>
                       <th scope="col" class="num">Gap</th>
-                      <th scope="col">Car</th>
-                      <th scope="col">Rig</th>
-                      <th scope="col">Set on</th>
+                      <th scope="col" class="c-wide">Car</th>
+                      <th scope="col" class="c-wide">Rig</th>
+                      <th scope="col" class="c-wide">Set on</th>
                     </tr>
                   </thead>
                   <tbody>
                     @for (s of d.standings; track s.trackId) {
                       <tr>
-                        <td>
+                        <td class="wrap">
                           <a [routerLink]="['/tracks', s.trackId]">{{ s.trackName }}</a>
                           <span class="dim"> · {{ s.country }}</span>
+                          <span class="sub-line typed">{{ s.vehicle | car }} · {{ code(s.gpsSource) }} · {{ s.setAt | day }}</span>
                         </td>
                         <td class="pos num">{{ s.rank }}<span class="of dim">/{{ s.fieldSize }}</span></td>
                         <td class="time num" [class.ob]="s.rank === 1">
@@ -78,9 +79,9 @@ import { Stamp } from '../ui/stamp';
                           }
                         </td>
                         <td class="num">{{ s.gapToLeaderMs | gap: '—' }}</td>
-                        <td class="dim">{{ s.vehicle | car }}</td>
-                        <td class="typed" [attr.title]="rig(s.gpsSource)">{{ code(s.gpsSource) }}</td>
-                        <td class="dim">{{ s.setAt | day }}</td>
+                        <td class="dim c-wide">{{ s.vehicle | car }}</td>
+                        <td class="typed c-wide" [attr.title]="rig(s.gpsSource)">{{ code(s.gpsSource) }}</td>
+                        <td class="dim c-wide">{{ s.setAt | day }}</td>
                       </tr>
                     }
                   </tbody>

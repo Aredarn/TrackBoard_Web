@@ -65,7 +65,7 @@ import { problemMessage } from '../core/format';
   `,
 })
 export class SignInPage {
-  readonly returnUrl = input<string>('/me');
+  readonly returnUrl = input<string>('/');
   readonly expired = input<string | undefined>(undefined);
 
   private readonly auth = inject(AuthService);
@@ -97,5 +97,5 @@ export class SignInPage {
 
 /** Only ever return to a path on this site. */
 export function safeReturn(url: string | undefined): string {
-  return url && url.startsWith('/') && !url.startsWith('//') ? url : '/me';
+  return url && url.startsWith('/') && !url.startsWith('//') ? url : '/';
 }

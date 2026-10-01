@@ -1,9 +1,15 @@
 import { Routes } from '@angular/router';
 import { signedInGuard, signedOutGuard } from './core/auth.guard';
 
+/**
+ * Four places everyone can find from the top bar (or the bottom bar on a phone) — Home,
+ * Tracks, Events, My laps — plus Me for the account side. Every other page is reached from
+ * one of them.
+ */
 export const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     title: 'TrackBoard — lap-time boards for TrackPro drivers',
     loadComponent: () => import('./pages/home').then((m) => m.HomePage),
   },
@@ -39,49 +45,75 @@ export const routes: Routes = [
     canActivate: [signedOutGuard],
     loadComponent: () => import('./pages/register').then((m) => m.RegisterPage),
   },
+
+  // Addresses from the first version of the site.
+  { path: 'me/sessions', redirectTo: 'laps/sessions' },
+  { path: 'me/events', redirectTo: 'events' },
+  { path: 'me/garage', redirectTo: 'garage' },
+  { path: 'me/tracks', redirectTo: 'my-tracks' },
+  { path: 'me/account', redirectTo: 'account' },
+
+  // Pages that sit on one plain sheet.
   {
-    path: 'me',
-    canActivate: [signedInGuard],
-    loadComponent: () => import('./pages/me/me-layout').then((m) => m.MeLayout),
+    path: '',
+    loadComponent: () => import('./pages/sheet-layout').then((m) => m.SheetLayout),
     children: [
       {
-        path: '',
-        title: 'My season — TrackBoard',
-        loadComponent: () => import('./pages/me/record').then((m) => m.RecordPage),
+        path: 'laps',
+        canActivate: [signedInGuard],
+        loadComponent: () => import('./pages/me/laps-layout').then((m) => m.LapsLayout),
+        children: [
+          {
+            path: '',
+            title: 'Personal bests — TrackBoard',
+            loadComponent: () => import('./pages/me/record').then((m) => m.RecordPage),
+          },
+          {
+            path: 'sessions',
+            title: 'Sessions — TrackBoard',
+            loadComponent: () => import('./pages/me/sessions').then((m) => m.SessionsPage),
+          },
+          {
+            path: 'sessions/:id',
+            title: 'Session — TrackBoard',
+            loadComponent: () => import('./pages/me/session').then((m) => m.SessionPage),
+          },
+        ],
       },
       {
-        path: 'sessions',
-        title: 'Sessions — TrackBoard',
-        loadComponent: () => import('./pages/me/sessions').then((m) => m.SessionsPage),
-      },
-      {
-        path: 'sessions/:id',
-        title: 'Session — TrackBoard',
-        loadComponent: () => import('./pages/me/session').then((m) => m.SessionPage),
-      },
-      {
+        // Open to everyone: signed out, it explains events and how to join one.
         path: 'events',
         title: 'Events — TrackBoard',
         loadComponent: () => import('./pages/me/events').then((m) => m.EventsPage),
       },
       {
-        path: 'events/:id',
+        path: 'events/:id/manage',
         title: 'Manage event — TrackBoard',
+        canActivate: [signedInGuard],
         loadComponent: () => import('./pages/me/event-manage').then((m) => m.EventManagePage),
+      },
+      {
+        path: 'me',
+        title: 'Me — TrackBoard',
+        canActivate: [signedInGuard],
+        loadComponent: () => import('./pages/me/me-hub').then((m) => m.MeHubPage),
       },
       {
         path: 'garage',
         title: 'Garage — TrackBoard',
+        canActivate: [signedInGuard],
         loadComponent: () => import('./pages/me/garage').then((m) => m.GaragePage),
       },
       {
-        path: 'tracks',
+        path: 'my-tracks',
         title: 'My tracks — TrackBoard',
+        canActivate: [signedInGuard],
         loadComponent: () => import('./pages/me/my-tracks').then((m) => m.MyTracksPage),
       },
       {
         path: 'account',
         title: 'Account — TrackBoard',
+        canActivate: [signedInGuard],
         loadComponent: () => import('./pages/me/account').then((m) => m.AccountPage),
       },
     ],

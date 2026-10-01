@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, computed, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
+import { AuthService } from '../../core/auth.service';
 import { EventDetail } from '../../core/api.types';
 import { eventWindow, fromLocalInput, problemMessage, toLocalInput } from '../../core/format';
 import { load } from '../../core/load';
@@ -28,6 +29,7 @@ function defaultWindow(): { start: string; end: string } {
       during the event goes onto its live board.
     </p>
 
+    @if (auth.signedIn()) {
     <section aria-labelledby="h-join">
       <h2 class="rubric" id="h-join">Join an event</h2>
       <form class="join" (ngSubmit)="lookUp()" novalidate>
@@ -119,7 +121,7 @@ function defaultWindow(): { start: string; end: string } {
                   </td>
                   <td class="c-wide">
                     @if (e.isHost) {
-                      <a [routerLink]="['/me/events', e.id]">Host · manage</a>
+                      <a [routerLink]="['/events', e.id, 'manage']">Host · manage</a>
                     } @else {
                       <span class="dim">Driver</span>
                     }
@@ -186,6 +188,26 @@ function defaultWindow(): { start: string; end: string } {
         <button class="btn" type="submit" [disabled]="busy()">{{ busy() ? 'Creating…' : 'Create event' }}</button>
       </form>
     </section>
+    } @else {
+      <section class="intro" aria-labelledby="h-how">
+        @if (codeParam(); as code) {
+          <div class="notice ok" role="status">
+            <strong>You have a join code: {{ code }}</strong>
+            <p>Sign in with your TrackPro account to join, then drive. Your laps appear on the event's live board as you set them.</p>
+          </div>
+        }
+        <h2 class="rubric" id="h-how">How a track day works on TrackBoard</h2>
+        <ol class="steps">
+          <li><strong>The host creates the event</strong> on a published track, with a time window and optional run groups, and hands out a 6-character code.</li>
+          <li><strong>Drivers join with the code</strong> in the TrackPro app (Events tab) or here, and pick their run group.</li>
+          <li><strong>Every lap posts itself</strong> as it is driven. The live board ranks everyone by best lap, overall and per group, and anyone with its link can watch.</li>
+        </ol>
+        <div class="cta">
+          <a class="btn" routerLink="/sign-in" [queryParams]="{ returnUrl: returnTo() }">Sign in to join or host</a>
+          <a class="btn plain" routerLink="/register" [queryParams]="{ returnUrl: returnTo() }">Create a free account</a>
+        </div>
+      </section>
+    }
   `,
   styles: `
     .title {
@@ -195,6 +217,24 @@ function defaultWindow(): { start: string; end: string } {
     .lede {
       margin: var(--s2) 0 0;
       max-width: 66ch;
+    }
+
+    .steps {
+      display: grid;
+      gap: var(--s3);
+      max-width: 68ch;
+      margin: 0 0 var(--s5);
+      padding-left: 1.3em;
+    }
+
+    .intro .notice {
+      margin-top: var(--s5);
+    }
+
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s2);
     }
 
     .join {
@@ -333,14 +373,28 @@ function defaultWindow(): { start: string; end: string } {
   `,
 })
 export class EventsPage implements OnInit {
-  /** Pre-fills the join box, so a shared /me/events?code=ABC123 link lands ready to join. */
+  /** Pre-fills the join box, so a shared /events?code=ABC123 link lands ready to join. */
   readonly codeParam = input<string | undefined>(undefined, { alias: 'code' });
 
   private readonly api = inject(ApiService);
   private readonly router = inject(Router);
 
-  protected readonly mine = load({ stream: () => this.api.myEvents() });
-  protected readonly tracks = load({ stream: () => this.api.tracks({ pageSize: 100 }) });
+  protected readonly auth = inject(AuthService);
+
+  protected readonly mine = load({
+    params: () => (this.auth.signedIn() ? true : undefined),
+    stream: () => this.api.myEvents(),
+  });
+  protected readonly tracks = load({
+    params: () => (this.auth.signedIn() ? true : undefined),
+    stream: () => this.api.tracks({ pageSize: 100 }),
+  });
+
+  /** Back here after signing in, with the join code still filled in. */
+  protected readonly returnTo = computed(() => {
+    const code = this.codeParam();
+    return code ? `/events?code=${encodeURIComponent(code)}` : '/events';
+  });
 
   protected code = '';
   protected groupId: string | null = null;
@@ -360,7 +414,7 @@ export class EventsPage implements OnInit {
 
   ngOnInit(): void {
     const code = this.codeParam();
-    if (code) {
+    if (code && this.auth.signedIn()) {
       this.code = code;
       this.lookUp();
     }

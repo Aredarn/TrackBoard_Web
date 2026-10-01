@@ -1,18 +1,28 @@
 /*
  * TrackBoard — the paddock noticeboard.
- * A felt board, paper classification sheets pinned to it, violet rubber-stamp ink,
- * a highlighter for your own line. Night turns every sheet into a carbon copy.
+ * A graphite board, paper classification sheets pinned to it, violet rubber-stamp ink,
+ * a highlighter for your own line, and a dark rail the header and tab bar run along.
+ * Night turns every sheet into a carbon copy.
  */
 
 :root {
   color-scheme: light;
 
-  /* The board */
-  --board: #2b4438;
-  --board-deep: #223830;
-  --board-ink: #edf2ee;
-  --board-ink-dim: #b7c7bd;
-  --board-rule: #3f5d4e;
+  /* The board: pale warm graphite by day. */
+  --board: #dad9d4;
+  --board-deep: #cfcec8;
+  --board-ink: #1c1d20;
+  --board-ink-dim: #4d4f55;
+  --board-rule: #bdbcb5;
+  --board-focus: #5b3fc4;
+
+  /* The rail: header, footer and phone tab bar. Dark graphite in both themes. */
+  --rail: #1d1f23;
+  --rail-ink: #eceef1;
+  --rail-ink-dim: #a9adb4;
+  --rail-rule: #30333a;
+  /* Focus ring on the dark rail and tab bar, in both themes. */
+  --rail-focus: #f7e86a;
 
   /* The sheet */
   --paper: #fbfbf8;
@@ -40,7 +50,7 @@
   --tape-ink: #f2f2ee;
 
   --focus: var(--stamp);
-  --sheet-shadow: 0 1px 1px rgb(0 0 0 / 0.2), 0 14px 28px -12px rgb(0 0 0 / 0.55);
+  --sheet-shadow: 0 1px 1px rgb(0 0 0 / 0.12), 0 12px 26px -14px rgb(0 0 0 / 0.38);
   --pin-head: #c9c6bd;
 
   --font-sans: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
@@ -61,22 +71,27 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Night: the carbon copy. Near-black flimsy with the type in carbon blue. */
+/* Night: the carbon copy. Graphite flimsy with a pale impression. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='day']) {
     color-scheme: dark;
-    --board: #121b17;
-    --board-deep: #0d1411;
-    --board-ink: #dde5df;
-    --board-ink-dim: #9fb1a6;
-    --board-rule: #26342d;
-    --paper: #11131b;
-    --paper-2: #181b26;
-    --ink: #c9d2ff;
-    --ink-2: #9aa6dc;
-    --ink-3: #8390c4;
-    --rule: #2a3050;
-    --rule-strong: #9aa6dc;
+    --board: #121315;
+    --board-deep: #101113;
+    --board-ink: #e4e6ea;
+    --board-ink-dim: #a3a7af;
+    --board-rule: #2a2c31;
+    --board-focus: #f7e86a;
+    --rail: #0e0f11;
+    --rail-ink: #e4e6ea;
+    --rail-ink-dim: #9a9ea6;
+    --rail-rule: #25272c;
+    --paper: #1c1e23;
+    --paper-2: #24272d;
+    --ink: #e8e9ee;
+    --ink-2: #b1b4bd;
+    --ink-3: #989ba5;
+    --rule: #33363e;
+    --rule-strong: #c9cbd1;
     --stamp: #a58eff;
     --stamp-deep: #b9a6ff;
     --on-stamp: #140e2a;
@@ -95,18 +110,23 @@
 
 :root[data-theme='night'] {
   color-scheme: dark;
-  --board: #121b17;
-  --board-deep: #0d1411;
-  --board-ink: #dde5df;
-  --board-ink-dim: #9fb1a6;
-  --board-rule: #26342d;
-  --paper: #11131b;
-  --paper-2: #181b26;
-  --ink: #c9d2ff;
-  --ink-2: #9aa6dc;
-  --ink-3: #8390c4;
-  --rule: #2a3050;
-  --rule-strong: #9aa6dc;
+  --board: #121315;
+  --board-deep: #101113;
+  --board-ink: #e4e6ea;
+  --board-ink-dim: #a3a7af;
+  --board-rule: #2a2c31;
+  --board-focus: #f7e86a;
+  --rail: #0e0f11;
+  --rail-ink: #e4e6ea;
+  --rail-ink-dim: #9a9ea6;
+  --rail-rule: #25272c;
+  --paper: #1c1e23;
+  --paper-2: #24272d;
+  --ink: #e8e9ee;
+  --ink-2: #b1b4bd;
+  --ink-3: #989ba5;
+  --rule: #33363e;
+  --rule-strong: #c9cbd1;
   --stamp: #a58eff;
   --stamp-deep: #b9a6ff;
   --on-stamp: #140e2a;
@@ -133,15 +153,15 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scrollbar-color: var(--board-ink-dim) var(--board-deep);
+  scrollbar-color: var(--board-ink-dim) var(--board);
 }
 
 body {
   margin: 0;
   min-height: 100dvh;
   background-color: var(--board);
-  /* Felt: fine fibre noise over the board colour. */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='.35'/%3E%3C/svg%3E");
+  /* A faint grain over the board, so it reads as a surface rather than a flat fill. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='.16'/%3E%3C/svg%3E");
   color: var(--board-ink);
   font-family: var(--font-sans);
   font-size: 1rem;
@@ -212,9 +232,9 @@ select {
   padding-inline: var(--gutter);
 }
 
-/* On the board (dark felt), focus and links read in highlighter. */
+/* On the board itself (not on a sheet). */
 .on-board {
-  --focus: #f7e86a;
+  --focus: var(--board-focus);
   color: var(--board-ink);
 }
 
@@ -636,5 +656,63 @@ table.classification {
     animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ── Phones ─────────────────────────────────────────────────────────────── */
+
+/* A table's secondary columns fold into a typed line under the first cell. */
+.sub-line {
+  display: none;
+  color: var(--ink-2);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 10px;
+  }
+
+  .sheet {
+    padding: 18px 14px 20px;
+  }
+
+  .sheet.pinned::before,
+  .sheet.pinned::after {
+    top: 6px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .c-wide {
+    display: none;
+  }
+
+  .sub-line {
+    display: block;
+    margin-top: 2px;
+  }
+
+  .classification td,
+  .classification th {
+    padding-inline: 6px;
+  }
+
+  .classification td.wrap,
+  .classification td.name,
+  .classification td.drv {
+    white-space: normal;
+  }
+
+  .sheet-title {
+    font-size: clamp(1.7rem, 7.5vw, 2.2rem);
+    overflow-wrap: anywhere;
+  }
+
+  .rubric {
+    margin-top: var(--s5);
+  }
+
+  .meta {
+    gap: var(--s2) var(--s4);
   }
 }

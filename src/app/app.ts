@@ -1,9 +1,22 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { filter, map } from 'rxjs';
 import { environment } from '../environments/environment';
 import { AuthService } from './core/auth.service';
+import { initials } from './core/format';
 import { ThemeService } from './core/theme.service';
-import { Icon } from './ui/icon';
+import { Icon, IconName } from './ui/icon';
+
+interface Place {
+  path: string;
+  label: string;
+  icon: IconName;
+  exact: boolean;
+}
+
+/** The account side: everything reached from Me lights Me up. */
+const ME_AREA = /^\/(me|garage|my-tracks|account)(\/|$|\?)/;
 
 @Component({
   selector: 'app-root',
@@ -24,30 +37,41 @@ import { Icon } from './ui/icon';
 
     <a class="skip" href="#main">Skip to the board</a>
 
-    <header class="board-head on-board">
-      <div class="page head-row">
+    <header class="rail">
+      <div class="page rail-row">
         <a class="wordmark" routerLink="/" aria-label="TrackBoard, home">
           <span class="chq" aria-hidden="true"></span>
           <span>TrackBoard</span>
         </a>
 
-        <nav class="labels" aria-label="Main">
-          <a class="dymo" routerLink="/tracks" routerLinkActive="lit">Tracks</a>
-          @if (auth.user(); as user) {
-            <a class="dymo" routerLink="/me" routerLinkActive="lit" [attr.title]="'Signed in as ' + user.displayName">My season</a>
-          } @else {
-            <a class="dymo" routerLink="/sign-in" routerLinkActive="lit">Sign in</a>
+        <nav class="places" aria-label="Main">
+          @for (p of places(); track p.path) {
+            <a class="dymo" [routerLink]="p.path" routerLinkActive="lit" [routerLinkActiveOptions]="{ exact: p.exact }" ariaCurrentWhenActive="page">
+              {{ p.label }}
+            </a>
           }
+        </nav>
+
+        <div class="rail-end">
           <button
             type="button"
-            class="theme head-theme"
+            class="theme"
             (click)="theme.toggle()"
-            [attr.aria-label]="theme.night() ? 'Switch to day sheets' : 'Switch to carbon copies (dark)'"
+            [attr.aria-label]="theme.night() ? 'Switch to day sheets (light)' : 'Switch to carbon copies (dark)'"
             [attr.title]="theme.night() ? 'Day sheets' : 'Carbon copies'"
           >
             <tb-icon [name]="theme.night() ? 'sun' : 'moon'" />
           </button>
-        </nav>
+          @if (auth.user(); as user) {
+            <a class="me" routerLink="/me" [class.lit]="inMeArea()" [attr.aria-current]="inMeArea() ? 'page' : null">
+              <span class="me-badge" aria-hidden="true">{{ initialsOf(user.displayName) }}</span>
+              <span class="me-name">{{ user.displayName }}</span>
+              <span class="sr-only">, your account</span>
+            </a>
+          } @else {
+            <a class="dymo sign-in" routerLink="/sign-in" routerLinkActive="lit">Sign in</a>
+          }
+        </div>
       </div>
     </header>
 
@@ -55,7 +79,7 @@ import { Icon } from './ui/icon';
       <router-outlet />
     </main>
 
-    <footer class="board-foot on-board">
+    <footer class="foot">
       <div class="page foot-row">
         <p>
           Lap times are recorded by the TrackPro app and posted as uploaded. They are
@@ -69,18 +93,30 @@ import { Icon } from './ui/icon';
             <a [href]="env.firmwareUrl" rel="noopener">ESP32 timing firmware <tb-icon name="external" [size]="14" /></a>
           </li>
           <li><span class="typed">Open source</span></li>
-          <li class="foot-theme">
-            <button type="button" class="theme" (click)="theme.toggle()">
-              <tb-icon [name]="theme.night() ? 'sun' : 'moon'" [size]="16" />
-              {{ theme.night() ? 'Day sheets' : 'Carbon copies' }}
-            </button>
-          </li>
         </ul>
       </div>
     </footer>
+
+    <!-- Phones: the same places, under the thumb. -->
+    <nav class="tabbar" aria-label="Main">
+      @for (p of tabs(); track p.path) {
+        @if (p.path === '/me') {
+          <a class="tab" routerLink="/me" [class.lit]="inMeArea()" [attr.aria-current]="inMeArea() ? 'page' : null">
+            <tb-icon [name]="p.icon" [size]="22" />
+            <span>{{ p.label }}</span>
+          </a>
+        } @else {
+          <a class="tab" [routerLink]="p.path" routerLinkActive="lit" [routerLinkActiveOptions]="{ exact: p.exact }" ariaCurrentWhenActive="page">
+            <tb-icon [name]="p.icon" [size]="22" />
+            <span>{{ p.label }}</span>
+          </a>
+        }
+      }
+    </nav>
   `,
   styles: `
     :host {
+      --tabbar-h: 64px;
       display: flex;
       flex-direction: column;
       min-height: 100dvh;
@@ -96,9 +132,9 @@ import { Icon } from './ui/icon';
       position: absolute;
       left: 12px;
       top: -60px;
-      z-index: 10;
+      z-index: 30;
       padding: 10px 14px;
-      background: #f7e86a;
+      background: var(--rail-focus);
       color: #17181a;
       font-weight: 700;
     }
@@ -116,81 +152,81 @@ import { Icon } from './ui/icon';
       outline: none;
     }
 
-    .board-head {
-      border-bottom: 1px solid var(--board-rule);
-      background: var(--board-deep);
+    /* The rail the sheets hang from: dark graphite in both themes. */
+    .rail {
+      --focus: var(--rail-focus);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--rail);
+      color: var(--rail-ink);
+      border-bottom: 1px solid var(--rail-rule);
     }
 
-    .head-row {
+    .rail-row {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      justify-content: space-between;
-      gap: var(--s3) var(--s5);
-      min-height: 72px;
-      padding-block: var(--s3);
+      gap: var(--s4) var(--s6);
+      min-height: 64px;
     }
 
     .wordmark {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      color: var(--board-ink);
+      color: var(--rail-ink);
       text-decoration: none;
       font-weight: 900;
       font-stretch: 125%;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       letter-spacing: 0.02em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .chq {
-      width: 22px;
-      height: 22px;
-      background: conic-gradient(
-          var(--board-ink) 0 25%,
-          transparent 0 50%,
-          var(--board-ink) 0 75%,
-          transparent 0
-        )
-        0 0 / 11px 11px;
-      outline: 1.5px solid var(--board-ink);
+      width: 20px;
+      height: 20px;
+      background: conic-gradient(var(--rail-ink) 0 25%, transparent 0 50%, var(--rail-ink) 0 75%, transparent 0) 0 0 / 10px 10px;
+      outline: 1.5px solid var(--rail-ink);
       outline-offset: 1px;
     }
 
-    .labels {
+    .places {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      flex: 1;
     }
 
-    /* Dymo embossed tape: raised pale letters on black plastic. */
+    .rail-end {
+      display: flex;
+      align-items: center;
+      gap: var(--s3);
+      margin-left: auto;
+    }
+
+    /* Dymo tape, cut from the roll: a shallow notch at each end. */
     .dymo {
       display: inline-flex;
       align-items: center;
       min-height: 36px;
-      padding: 0 12px;
+      padding: 0 16px;
       background: var(--tape);
       color: var(--tape-ink);
       font-weight: 700;
       font-stretch: 118%;
       font-size: 0.78rem;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       text-decoration: none;
-      /* Tape cut from the roll: a shallow notch at each end. */
-      clip-path: polygon(0 0, 100% 0, calc(100% - 5px) 50%, 100% 100%, 0 100%, 5px 50%);
-      padding-inline: 16px;
-      max-width: 22ch;
-      overflow: hidden;
-      text-overflow: ellipsis;
       white-space: nowrap;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 5px) 50%, 100% 100%, 0 100%, 5px 50%);
       transition: background-color 140ms var(--ease-out);
     }
 
     .dymo:hover {
-      background: color-mix(in srgb, var(--tape) 82%, var(--tape-ink));
+      background: color-mix(in srgb, var(--tape) 80%, var(--tape-ink));
     }
 
     .dymo.lit {
@@ -203,22 +239,65 @@ import { Icon } from './ui/icon';
       place-items: center;
       width: 40px;
       height: 36px;
-      border: 1px solid var(--board-rule);
+      border: 1px solid var(--rail-rule);
       border-radius: 2px;
       background: transparent;
-      color: var(--board-ink);
+      color: var(--rail-ink);
       cursor: pointer;
     }
 
     .theme:hover {
-      background: var(--board);
+      background: color-mix(in srgb, var(--rail) 80%, var(--rail-ink));
     }
 
-    .board-foot {
-      border-top: 1px solid var(--board-rule);
-      background: var(--board-deep);
+    .me {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 40px;
+      padding: 2px 12px 2px 2px;
+      border: 1px solid var(--rail-rule);
+      border-radius: 2px;
+      color: var(--rail-ink);
+      text-decoration: none;
+      font-weight: 700;
+      max-width: 22ch;
+    }
+
+    .me:hover {
+      background: color-mix(in srgb, var(--rail) 80%, var(--rail-ink));
+    }
+
+    .me.lit {
+      border-color: var(--stamp);
+      box-shadow: inset 0 -3px 0 var(--stamp);
+    }
+
+    .me-badge {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      background: var(--rail-ink);
+      color: var(--rail);
+      font-weight: 800;
+      font-stretch: 112%;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
+    .me-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .foot {
+      --focus: var(--rail-focus);
+      background: var(--rail);
+      color: var(--rail-ink-dim);
+      border-top: 1px solid var(--rail-rule);
       font-size: 0.88rem;
-      color: var(--board-ink-dim);
     }
 
     .foot-row {
@@ -234,7 +313,7 @@ import { Icon } from './ui/icon';
     }
 
     .foot-row strong {
-      color: var(--board-ink);
+      color: var(--rail-ink);
     }
 
     .foot-row ul {
@@ -246,62 +325,95 @@ import { Icon } from './ui/icon';
       list-style: none;
     }
 
-    .foot-theme {
-      display: none;
-    }
-
-    .foot-theme .theme {
-      width: auto;
-      gap: 6px;
-      padding: 0 12px;
-      display: inline-flex;
-      align-items: center;
-      font-size: 0.85rem;
-    }
-
-    @media (max-width: 560px) {
-      .head-row {
-        flex-wrap: nowrap;
-        min-height: 60px;
-      }
-
-      .wordmark {
-        font-size: 0.95rem;
-        font-stretch: 104%;
-        gap: 8px;
-      }
-
-      .chq {
-        display: none;
-      }
-
-      .labels {
-        flex-wrap: nowrap;
-        gap: 6px;
-      }
-
-      .dymo {
-        min-height: 34px;
-        padding-inline: 11px;
-        font-size: 0.7rem;
-        letter-spacing: 0.08em;
-      }
-
-      .head-theme {
-        display: none;
-      }
-
-      .foot-theme {
-        display: list-item;
-        list-style: none;
-      }
-    }
-
     .foot-row a {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      color: var(--board-ink);
+      color: var(--rail-ink);
+    }
+
+    .tabbar {
+      display: none;
+    }
+
+    /* Phone and small tablet: places move to a bottom bar under the thumb. */
+    @media (max-width: 760px) {
+      .rail-row {
+        min-height: 56px;
+      }
+
+      .places,
+      .theme,
+      .me {
+        display: none;
+      }
+
+      .wordmark {
+        font-size: 1.05rem;
+      }
+
+      .sign-in {
+        min-height: 34px;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+      }
+
+      main {
+        padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + var(--s6));
+      }
+
+      .foot {
+        padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+      }
+
+      .tabbar {
+        --focus: var(--rail-focus);
+        position: fixed;
+        inset: auto 0 0 0;
+        z-index: 20;
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        height: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+        padding-bottom: env(safe-area-inset-bottom);
+        background: var(--rail);
+        border-top: 1px solid var(--rail-rule);
+      }
+
+      .tab {
+        position: relative;
+        display: grid;
+        place-items: center;
+        align-content: center;
+        gap: 4px;
+        color: var(--rail-ink-dim);
+        text-decoration: none;
+        font-size: 0.68rem;
+        font-weight: 700;
+        font-stretch: 108%;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .tab.lit {
+        color: var(--rail-ink);
+      }
+
+      /* The lit tab carries a strip of violet tape along its top edge. */
+      .tab.lit::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 22%;
+        right: 22%;
+        height: 3px;
+        background: var(--stamp);
+      }
+
+      .tab:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: -3px;
+      }
     }
   `,
 })
@@ -309,4 +421,33 @@ export class App {
   protected readonly auth = inject(AuthService);
   protected readonly theme = inject(ThemeService);
   protected readonly env = environment;
+  private readonly router = inject(Router);
+
+  private readonly url = toSignal(
+    this.router.events.pipe(
+      filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+      map((e) => e.urlAfterRedirects),
+    ),
+    { initialValue: this.router.url },
+  );
+
+  protected readonly inMeArea = computed(() => ME_AREA.test(this.url()));
+
+  /** Header places. My laps only exists for a signed-in driver. */
+  protected readonly places = computed<Place[]>(() => [
+    { path: '/', label: 'Home', icon: 'home', exact: true },
+    { path: '/tracks', label: 'Tracks', icon: 'track', exact: false },
+    { path: '/events', label: 'Events', icon: 'flag', exact: false },
+    ...(this.auth.signedIn() ? [{ path: '/laps', label: 'My laps', icon: 'stopwatch' as IconName, exact: false }] : []),
+  ]);
+
+  /** Bottom bar: the same places plus Me, or Sign in when signed out. */
+  protected readonly tabs = computed<Place[]>(() => [
+    ...this.places(),
+    this.auth.signedIn()
+      ? { path: '/me', label: 'Me', icon: 'user', exact: false }
+      : { path: '/sign-in', label: 'Sign in', icon: 'user', exact: false },
+  ]);
+
+  protected initialsOf = initials;
 }

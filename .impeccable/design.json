@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-29T12:00:00Z",
+  "generatedAt": "2026-10-01T12:00:00Z",
   "title": "Design System: TrackBoard",
   "extensions": {
     "colorMeta": {
@@ -14,33 +14,42 @@
       "hl-ink": { "role": "tertiary", "displayName": "Highlighter Ink", "canonical": "#17181a", "night": "#fbf4c2" },
       "fault": { "role": "tertiary", "displayName": "Steward Red", "canonical": "#b3261e", "night": "#ff8175", "tonalRamp": ["#3a0c09", "#5e1510", "#8a1d16", "#b3261e", "#d4524a", "#ff8175", "#ffbdb6", "#ffe9e6"] },
       "fault-soft": { "role": "tertiary", "displayName": "Steward Wash", "canonical": "rgb(179 38 30 / 0.08)", "night": "rgb(255 129 117 / 0.1)" },
-      "board": { "role": "neutral", "displayName": "Paddock Felt", "canonical": "#2b4438", "night": "#121b17", "tonalRamp": ["#0d1411", "#121b17", "#223830", "#2b4438", "#3f5d4e", "#6f8a7b", "#b7c7bd", "#edf2ee"] },
-      "board-deep": { "role": "neutral", "displayName": "Felt Shadow", "canonical": "#223830", "night": "#0d1411" },
-      "board-ink": { "role": "neutral", "displayName": "Board Chalk", "canonical": "#edf2ee", "night": "#dde5df" },
-      "board-ink-dim": { "role": "neutral", "displayName": "Board Chalk Dim", "canonical": "#b7c7bd", "night": "#9fb1a6" },
-      "board-rule": { "role": "neutral", "displayName": "Felt Rule", "canonical": "#3f5d4e", "night": "#26342d" },
-      "paper": { "role": "neutral", "displayName": "Sheet White", "canonical": "#fbfbf8", "night": "#11131b", "tonalRamp": ["#17181a", "#45474c", "#64666c", "#9a9ba0", "#d6d5ce", "#e7e6df", "#f1f0ea", "#fbfbf8"] },
-      "paper-2": { "role": "neutral", "displayName": "Sheet Tint", "canonical": "#f1f0ea", "night": "#181b26" },
-      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#17181a", "night": "#c9d2ff", "tonalRamp": ["#0b0c0d", "#17181a", "#2e3034", "#45474c", "#64666c", "#9a9ba0", "#d6d5ce", "#f1f0ea"] },
-      "ink-2": { "role": "neutral", "displayName": "Ink 2", "canonical": "#45474c", "night": "#9aa6dc" },
-      "ink-3": { "role": "neutral", "displayName": "Ink 3", "canonical": "#64666c", "night": "#8390c4" },
-      "rule": { "role": "neutral", "displayName": "Hairline", "canonical": "#d6d5ce", "night": "#2a3050" },
-      "rule-strong": { "role": "neutral", "displayName": "Ink Rule", "canonical": "#17181a", "night": "#9aa6dc" },
+      "board": { "role": "neutral", "displayName": "Graphite Board", "canonical": "#dad9d4", "night": "#121315", "tonalRamp": ["#101113", "#121315", "#2a2c31", "#4d4f55", "#a3a7af", "#bdbcb5", "#cfcec8", "#dad9d4"] },
+      "board-deep": { "role": "neutral", "displayName": "Board Shade", "canonical": "#cfcec8", "night": "#101113" },
+      "board-ink": { "role": "neutral", "displayName": "Board Ink", "canonical": "#1c1d20", "night": "#e4e6ea" },
+      "board-ink-dim": { "role": "neutral", "displayName": "Board Ink Dim", "canonical": "#4d4f55", "night": "#a3a7af" },
+      "board-rule": { "role": "neutral", "displayName": "Board Rule", "canonical": "#bdbcb5", "night": "#2a2c31" },
+      "board-focus": { "role": "neutral", "displayName": "Board Focus", "canonical": "#5b3fc4", "night": "#f7e86a" },
+      "rail": { "role": "neutral", "displayName": "Rail Graphite", "canonical": "#1d1f23", "night": "#0e0f11", "tonalRamp": ["#0e0f11", "#1d1f23", "#25272c", "#30333a", "#5a5e66", "#9a9ea6", "#a9adb4", "#eceef1"] },
+      "rail-ink": { "role": "neutral", "displayName": "Rail Ink", "canonical": "#eceef1", "night": "#e4e6ea" },
+      "rail-ink-dim": { "role": "neutral", "displayName": "Rail Ink Dim", "canonical": "#a9adb4", "night": "#9a9ea6" },
+      "rail-rule": { "role": "neutral", "displayName": "Rail Rule", "canonical": "#30333a", "night": "#25272c" },
+      "paper": { "role": "neutral", "displayName": "Sheet White", "canonical": "#fbfbf8", "night": "#1c1e23", "tonalRamp": ["#17181a", "#45474c", "#64666c", "#9a9ba0", "#d6d5ce", "#e7e6df", "#f1f0ea", "#fbfbf8"] },
+      "paper-2": { "role": "neutral", "displayName": "Sheet Tint", "canonical": "#f1f0ea", "night": "#24272d" },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#17181a", "night": "#e8e9ee", "tonalRamp": ["#0b0c0d", "#17181a", "#2e3034", "#45474c", "#64666c", "#9a9ba0", "#d6d5ce", "#f1f0ea"] },
+      "ink-2": { "role": "neutral", "displayName": "Ink 2", "canonical": "#45474c", "night": "#b1b4bd" },
+      "ink-3": { "role": "neutral", "displayName": "Ink 3", "canonical": "#64666c", "night": "#989ba5" },
+      "rule": { "role": "neutral", "displayName": "Hairline", "canonical": "#d6d5ce", "night": "#33363e" },
+      "rule-strong": { "role": "neutral", "displayName": "Ink Rule", "canonical": "#17181a", "night": "#c9cbd1" },
       "tape": { "role": "neutral", "displayName": "Dymo Tape", "canonical": "#121212", "night": "#050505" },
       "tape-ink": { "role": "neutral", "displayName": "Dymo Letters", "canonical": "#f2f2ee" },
       "pin-head": { "role": "neutral", "displayName": "Pin Head", "canonical": "#c9c6bd", "night": "#6e6b64" }
     },
     "typographyMeta": {
-      "display": { "displayName": "Sheet Title", "purpose": "One per sheet: track, driver or page name." },
-      "title": { "displayName": "Rubric", "purpose": "Uppercase section heading over a 2px ink rule, typed aside at right." },
-      "figure": { "displayName": "Figure", "purpose": "Lap times in condensed tabular numerals; positions at 800 / 1.35rem." },
+      "display": { "displayName": "Sheet Title", "purpose": "One per sheet: track, driver or page name. Phones: clamp(1.7rem, 7.5vw, 2.2rem)." },
+      "headline": { "displayName": "Tile Heading", "purpose": "Heading of a small sheet: dashboard tiles, notice sheets, empty-board sheets." },
+      "title": { "displayName": "Rubric", "purpose": "Uppercase section heading over a 2px ink rule, typed aside at right; same caps voice heads 'Track boards' on the board." },
+      "figure": { "displayName": "Figure", "purpose": "Lap times in condensed tabular numerals; positions at 800 / 1.35rem; dashboard big figures 800 / 2.6rem / width 80%." },
       "body": { "displayName": "Body", "purpose": "Prose and table cells; tabular lining numerals everywhere." },
-      "label": { "displayName": "Label", "purpose": "Table heads and meta labels, uppercase." },
-      "typed": { "displayName": "Typed", "purpose": "Courier facts typed on the sheet: letterheads, refs, rig codes, footers, map notes." }
+      "label": { "displayName": "Label", "purpose": "Table heads and meta labels, uppercase; phone tab labels at 0.68rem." },
+      "typed": { "displayName": "Typed", "purpose": "Courier facts typed on the sheet: letterheads, refs, rig codes, footers, sub-lines, map notes." }
     },
     "shadows": [
-      { "name": "sheet", "value": "0 1px 1px rgb(0 0 0 / 0.2), 0 14px 28px -12px rgb(0 0 0 / 0.55)", "purpose": "A paper sheet lying on the felt. The only shadow in the system." },
-      { "name": "sheet-night", "value": "0 1px 1px rgb(0 0 0 / 0.5), 0 16px 30px -12px rgb(0 0 0 / 0.8)", "purpose": "Same, on the night board." }
+      { "name": "sheet", "value": "0 1px 1px rgb(0 0 0 / 0.12), 0 12px 26px -14px rgb(0 0 0 / 0.38)", "purpose": "A paper sheet lying on the graphite board. The only shadow in the system." },
+      { "name": "sheet-night", "value": "0 1px 1px rgb(0 0 0 / 0.5), 0 16px 30px -12px rgb(0 0 0 / 0.8)", "purpose": "Same, on the charcoal night board." }
+    ],
+    "textures": [
+      { "name": "board-grain", "value": "SVG feTurbulence fractalNoise .9 / 3 octaves, alpha .55, rect opacity .16, 180px tile", "purpose": "Faint grain over the board so it reads as a surface." }
     ],
     "motion": [
       { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "All state transitions (140-180ms) and the circuit trace." },
@@ -48,8 +57,9 @@
       { "name": "print-lines", "value": "1.6s ease-out infinite, 140ms stagger", "purpose": "Loading lines drawing across like a sheet printing." }
     ],
     "breakpoints": [
-      { "name": "phone", "value": "560px" },
-      { "name": "tabs", "value": "640px" },
+      { "name": "track-phone", "value": "560px" },
+      { "name": "phone-reflow", "value": "640px" },
+      { "name": "tab-bar", "value": "760px" },
       { "name": "sheet-stack", "value": "880px" },
       { "name": "board-stack", "value": "960px" }
     ],
@@ -63,7 +73,7 @@
       "kind": "button",
       "refersTo": "button-primary",
       "description": "Violet stamp-ink action; one per sheet region.",
-      "html": "<button class=\"ds-btn\">Create a free account</button>",
+      "html": "<button class=\"ds-btn\">Open live board <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" stroke-linejoin=\"miter\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg></button>",
       "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 18px; border: 2px solid var(--stamp, #5b3fc4); border-radius: 2px; background: var(--stamp, #5b3fc4); color: var(--on-stamp, #fff); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-weight: 800; font-stretch: 112%; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background-color 140ms cubic-bezier(0.16,1,0.3,1), transform 90ms cubic-bezier(0.16,1,0.3,1); } .ds-btn:hover { background: var(--stamp-deep, #4a31a8); border-color: var(--stamp-deep, #4a31a8); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 3px solid var(--stamp, #5b3fc4); outline-offset: 2px; }"
     },
     {
@@ -83,12 +93,20 @@
       "css": ".ds-field { display: grid; gap: 6px; font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; } .ds-field > span { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2, #45474c); } .ds-field input { width: 100%; min-height: 46px; padding: 10px 12px; border: 0; border-bottom: 2px solid var(--rule-strong, #17181a); border-radius: 0; background: var(--paper-2, #f1f0ea); color: var(--ink, #17181a); font-family: 'Courier Prime', 'Courier New', monospace; font-size: 1rem; caret-color: var(--stamp, #5b3fc4); } .ds-field input::placeholder { color: var(--ink-3, #64666c); } .ds-field input:focus-visible { outline: 2px solid var(--stamp, #5b3fc4); outline-offset: 0; border-bottom-color: var(--stamp, #5b3fc4); }"
     },
     {
-      "name": "Dymo Nav",
+      "name": "Rail Header",
       "kind": "nav",
       "refersTo": "dymo-label",
-      "description": "Flat notched tape labels on the felt header; current page in stamp violet.",
-      "html": "<nav class=\"ds-nav\"><a class=\"ds-dymo ds-lit\" href=\"#\">Tracks</a><a class=\"ds-dymo\" href=\"#\">My season</a></nav>",
-      "css": ".ds-nav { display: flex; gap: 10px; padding: 16px; background: var(--board-deep, #223830); } .ds-dymo { display: inline-flex; align-items: center; min-height: 36px; padding-inline: 16px; background: var(--tape, #121212); color: var(--tape-ink, #f2f2ee); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-weight: 700; font-stretch: 118%; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; clip-path: polygon(0 0, 100% 0, calc(100% - 5px) 50%, 100% 100%, 0 100%, 5px 50%); transition: background-color 140ms cubic-bezier(0.16,1,0.3,1); } .ds-dymo:hover { background: #2a2a2a; } .ds-dymo.ds-lit { background: var(--stamp, #5b3fc4); color: var(--on-stamp, #fff); } .ds-dymo:focus-visible { outline: 3px solid #f7e86a; outline-offset: 2px; }"
+      "description": "Sticky dark graphite rail: wordmark, Dymo-tape places (current in violet), theme toggle and Me button.",
+      "html": "<header class=\"ds-rail\"><a class=\"ds-wm\" href=\"#\"><span class=\"ds-chq\"></span>TrackBoard</a><nav class=\"ds-places\"><a class=\"ds-dymo ds-lit\" href=\"#\">Home</a><a class=\"ds-dymo\" href=\"#\">Tracks</a><a class=\"ds-dymo\" href=\"#\">Events</a><a class=\"ds-dymo\" href=\"#\">My laps</a></nav><a class=\"ds-me\" href=\"#\"><span class=\"ds-badge\">MM</span>Martin M.</a></header>",
+      "css": ".ds-rail { display: flex; align-items: center; gap: 16px 32px; min-height: 64px; padding: 0 24px; background: var(--rail, #1d1f23); color: var(--rail-ink, #eceef1); border-bottom: 1px solid var(--rail-rule, #30333a); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; } .ds-wm { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-weight: 900; font-stretch: 125%; font-size: 1.2rem; letter-spacing: 0.02em; text-transform: uppercase; } .ds-chq { width: 20px; height: 20px; background: conic-gradient(#eceef1 0 25%, transparent 0 50%, #eceef1 0 75%, transparent 0) 0 0 / 10px 10px; outline: 1.5px solid #eceef1; outline-offset: 1px; } .ds-places { display: flex; gap: 8px; flex: 1; } .ds-dymo { display: inline-flex; align-items: center; min-height: 36px; padding: 0 16px; background: var(--tape, #121212); color: var(--tape-ink, #f2f2ee); font-weight: 700; font-stretch: 118%; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; clip-path: polygon(0 0, 100% 0, calc(100% - 5px) 50%, 100% 100%, 0 100%, 5px 50%); transition: background-color 140ms cubic-bezier(0.16,1,0.3,1); } .ds-dymo:hover { background: #3f3f3d; } .ds-dymo.ds-lit { background: var(--stamp, #5b3fc4); color: var(--on-stamp, #fff); } .ds-dymo:focus-visible, .ds-me:focus-visible { outline: 3px solid #f7e86a; outline-offset: 2px; } .ds-me { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 2px 12px 2px 2px; border: 1px solid var(--rail-rule, #30333a); border-radius: 2px; color: inherit; text-decoration: none; font-weight: 700; } .ds-me:hover { background: #3a3c40; } .ds-badge { display: inline-grid; place-items: center; width: 34px; height: 34px; background: var(--rail-ink, #eceef1); color: var(--rail, #1d1f23); font-weight: 800; font-stretch: 112%; font-size: 0.78rem; }"
+    },
+    {
+      "name": "Phone Tab Bar",
+      "kind": "nav",
+      "refersTo": "tab-bar",
+      "description": "Phones (760px and under): fixed bottom rail with the places plus Me; the lit tab carries a violet top strip.",
+      "html": "<nav class=\"ds-tabbar\"><a class=\"ds-tab ds-on\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" stroke-linejoin=\"miter\"><path d=\"M3 11l9-7 9 7M5 9.5V20h5v-6h4v6h5V9.5\"/></svg><span>Home</span></a><a class=\"ds-tab\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" stroke-linejoin=\"miter\"><path d=\"M7 19c-2.5 0-4-1.7-4-4s1.5-4 4-4h2.5l2-5H16c3 0 5 2.2 5 5.5S19 19 16 19z\"/></svg><span>Tracks</span></a><a class=\"ds-tab\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" stroke-linejoin=\"miter\"><path d=\"M5 21V4M5 4h13l-2.5 4.5L18 13H5\"/></svg><span>Events</span></a><a class=\"ds-tab\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" stroke-linejoin=\"miter\"><path d=\"M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM12 9v4l2.5 2M9.5 2.5h5M18.5 5.5l1.5-1.5\"/></svg><span>My laps</span></a><a class=\"ds-tab\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" stroke-linejoin=\"miter\"><path d=\"M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c.8-4 4-6 8-6s7.2 2 8 6\"/></svg><span>Me</span></a></nav>",
+      "css": ".ds-tabbar { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; height: 64px; max-width: 420px; background: var(--rail, #1d1f23); border-top: 1px solid var(--rail-rule, #30333a); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; } .ds-tab { position: relative; display: grid; place-items: center; align-content: center; gap: 4px; color: var(--rail-ink-dim, #a9adb4); text-decoration: none; font-size: 0.68rem; font-weight: 700; font-stretch: 108%; letter-spacing: 0.08em; text-transform: uppercase; } .ds-tab:hover { color: var(--rail-ink, #eceef1); } .ds-tab.ds-on { color: var(--rail-ink, #eceef1); } .ds-tab.ds-on::before { content: ''; position: absolute; top: 0; left: 22%; right: 22%; height: 3px; background: var(--stamp, #5b3fc4); } .ds-tab:focus-visible { outline: 3px solid #f7e86a; outline-offset: -3px; }"
     },
     {
       "name": "Timing Tags",
@@ -102,9 +120,17 @@
       "name": "Pinned Sheet",
       "kind": "card",
       "refersTo": "sheet",
-      "description": "Paper on the felt: one shadow, two flat pins, letterhead only when it carries facts.",
+      "description": "Paper on the graphite board: one shadow, two flat pins, letterhead only when it carries facts.",
       "html": "<div class=\"ds-board\"><article class=\"ds-sheet\"><div class=\"ds-lh\"><span>Doc CL-F100</span><span>Printed 10:20</span></div><h1 class=\"ds-title\">Kakucs ring</h1></article></div>",
-      "css": ".ds-board { padding: 24px; background: var(--board, #2b4438); } .ds-sheet { position: relative; padding: 36px 32px 28px; background: var(--paper, #fbfbf8); color: var(--ink, #17181a); box-shadow: 0 1px 1px rgb(0 0 0 / 0.2), 0 14px 28px -12px rgb(0 0 0 / 0.55); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; } .ds-sheet::before, .ds-sheet::after { content: ''; position: absolute; top: 10px; width: 13px; height: 13px; border-radius: 50%; background: var(--pin-head, #c9c6bd); border: 2px solid #7a786f; } .ds-sheet::before { left: 12px; } .ds-sheet::after { right: 12px; } .ds-lh { display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid var(--rule-strong, #17181a); font-family: 'Courier Prime', 'Courier New', monospace; font-size: 0.78rem; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-2, #45474c); } .ds-title { margin: 16px 0 0; font-weight: 800; font-stretch: 112%; font-size: 2.6rem; line-height: 1.02; letter-spacing: -0.015em; }"
+      "css": ".ds-board { padding: 24px; background: var(--board, #dad9d4); } .ds-sheet { position: relative; padding: 36px 32px 28px; background: var(--paper, #fbfbf8); color: var(--ink, #17181a); box-shadow: 0 1px 1px rgb(0 0 0 / 0.12), 0 12px 26px -14px rgb(0 0 0 / 0.38); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; } .ds-sheet::before, .ds-sheet::after { content: ''; position: absolute; top: 10px; width: 13px; height: 13px; border-radius: 50%; background: var(--pin-head, #c9c6bd); border: 2px solid #79776f; } .ds-sheet::before { left: 12px; } .ds-sheet::after { right: 12px; } .ds-lh { display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid var(--rule-strong, #17181a); font-family: 'Courier Prime', 'Courier New', monospace; font-size: 0.78rem; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-2, #45474c); } .ds-title { margin: 16px 0 0; font-weight: 800; font-stretch: 112%; font-size: 2.6rem; line-height: 1.02; letter-spacing: -0.015em; }"
+    },
+    {
+      "name": "Me Index Rows",
+      "kind": "custom",
+      "refersTo": "index-row",
+      "description": "Ruled list of your pages on the Me hub: icon, label, what it holds, arrow.",
+      "html": "<nav class=\"ds-index\"><a class=\"ds-row\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" stroke-linejoin=\"miter\"><path d=\"M3 17v-4.5L5.5 7h13l2.5 5.5V17zM3 17v2.5h3V17M18 17v2.5h3V17M3 12.5h18M6.5 14.5h2M15.5 14.5h2\"/></svg><span class=\"ds-rt\"><span class=\"ds-rl\">Garage</span><span class=\"ds-rw\">Your cars and their specs</span></span><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" stroke-linejoin=\"miter\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg></a><a class=\"ds-row\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" stroke-linejoin=\"miter\"><path d=\"M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c.8-4 4-6 8-6s7.2 2 8 6\"/></svg><span class=\"ds-rt\"><span class=\"ds-rl\">Account</span><span class=\"ds-rw\">Name, photo, bio, data export, delete account</span></span><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"square\" stroke-linejoin=\"miter\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg></a></nav>",
+      "css": ".ds-index { display: grid; background: var(--paper, #fbfbf8); border-top: 2px solid var(--rule-strong, #17181a); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; } .ds-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px; min-height: 64px; padding: 12px 8px; border-bottom: 1px solid var(--rule, #d6d5ce); color: var(--ink, #17181a); text-decoration: none; transition: background-color 140ms cubic-bezier(0.16,1,0.3,1); } .ds-row:hover { background: var(--stamp-soft, rgb(91 63 196 / 0.09)); } .ds-row:focus-visible { outline: 3px solid var(--stamp, #5b3fc4); outline-offset: -3px; } .ds-rt { display: grid; gap: 2px; } .ds-rl { font-weight: 800; font-stretch: 108%; font-size: 1.05rem; } .ds-rw { font-size: 0.9rem; color: var(--ink-2, #45474c); }"
     },
     {
       "name": "Classification Rows",
@@ -124,39 +150,46 @@
   ],
   "narrative": {
     "northStar": "The Paddock Noticeboard",
-    "overview": "Every page is a sheet of paper pinned to a felt-green board: results posted the way the timekeeper posts them. Sheets are bright paper with hard ink rules and dense, tabular classifications; the board around them carries the chrome (wordmark, Dymo-tape navigation, footer). Violet rubber-stamp ink is the one accent, and it only ever means something: overall best, the primary action, or a stamp. Because every time is self-reported, the classification carries a PROVISIONAL stamp rather than any claim of verification.\n\nDensity is that of a timing sheet: condensed Archivo figures in tabular numerals, hairline row rules, heavy caps rubrics over 2px rules, typed Courier metadata. Decoration is limited to what a real noticeboard would have: flat drawing pins, notched Dymo tape, worn stamp ink, a highlighter stroke across your own line. At night the whole board becomes a carbon copy: carbon-blue type on near-black flimsy.\n\nThis system explicitly refuses the dark racing dashboard with a red timing tower. The sister Android app TrackPro keeps its own, deliberately different DESIGN.md; the two are related by name and timing conventions, not by look.",
+    "overview": "Every page is a sheet of paper pinned to a graphite board: results posted the way the timekeeper posts them. Sheets are bright paper with hard ink rules and dense, tabular classifications. The board is a pale warm grey by day and charcoal at night, with a faint grain so it reads as a surface. A dark graphite rail runs along the top (wordmark, Dymo-tape places, theme toggle, Me) and the bottom (footer, and on phones the tab bar), the same dark in both themes. Violet rubber-stamp ink is the one accent, and it only ever means something: overall best, the primary action, the current place, or a stamp. Because every time is self-reported, the classification carries a PROVISIONAL stamp rather than any claim of verification.\n\nDensity is that of a timing sheet: condensed Archivo figures in tabular numerals, hairline row rules, heavy caps rubrics over 2px rules, typed Courier metadata. Decoration is limited to what a real noticeboard would have: flat drawing pins, notched Dymo tape, worn stamp ink, a highlighter stroke across your own line. At night every sheet becomes a neutral graphite carbon copy: pale grey impression on dark graphite flimsy, with no blue cast.\n\nThis system explicitly refuses the dark racing dashboard with a red timing tower. The sister Android app TrackPro keeps its own, deliberately different DESIGN.md; the two are related by name and timing conventions, not by look.",
     "keyCharacteristics": [
-      "Felt-green board ground, paper sheets on top; content never sits directly on the felt except board chrome and short intros.",
+      "Neutral graphite board ground (pale warm grey by day, charcoal at night), paper sheets on top; content sits directly on the board only for short intros, the welcome line and on-board headings.",
+      "A dark graphite rail carries the chrome in both themes: sticky header, footer and the phone tab bar.",
       "One accent, violet stamp ink, with a fixed meaning set; green is reserved for personal bests; yellow highlighter marks only your own row.",
       "Hard ink rules (2px strong, 1px light) do the structural work; corners are square.",
       "Two type voices: condensed/expanded Archivo for figures and headings, Courier Prime for typed metadata.",
-      "Night mode is a carbon copy, not an inverted dashboard."
+      "Night mode is a neutral graphite carbon copy, not an inverted dashboard."
     ],
     "rules": [
-      { "name": "The Stamp Ink Rule", "body": "Violet means overall best, primary action, or a stamp. Nothing else. A session best is plain ink with an SB tag (bold, with a plain-ink square mark on best sectors); a PB is green with a PB tag.", "section": "colors" },
+      { "name": "The Neutral Ground Rule", "body": "The board (the 60% ground) stays a neutral graphite: pale warm grey by day, charcoal at night. Never green, orange, red or bright blue. Colour belongs to the inks on the sheets.", "section": "colors" },
+      { "name": "The Rail Rule", "body": "Chrome lives on the dark rail, which is dark graphite in both themes; sheets never carry site navigation.", "section": "colors" },
+      { "name": "The Stamp Ink Rule", "body": "Violet means overall best, primary action, the current place, or a stamp. Nothing else. A session best is plain ink with an SB tag (bold, with a plain-ink square mark on best sectors); a PB is green with a PB tag.", "section": "colors" },
       { "name": "The Colour-Plus-Print Rule", "body": "A timing colour is never the only cue: every coloured time carries a printed tag (OB, PB, SB, You) or a square best-mark, and fastest splits carry screen-reader text.", "section": "colors" },
-      { "name": "The One Highlighter Rule", "body": "Yellow belongs to your own line. It is never a decorative fill, never a hover, and clickable-row hover does not override it.", "section": "colors" },
+      { "name": "The One Highlighter Rule", "body": "Yellow belongs to your own line. It is never a decorative fill, never a hover, and clickable-row hover does not override it. (Focus rings on dark grounds are the one exception: an outline, never a fill.)", "section": "colors" },
       { "name": "The Tabular Rule", "body": "Every number is tabular and lining, site-wide (set on body). Time columns are right-aligned.", "section": "typography" },
       { "name": "The Typewriter Rule", "body": "Courier is for facts typed onto a sheet (refs, printed time, rig, provenance notes). It is not used for headings or for buttons.", "section": "typography" },
-      { "name": "The Essential Columns Rule", "body": "On phones, classification tables reflow to the essential columns (Pos, Driver, Best lap, Gap) and hide the rest; the car and rig code move to a dim second line under the driver name. Tables never rely on horizontal scroll to be legible.", "section": "layout" },
+      { "name": "The Essential Columns Rule", "body": "On phones, tables reflow to the essential columns (Pos, Driver, Best lap, Gap) and hide the rest; secondary facts (car, rig, track, date) fold into a dim sub-line under the first cell. Tables never rely on horizontal scroll to be legible.", "section": "layout" },
       { "name": "The Sheet First Rule", "body": "The classification, not the map or the chrome, owns the first viewport.", "section": "layout" },
-      { "name": "The Flat Sheet Rule", "body": "One shadow, on sheets only. Buttons, tags, tape, pins and tables are flat.", "section": "elevation" }
+      { "name": "The Thumb Rule", "body": "On phones every place is one tap away in the bottom tab bar; the header carries only the wordmark.", "section": "layout" },
+      { "name": "The Flat Sheet Rule", "body": "One shadow, on sheets only. Buttons, tags, tape, pins, tables, the rail and the tab bar are flat.", "section": "elevation" }
     ],
     "dos": [
-      "Do put every classification on a paper sheet over the felt, with 2px ink rules under the rubric and table head and 1px hairlines between rows.",
-      "Do keep violet for overall best, the primary action, the current nav label and stamps; show a session best as plain ink with an SB tag and a PB in green with a PB tag.",
+      "Do put every classification on a paper sheet over the graphite board, with 2px ink rules under the rubric and table head and 1px hairlines between rows.",
+      "Do keep the board neutral graphite (pale warm grey by day, charcoal at night) and carry the chrome on the dark rail in both themes.",
+      "Do keep violet for overall best, the primary action, the current place and stamps; show a session best as plain ink with an SB tag and a PB in green with a PB tag.",
       "Do pair every timing colour with a printed tag or best-mark.",
       "Do mark the signed-in driver's row with the highlighter (hl-bg / hl-ink) and nothing else.",
       "Do apply the `#tb-ink` filter to a stamp's frame and struck word only, never to its typed subline or to body text.",
       "Do cut Dymo labels with notched ends via clip-path and keep them flat.",
       "Do draw pins as flat discs with a darker rim.",
-      "Do render night as a carbon copy: carbon-blue ink on near-black stock, remapped through the tokens.",
-      "Do reflow tables on phones to the essential columns with a second line under the driver name.",
+      "Do render night as a neutral graphite carbon copy, remapped through the same tokens.",
+      "Do on phones put every place in the bottom tab bar, hide wide columns and fold their facts into a typed sub-line under the first cell.",
+      "Do draw new icons on the 24-unit grid at 1.75 stroke with square caps and mitred joins.",
       "Do place map callouts by clearance from the outline, never on the line.",
       "Do reserve letterheads for document sheets that carry distinct facts (doc ref, printed time, record ref)."
     ],
     "donts": [
       "Don't build a dark racing dashboard or a red timing tower.",
+      "Don't make the board green, orange, red or bright blue, and don't tint night sheets blue.",
       "Don't put kicker or eyebrow labels above headings; the title stands alone under the letterhead rule.",
       "Don't emboss, bevel or shade the Dymo tape, and don't give pins highlights or 3D shading.",
       "Don't use violet for session bests, links at rest, decoration or generic emphasis.",

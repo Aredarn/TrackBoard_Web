@@ -1,38 +1,129 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { load } from '../core/load';
 import { RouterLink } from '@angular/router';
 import { catchError, forkJoin, map, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ApiService } from '../core/api.service';
+import { EventSummary } from '../core/api.types';
 import { AuthService } from '../core/auth.service';
-import { plural } from '../core/format';
+import { eventWindow, plural } from '../core/format';
+import { load } from '../core/load';
 import { CircuitMap } from '../ui/circuit-map';
 import { Gate } from '../ui/gate';
 import { Icon } from '../ui/icon';
 import { TIMING_PIPES } from '../ui/pipes';
+import { Stamp } from '../ui/stamp';
 
+/**
+ * Home. Signed in, it is the driver's own board first: the event they are in, their latest
+ * session, where they stand. Signed out, it says what TrackBoard is and how to get on it.
+ * Either way the track boards follow.
+ */
 @Component({
   selector: 'tb-home-page',
-  imports: [RouterLink, Gate, CircuitMap, Icon, ...TIMING_PIPES],
+  imports: [RouterLink, Gate, CircuitMap, Icon, Stamp, ...TIMING_PIPES],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
-      <header class="intro on-board">
-        <h1>Best laps, posted by the drivers who set them.</h1>
-        <p>
-          Every track published from the TrackPro app keeps a classification of each driver's fastest
-          ranked lap, timed by phone GPS or a DIY ESP32 rig.
-        </p>
-      </header>
+      @if (auth.user(); as user) {
+        <header class="intro on-board">
+          <h1>Welcome back, {{ firstName() }}</h1>
+          <p>Your event, your latest session and where you stand, then every track board.</p>
+        </header>
 
-      <tb-gate [status]="tracks.status()" [error]="tracks.error()" [empty]="!feature()" (retry)="tracks.reload()" class="board-gate">
+        <div class="dash">
+          <!-- Your event: the live one with your place, else the next one, else how to get in one. -->
+          <article class="sheet pinned tile">
+            @if (liveEvent(); as ev) {
+              <div class="tile-head">
+                <h2>{{ ev.name }}</h2>
+                <tb-stamp text="Live" [tilt]="-5" />
+              </div>
+              <p class="dim">{{ ev.trackName }} · {{ window(ev) }}</p>
+              @if (myLine(); as me) {
+                <p class="big"><span class="pos">P{{ me.rank }}</span><span class="of dim"> of {{ rankedCount() }}</span></p>
+                <p>Best {{ me.bestLapMs | lap }}@if (me.gapToLeaderMs) { · {{ me.gapToLeaderMs | gap }} to P1}</p>
+              } @else {
+                <p class="tile-note">No lap from you yet. Drive a session on {{ ev.trackName }} and each lap posts as you cross the line.</p>
+              }
+              <a class="btn" [routerLink]="['/events', ev.id]">Open live board <tb-icon name="arrowRight" [size]="16" /></a>
+            } @else if (nextEvent(); as ev) {
+              <h2>Next event</h2>
+              <p class="tile-name">{{ ev.name }}</p>
+              <p class="dim">{{ ev.trackName }} · {{ window(ev) }}</p>
+              <a class="btn plain" [routerLink]="['/events', ev.id]">See its board</a>
+            } @else {
+              <h2>Track days</h2>
+              <p class="tile-note">Got a code from a host? Join their event and your laps go onto its live board as you drive.</p>
+              <div class="actions">
+                <a class="btn" routerLink="/events">Join with a code</a>
+                <a class="btn plain" routerLink="/events">Host an event</a>
+              </div>
+            }
+          </article>
+
+          <!-- Latest session -->
+          <article class="sheet pinned tile">
+            <h2>Latest session</h2>
+            <tb-gate [status]="latest.status()" [error]="latest.error()" [empty]="!latestSession()" (retry)="latest.reload()">
+              @if (latestSession(); as s) {
+                <p class="tile-name">{{ s.name }}</p>
+                <p class="dim">{{ s.trackName ?? 'No track' }} · {{ s.startedAt | day: true }}</p>
+                <p class="big">{{ s.bestLapMs | lap }}</p>
+                <p class="dim">{{ plural(s.lapCount, 'lap') }}{{ s.voided ? ' · void' : s.visibility === 'Ranked' ? ' · ranked' : ' · private' }}</p>
+                <div class="actions">
+                  <a class="btn plain" [routerLink]="['/laps/sessions', s.id]">Open session</a>
+                  <a class="more" routerLink="/laps/sessions">All sessions <tb-icon name="arrowRight" [size]="16" /></a>
+                </div>
+              }
+              <p empty class="tile-note">Nothing uploaded yet. Sign in to TrackPro on your phone with this account; sessions sync after each drive.</p>
+            </tb-gate>
+          </article>
+
+          <!-- Where you stand -->
+          <article class="sheet pinned tile">
+            <h2>Your places</h2>
+            <tb-gate [status]="stats.status()" [error]="stats.error()" [empty]="ranked().length === 0" (retry)="stats.reload()">
+              <ul class="mine">
+                @for (pb of ranked(); track pb.trackId) {
+                  <li>
+                    <a [routerLink]="['/tracks', pb.trackId]">{{ pb.trackName }}</a>
+                    <span class="place">P{{ pb.rank }}<span class="dim">/{{ pb.fieldSize }}</span></span>
+                    <span class="t">{{ pb.rankedLapMs | lap }}</span>
+                  </li>
+                }
+              </ul>
+              <p empty class="tile-note">None of your laps are on a public board yet. Set a session to Ranked in TrackPro on a published track.</p>
+            </tb-gate>
+            <a class="more" routerLink="/laps">All personal bests <tb-icon name="arrowRight" [size]="16" /></a>
+          </article>
+        </div>
+
+        <h2 class="boards-title on-board">Track boards</h2>
+      } @else {
+        <header class="intro on-board">
+          <h1>Best laps, posted by the drivers who set them.</h1>
+          <p>
+            Every track published from the TrackPro app keeps a classification of each driver's fastest ranked lap,
+            timed by phone GPS or a DIY ESP32 rig. Track days get a live board of their own.
+          </p>
+          <div class="actions">
+            <a class="btn" routerLink="/register">Create a free account</a>
+            <a class="btn plain on-board-btn" routerLink="/tracks">Browse the tracks</a>
+          </div>
+        </header>
+      }
+
+      <tb-gate [status]="tracks.status()" [error]="tracks.error()" [empty]="!feature()" (retry)="tracks.reload()">
         <div class="board">
           @if (feature(); as f) {
             <article class="sheet pinned feature">
               <div class="feature-body">
                 <div>
                   <h2 class="feature-title"><a [routerLink]="['/tracks', f.id]">{{ f.name }}</a></h2>
-                  <p class="dim">{{ f.country }} · {{ f.type }} · {{ f.lengthMeters | km }} · most driven, {{ f.rankedLapCount }} ranked laps</p>
+                  <p class="dim">
+                    {{ f.country }} · {{ f.type }} · {{ f.lengthMeters | km }} ·
+                    {{ f.rankedLapCount ? 'most driven, ' + f.rankedLapCount + ' ranked laps' : 'no ranked laps yet' }}
+                  </p>
 
                   <tb-gate [status]="featureBoard.status()" [error]="featureBoard.error()" [empty]="(featureBoard.value()?.entries?.length ?? 0) === 0" (retry)="featureBoard.reload()">
                     <ol class="top">
@@ -60,44 +151,6 @@ import { TIMING_PIPES } from '../ui/pipes';
           }
 
           <div class="side">
-            @if (auth.signedIn()) {
-              <article class="sheet pinned standings">
-                <h2 class="side-title">Your standings</h2>
-                <tb-gate [status]="stats.status()" [error]="stats.error()" [empty]="ranked().length === 0" (retry)="stats.reload()">
-                  <ul class="mine">
-                    @for (pb of ranked(); track pb.trackId) {
-                      <li>
-                        <a [routerLink]="['/tracks', pb.trackId]">{{ pb.trackName }}</a>
-                        <span class="pos">P{{ pb.rank }}<span class="dim">/{{ pb.fieldSize }}</span></span>
-                        <span class="t">{{ pb.rankedLapMs | lap }}</span>
-                      </li>
-                    }
-                  </ul>
-                  <p empty class="dim">
-                    None of your laps are on a public board yet. Set a session to Ranked in TrackPro on a published track.
-                  </p>
-                </tb-gate>
-                <a class="more" routerLink="/me">My season <tb-icon name="arrowRight" [size]="16" /></a>
-              </article>
-            } @else {
-              <article class="sheet pinned notice-sheet">
-                <h2>How a lap gets on the board</h2>
-                <ol>
-                  <li>Record it with <a [href]="env.trackProUrl" rel="noopener">TrackPro</a>, the free Android lap timer.</li>
-                  <li>Drive a published track with the session set to <strong>Ranked</strong>.</li>
-                  <li>Sign in on the phone. Your best lap posts itself when it syncs.</li>
-                </ol>
-                <p class="dim small">
-                  Timing hardware is optional: phone GPS works, and the
-                  <a [href]="env.firmwareUrl" rel="noopener">open ESP32 firmware</a> gives a sharper fix.
-                </p>
-                <div class="cta">
-                  <a class="btn" routerLink="/register">Create an account</a>
-                  <a class="btn plain" routerLink="/sign-in">Sign in</a>
-                </div>
-              </article>
-            }
-
             @for (s of slips(); track s.track.id) {
               <a class="sheet slip" [routerLink]="['/tracks', s.track.id]">
                 <span class="slip-name">{{ s.track.name }}</span>
@@ -108,6 +161,17 @@ import { TIMING_PIPES } from '../ui/pipes';
                   <span class="slip-rec dim">No laps posted</span>
                 }
               </a>
+            }
+
+            @if (!auth.signedIn()) {
+              <article class="sheet pinned notice-sheet">
+                <h2>Running a track day?</h2>
+                <p class="dim">
+                  Create an event, hand out its code, and every lap your drivers set lands on one live board, overall
+                  and per run group. Put it on a screen in the paddock.
+                </p>
+                <a class="more" routerLink="/events">How events work <tb-icon name="arrowRight" [size]="16" /></a>
+              </article>
             }
 
             <a class="all on-board" routerLink="/tracks">All {{ trackCount() }} <tb-icon name="arrowRight" [size]="16" /></a>
@@ -127,24 +191,147 @@ import { TIMING_PIPES } from '../ui/pipes';
   styles: `
     .intro {
       max-width: 60rem;
-      padding-block: var(--s5) var(--s6);
+      padding-block: var(--s4) var(--s6);
     }
 
     .intro h1 {
       font-weight: 850;
       font-stretch: 116%;
-      font-size: clamp(2.1rem, 1.3rem + 3vw, 4rem);
-      line-height: 1;
+      font-size: clamp(2rem, 1.3rem + 3vw, 3.6rem);
+      line-height: 1.02;
       letter-spacing: -0.02em;
     }
 
     .intro p {
-      margin-top: var(--s4);
+      margin-top: var(--s3);
       max-width: 58ch;
-      font-size: 1.08rem;
+      font-size: 1.05rem;
       color: var(--board-ink-dim);
     }
 
+    .intro .actions {
+      margin-top: var(--s5);
+    }
+
+    .on-board-btn {
+      border-color: var(--board-ink);
+      color: var(--board-ink);
+    }
+
+    .on-board-btn:hover {
+      background: var(--board-deep);
+    }
+
+    /* The driver's own three sheets. */
+    .dash {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+      gap: var(--s5);
+      align-items: start;
+    }
+
+    .tile {
+      display: grid;
+      gap: var(--s2);
+      align-content: start;
+    }
+
+    .tile h2 {
+      font-weight: 800;
+      font-stretch: 112%;
+      font-size: 1.3rem;
+      line-height: 1.1;
+    }
+
+    .tile-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--s3);
+    }
+
+    .tile-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .tile-note {
+      color: var(--ink-2);
+      max-width: 46ch;
+    }
+
+    .big {
+      margin-top: var(--s2);
+      font-weight: 800;
+      font-stretch: 80%;
+      font-size: 2.6rem;
+      line-height: 1;
+    }
+
+    .big .of {
+      font-weight: 600;
+      font-stretch: 100%;
+      font-size: 1rem;
+    }
+
+    .tile .btn,
+    .tile .actions {
+      margin-top: var(--s3);
+      justify-self: start;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--s2) var(--s4);
+    }
+
+    .more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+    }
+
+    .mine {
+      margin: var(--s2) 0;
+      padding: 0;
+      list-style: none;
+      border-top: 2px solid var(--rule-strong);
+    }
+
+    .mine li {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: var(--s3);
+      padding: 9px 0;
+      border-bottom: 1px solid var(--rule);
+      font-stretch: 88%;
+    }
+
+    .mine a {
+      font-weight: 700;
+      text-decoration: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .mine .place {
+      font-weight: 800;
+    }
+
+    .boards-title {
+      margin: var(--s7) 0 var(--s4);
+      font-weight: 800;
+      font-stretch: 118%;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* Track boards */
     .board {
       display: grid;
       grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
@@ -156,13 +343,12 @@ import { TIMING_PIPES } from '../ui/pipes';
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: var(--s5);
-      margin-top: var(--s3);
     }
 
     .feature-title {
       font-weight: 800;
       font-stretch: 112%;
-      font-size: clamp(1.7rem, 1.2rem + 1.6vw, 2.5rem);
+      font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
       line-height: 1.05;
     }
 
@@ -219,87 +405,13 @@ import { TIMING_PIPES } from '../ui/pipes';
     }
 
     .feature-map {
-      --map-max-h: 380px;
+      --map-max-h: 360px;
       align-self: center;
     }
 
     .side {
       display: grid;
-      gap: var(--s5);
-    }
-
-    .standings .mine {
-      margin: var(--s3) 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .mine li {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto auto;
-      gap: var(--s3);
-      padding: 8px 0;
-      border-bottom: 1px solid var(--rule);
-      font-stretch: 88%;
-    }
-
-    .mine a {
-      font-weight: 700;
-      text-decoration: none;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .mine .pos {
-      font-weight: 800;
-    }
-
-    .more {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 700;
-    }
-
-    .notice-sheet h2,
-    .first h2,
-    .side-title {
-      font-weight: 800;
-      font-stretch: 112%;
-      font-size: 1.35rem;
-      line-height: 1.1;
-      margin-top: var(--s3);
-    }
-
-    .notice-sheet {
-      rotate: 0.6deg;
-    }
-
-    .slip:nth-of-type(odd) {
-      rotate: -0.5deg;
-    }
-
-    .slip:nth-of-type(even) {
-      rotate: 0.4deg;
-    }
-
-    .notice-sheet ol {
-      margin: var(--s3) 0;
-      padding-left: 1.25em;
-      display: grid;
-      gap: 6px;
-    }
-
-    .small {
-      font-size: 0.9rem;
-    }
-
-    .cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--s2);
-      margin-top: var(--s4);
+      gap: var(--s4);
     }
 
     .slip {
@@ -308,6 +420,14 @@ import { TIMING_PIPES } from '../ui/pipes';
       padding: 18px 20px;
       text-decoration: none;
       transition: transform 180ms var(--ease-out);
+    }
+
+    .slip:nth-of-type(odd) {
+      rotate: -0.5deg;
+    }
+
+    .slip:nth-of-type(even) {
+      rotate: 0.4deg;
     }
 
     .slip:hover {
@@ -330,6 +450,19 @@ import { TIMING_PIPES } from '../ui/pipes';
       font-stretch: 90%;
     }
 
+    .notice-sheet {
+      display: grid;
+      gap: var(--s2);
+    }
+
+    .notice-sheet h2,
+    .first h2 {
+      font-weight: 800;
+      font-stretch: 112%;
+      font-size: 1.3rem;
+      line-height: 1.1;
+    }
+
     .all {
       display: inline-flex;
       align-items: center;
@@ -348,14 +481,22 @@ import { TIMING_PIPES } from '../ui/pipes';
       }
     }
 
-    @media (max-width: 620px) {
+    @media (max-width: 640px) {
       .feature-body {
         grid-template-columns: 1fr;
       }
 
       .feature-map {
         order: -1;
-        --map-max-h: 260px;
+        --map-max-h: 240px;
+      }
+
+      .slip {
+        rotate: none !important;
+      }
+
+      .dash {
+        gap: var(--s4);
       }
     }
   `,
@@ -364,12 +505,49 @@ export class HomePage {
   private readonly api = inject(ApiService);
   protected readonly auth = inject(AuthService);
   protected readonly env = environment;
+  protected readonly plural = plural;
 
   protected readonly myId = computed(() => this.auth.user()?.id ?? null);
+  protected readonly firstName = computed(() => this.auth.user()?.displayName.split(/\s+/)[0] ?? '');
 
-  protected readonly tracks = load({
-    stream: () => this.api.tracks({ pageSize: 50 }),
+  // ── The driver's own ──
+
+  private readonly signedIn = () => (this.auth.signedIn() ? true : undefined);
+
+  private readonly events = load({ params: this.signedIn, stream: () => this.api.myEvents() });
+
+  protected readonly liveEvent = computed<EventSummary | null>(
+    () => this.events.value()?.find((e) => e.status === 'Live' && (e.isJoined || e.isHost)) ?? null,
+  );
+
+  protected readonly nextEvent = computed<EventSummary | null>(() => {
+    const upcoming = (this.events.value() ?? []).filter((e) => e.status === 'Upcoming');
+    return upcoming.sort((a, b) => a.startsAt.localeCompare(b.startsAt))[0] ?? null;
   });
+
+  private readonly liveBoard = load({
+    params: () => this.liveEvent()?.id,
+    stream: ({ params: id }) => this.api.eventBoard(id),
+  });
+
+  protected readonly myLine = computed(() => {
+    const me = this.liveBoard.value()?.entries.find((e) => e.userId === this.myId());
+    return me?.rank ? me : null;
+  });
+
+  protected readonly rankedCount = computed(() => this.liveBoard.value()?.entries.filter((e) => e.rank !== null).length ?? 0);
+
+  protected readonly latest = load({ params: this.signedIn, stream: () => this.api.sessions(1, null, 1) });
+  protected readonly latestSession = computed(() => this.latest.value()?.items[0] ?? null);
+
+  protected readonly stats = load({ params: this.signedIn, stream: () => this.api.stats() });
+  protected readonly ranked = computed(() =>
+    (this.stats.value()?.personalBests ?? []).filter((pb) => pb.rank !== null).slice(0, 5),
+  );
+
+  // ── Track boards ──
+
+  protected readonly tracks = load({ stream: () => this.api.tracks({ pageSize: 50 }) });
 
   private readonly byActivity = computed(() =>
     [...(this.tracks.value()?.items ?? [])].sort((a, b) => b.rankedLapCount - a.rankedLapCount),
@@ -387,9 +565,7 @@ export class HomePage {
   protected readonly featureBoard = load({
     params: () => (this.feature() ? { id: this.feature()!.id, signedIn: this.auth.signedIn() } : undefined),
     stream: ({ params }) =>
-      this.api.leaderboard(params.id, 5).pipe(
-        map((b) => ({ ...b, entries: b.entries.slice(0, 5) })),
-      ),
+      this.api.leaderboard(params.id, 5).pipe(map((b) => ({ ...b, entries: b.entries.slice(0, 5) }))),
   });
 
   /** The next few boards, each with only its record holder. */
@@ -409,12 +585,7 @@ export class HomePage {
       .map((track, i) => ({ track, leader: boards[i]?.entries[0] ?? null }));
   });
 
-  protected readonly stats = load({
-    params: () => (this.auth.signedIn() ? true : undefined),
-    stream: () => this.api.stats(),
-  });
-
-  protected readonly ranked = computed(() =>
-    (this.stats.value()?.personalBests ?? []).filter((pb) => pb.rank !== null).slice(0, 6),
-  );
+  protected window(ev: EventSummary): string {
+    return eventWindow(ev.startsAt, ev.endsAt);
+  }
 }

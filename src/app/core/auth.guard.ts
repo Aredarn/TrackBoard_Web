@@ -10,4 +10,4 @@ export const signedInGuard: CanActivateFn = (_route, state) => {
 };
 
 export const signedOutGuard: CanActivateFn = () =>
-  inject(AuthService).signedIn() ? inject(Router).createUrlTree(['/me']) : true;
+  inject(AuthService).signedIn() ? inject(Router).createUrlTree(['/']) : true;

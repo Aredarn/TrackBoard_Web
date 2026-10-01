@@ -21,7 +21,7 @@ type Notice = { ok: boolean; text: string } | null;
   imports: [FormsModule, RouterLink, Gate, Icon, ...TIMING_PIPES],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p class="crumbs"><a routerLink="/me/events"><tb-icon name="arrowLeft" [size]="16" /> Events</a></p>
+    <p class="crumbs"><a routerLink="/events"><tb-icon name="arrowLeft" [size]="16" /> Events</a></p>
 
     <tb-gate [status]="detail.status()" [error]="detail.error()" (retry)="detail.reload()">
       @if (detail.value(); as d) {
@@ -385,7 +385,7 @@ export class EventManagePage {
   protected deleteEvent(d: EventDetail): void {
     this.busy.set(true);
     this.api.deleteEvent(d.event.id).subscribe({
-      next: () => void this.router.navigateByUrl('/me/events'),
+      next: () => void this.router.navigateByUrl('/events'),
       error: (e) => {
         this.busy.set(false);
         this.notice.set({ ok: false, text: problemMessage(e) });

@@ -44,7 +44,7 @@ const IDLE_POLL_MS = 60_000;
       @if (!screen()) {
         <p class="crumbs on-board">
           @if (auth.signedIn()) {
-            <a routerLink="/me/events"><tb-icon name="arrowLeft" [size]="16" /> My events</a>
+            <a routerLink="/events"><tb-icon name="arrowLeft" [size]="16" /> Events</a>
           } @else {
             <a routerLink="/tracks"><tb-icon name="arrowLeft" [size]="16" /> Tracks</a>
           }
@@ -94,13 +94,13 @@ const IDLE_POLL_MS = 60_000;
                     <span class="code">{{ ev.joinCode.slice(0, 3) }}&thinsp;{{ ev.joinCode.slice(3) }}</span>
                     <span class="code-help">Drivers enter it in TrackPro under Events, or at trackboard on the web.</span>
                     @if (!screen()) {
-                      <a class="btn plain" [routerLink]="['/me/events', ev.id]">Manage event</a>
+                      <a class="btn plain" [routerLink]="['/events', ev.id, 'manage']">Manage event</a>
                     }
                   </div>
                 } @else if (!ev.isJoined && b.status !== 'Finished' && !screen()) {
                   <p class="join-hint dim">
                     Driving today? Ask the host for the join code and enter it in TrackPro under
-                    <strong>Events</strong>, or <a routerLink="/me/events">join on the web</a>.
+                    <strong>Events</strong>, or <a routerLink="/events">join on the web</a>.
                   </p>
                 }
               }

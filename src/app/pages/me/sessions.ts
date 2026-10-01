@@ -12,7 +12,7 @@ import { TIMING_PIPES } from '../../ui/pipes';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="head">
-      <h1 class="sheet-title">Sessions</h1>
+      <h2 class="sr-only">Sessions</h2>
       <label class="field filter">
         <span>Track</span>
         <select (change)="setTrack($any($event.target).value)">
@@ -45,7 +45,7 @@ import { TIMING_PIPES } from '../../ui/pipes';
               <tr class="clickable" [class.voided]="s.voided" (click)="open(s.id)">
                 <td class="dim c-wide">{{ s.startedAt | day: true }}</td>
                 <td class="name">
-                  <a [routerLink]="['/me/sessions', s.id]" (click)="$event.stopPropagation()">{{ s.name }}</a>
+                  <a [routerLink]="['/laps/sessions', s.id]" (click)="$event.stopPropagation()">{{ s.name }}</a>
                   <span class="sub-line typed">{{ s.startedAt | day }} · {{ s.trackName ?? 'No track' }} · {{ s.lapCount }} laps</span>
                 </td>
                 <td class="c-wide">{{ s.trackName ?? 'No track' }}</td>
@@ -182,7 +182,7 @@ export class SessionsPage {
   }
 
   protected open(id: string): void {
-    void this.router.navigate(['/me/sessions', id]);
+    void this.router.navigate(['/laps/sessions', id]);
   }
 
   protected code = gpsCode;

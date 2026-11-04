@@ -46,9 +46,9 @@ import { TIMING_PIPES } from '../../ui/pipes';
                 <td class="dim c-wide">{{ s.startedAt | day: true }}</td>
                 <td class="name">
                   <a [routerLink]="['/laps/sessions', s.id]" (click)="$event.stopPropagation()">{{ s.name }}</a>
-                  <span class="sub-line typed">{{ s.startedAt | day }} · {{ s.trackName ?? 'No track' }} · {{ s.lapCount }} laps</span>
+                  <span class="sub-line typed">{{ s.startedAt | day }} · {{ s.dragResultCount ? 'Drag run' : (s.trackName ?? 'No track') + ' · ' + s.lapCount + ' laps' }}</span>
                 </td>
-                <td class="c-wide">{{ s.trackName ?? 'No track' }}</td>
+                <td class="c-wide">{{ s.dragResultCount ? 'Drag run' : (s.trackName ?? 'No track') }}</td>
                 <td class="num c-wide">{{ s.lapCount }}</td>
                 <td class="time num">{{ s.bestLapMs | lap }}</td>
                 <td>

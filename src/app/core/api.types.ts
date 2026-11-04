@@ -92,6 +92,31 @@ export interface LeaderboardEntry {
   gpsSource: GpsSource;
 }
 
+export type DragMetric = 'ZeroToHundred' | 'HundredToTwoHundred' | 'QuarterMile';
+
+/** Power-to-weight bands, S the quickest. */
+export type DragClass = 'D' | 'C' | 'B' | 'A' | 'S';
+
+export interface DragEntry {
+  rank: number;
+  userId: string;
+  displayName: string;
+  timeMs: number;
+  gapToLeaderMs: number;
+  trapSpeedKmh: number | null;
+  vehicle: LeaderboardVehicle;
+  carClass: DragClass | null;
+  setAt: string;
+  gpsSource: GpsSource;
+}
+
+export interface DragBoard {
+  metric: DragMetric;
+  carClass: DragClass | null;
+  entries: DragEntry[];
+  me: DragEntry | null;
+}
+
 export interface Leaderboard {
   trackId: string;
   trackName: string;
@@ -160,12 +185,22 @@ export interface SessionSummary {
   voided: boolean;
   lapCount: number;
   bestLapMs: number | null;
+  dragResultCount: number;
+}
+
+export interface DragResult {
+  metric: DragMetric;
+  timeMs: number;
+  trapSpeedKmh: number | null;
+  countsForLeaderboard: boolean;
+  leaderboardRank: number | null;
 }
 
 export interface Session extends SessionSummary {
   weather: Weather | null;
   appVersion: string | null;
   laps: Lap[];
+  dragResults: DragResult[];
   createdAt: string;
   updatedAt: string;
 }

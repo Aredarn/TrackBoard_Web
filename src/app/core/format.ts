@@ -1,4 +1,4 @@
-import { GpsSource, LeaderboardVehicle } from './api.types';
+import { DragClass, DragMetric, GpsSource, LeaderboardVehicle } from './api.types';
 
 /** 41910 → "41.910"; 92345 → "1:32.345". Thousandths, as a timing sheet prints them. */
 export function lapTime(ms: number | null | undefined): string {
@@ -82,6 +82,37 @@ export function gpsLabel(source: GpsSource): string {
 /** Short code for tight table columns. */
 export function gpsCode(source: GpsSource): string {
   return source === 'PhoneGps' ? 'PHONE' : 'ESP32';
+}
+
+export const DRAG_METRICS: readonly DragMetric[] = ['ZeroToHundred', 'QuarterMile', 'HundredToTwoHundred'];
+
+/** Quickest first, as a driver reads them. */
+export const DRAG_CLASSES: readonly DragClass[] = ['S', 'A', 'B', 'C', 'D'];
+
+export function dragMetricLabel(metric: DragMetric): string {
+  switch (metric) {
+    case 'ZeroToHundred':
+      return '0–100 km/h';
+    case 'HundredToTwoHundred':
+      return '100–200 km/h';
+    case 'QuarterMile':
+      return '¼ mile';
+  }
+}
+
+export function dragClassBand(carClass: DragClass): string {
+  switch (carClass) {
+    case 'S':
+      return '400 hp/t and up';
+    case 'A':
+      return '250–399 hp/t';
+    case 'B':
+      return '150–249 hp/t';
+    case 'C':
+      return '100–149 hp/t';
+    case 'D':
+      return 'under 100 hp/t';
+  }
 }
 
 export function vehicleName(v: LeaderboardVehicle | null | undefined): string {

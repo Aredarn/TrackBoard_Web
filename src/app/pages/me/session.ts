@@ -4,7 +4,7 @@ import { load } from '../../core/load';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { Lap, Session } from '../../core/api.types';
-import { weatherLabel } from '../../core/format';
+import { dragMetricLabel, weatherLabel } from '../../core/format';
 import { Gate } from '../../ui/gate';
 import { Icon } from '../../ui/icon';
 import { TIMING_PIPES } from '../../ui/pipes';
@@ -45,8 +45,10 @@ import { Stamp } from '../../ui/stamp';
             </dd>
           </div>
           <div><dt>GPS rig</dt><dd>{{ s.gpsSource | gps }}</dd></div>
-          <div><dt>Laps</dt><dd>{{ s.lapCount }}</dd></div>
-          <div><dt>Best lap</dt><dd>{{ s.bestLapMs | lap }}</dd></div>
+          @if (!s.dragResults.length) {
+            <div><dt>Laps</dt><dd>{{ s.lapCount }}</dd></div>
+            <div><dt>Best lap</dt><dd>{{ s.bestLapMs | lap }}</dd></div>
+          }
           @if (s.weather; as w) {
             @if (weatherText(w.weatherCode); as sky) {
               <div><dt>Sky</dt><dd>{{ sky }}</dd></div>
@@ -66,6 +68,44 @@ import { Stamp } from '../../ui/stamp';
           }
         </dl>
 
+        @if (s.dragResults.length) {
+          <h2 class="rubric">Drag results <small>the session's best clean times</small></h2>
+          <div class="table-wrap">
+            <table class="classification">
+              <caption class="sr-only">This session's drag results</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Measurement</th>
+                  <th scope="col" class="num">Time</th>
+                  <th scope="col" class="num">Trap</th>
+                  <th scope="col" class="num">Board</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (r of s.dragResults; track r.metric) {
+                  <tr>
+                    <td><a routerLink="/drag" [queryParams]="{ metric: r.metric }">{{ dragLabel(r.metric) }}</a></td>
+                    <td class="time num">{{ r.timeMs | lap }}</td>
+                    <td class="num">
+                      @if (r.trapSpeedKmh !== null) {
+                        {{ r.trapSpeedKmh | number: '1.1-1' }} km/h
+                      } @else {
+                        <span class="dim">—</span>
+                      }
+                    </td>
+                    <td class="num">
+                      @if (r.leaderboardRank !== null) {
+                        P{{ r.leaderboardRank }}
+                      } @else {
+                        <span class="dim">—</span>
+                      }
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        } @else {
         <h2 class="rubric">Lap chart <small>bars show time lost to the session best</small></h2>
         @if (s.laps.length) {
           <div class="table-wrap">
@@ -127,10 +167,16 @@ import { Stamp } from '../../ui/stamp';
         } @else {
           <p class="dim">This session was uploaded without laps.</p>
         }
+        }
 
         <p class="sheet-foot">
-          SB = session best. PB = your best ranked lap on this track, the one on the board. Laps reach the public board when the session is ranked and not voided, the lap had no GPS
-          signal gap, and the track is published. Changes to a session are made in TrackPro and sync from the phone.
+          @if (s.dragResults.length) {
+            Drag results reach the public board when the session is ranked and not voided and has a car on it. A board shows each driver's best, so a slower time here has no position.
+          } @else {
+            SB = session best. PB = your best ranked lap on this track, the one on the board. Laps reach the public board when the session is ranked and not voided, the lap had no GPS
+            signal gap, and the track is published.
+          }
+          Changes to a session are made in TrackPro and sync from the phone.
         </p>
       }
     </tb-gate>
@@ -264,4 +310,5 @@ export class SessionPage {
   }
 
   protected weatherText = weatherLabel;
+  protected dragLabel = dragMetricLabel;
 }

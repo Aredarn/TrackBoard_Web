@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 import { signedInGuard, signedOutGuard } from './core/auth.guard';
 
 /**
- * Four places everyone can find from the top bar (or the bottom bar on a phone) — Home,
- * Tracks, Events, My laps — plus Me for the account side. Every other page is reached from
+ * Five places everyone can find from the top bar (or the bottom bar on a phone) — Home,
+ * Tracks, Drag, Events, My laps — plus Me for the account side. Every other page is reached from
  * one of them.
  */
 export const routes: Routes = [
@@ -22,6 +22,11 @@ export const routes: Routes = [
     path: 'tracks/:id',
     title: 'Classification — TrackBoard',
     loadComponent: () => import('./pages/track').then((m) => m.TrackPage),
+  },
+  {
+    path: 'drag',
+    title: 'Drag boards — TrackBoard',
+    loadComponent: () => import('./pages/drag').then((m) => m.DragPage),
   },
   {
     path: 'events/:id',

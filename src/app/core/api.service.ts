@@ -5,6 +5,9 @@ import { environment } from '../../environments/environment';
 import {
   EventBoard,
   EventDetail,
+  DragBoard,
+  DragClass,
+  DragMetric,
   EventSummary,
   Leaderboard,
   SaveEvent,
@@ -60,6 +63,12 @@ export class ApiService {
   leaderboard(trackId: string, limit = 100): Observable<Leaderboard> {
     return this.http.get<Leaderboard>(`${this.base}/tracks/${trackId}/leaderboard`, {
       params: { limit },
+    });
+  }
+
+  dragBoard(metric: DragMetric, carClass: DragClass | null, limit = 100): Observable<DragBoard> {
+    return this.http.get<DragBoard>(`${this.base}/drag/leaderboard`, {
+      params: { metric, limit, ...(carClass ? { class: carClass } : {}) },
     });
   }
 

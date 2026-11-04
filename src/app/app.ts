@@ -675,6 +675,7 @@ export class App {
   protected readonly places = computed<Place[]>(() => [
     { path: '/', label: 'Home', icon: 'home', exact: true },
     { path: '/tracks', label: 'Tracks', icon: 'track', exact: false },
+    { path: '/drag', label: 'Drag', icon: 'bolt', exact: false },
     { path: '/events', label: 'Events', icon: 'flag', exact: false },
     ...(this.auth.signedIn() ? [{ path: '/laps', label: 'My laps', icon: 'stopwatch' as IconName, exact: false }] : []),
   ]);

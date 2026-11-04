@@ -98,6 +98,7 @@ export type DragMetric = 'ZeroToHundred' | 'HundredToTwoHundred' | 'QuarterMile'
 export type DragClass = 'D' | 'C' | 'B' | 'A' | 'S';
 
 export interface DragEntry {
+  resultId: string;
   rank: number;
   userId: string;
   displayName: string;

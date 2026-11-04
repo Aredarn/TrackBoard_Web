@@ -34,7 +34,7 @@ interface Row {
 
         <h1 class="sheet-title title">Drag boards</h1>
         <p class="lede dim">
-          The quickest standing starts and pulls TrackPro drivers have posted, one line per driver. Timed from GPS on any
+          The quickest standing starts and pulls TrackPro drivers have posted, one line per car. Timed from GPS on any
           stretch of road or strip, so read the rig column with the time.
         </p>
 
@@ -82,7 +82,7 @@ interface Row {
         <tb-gate [status]="board.status()" [error]="board.error()" [empty]="rows().length === 0" (retry)="board.reload()">
           <div class="table-wrap">
             <table class="classification">
-              <caption class="sr-only">Best {{ label(selectedMetric()) }} per driver, fastest first</caption>
+              <caption class="sr-only">Best {{ label(selectedMetric()) }} per car, fastest first</caption>
               <thead>
                 <tr>
                   <th scope="col" class="num">Pos</th>
@@ -100,7 +100,7 @@ interface Row {
                 </tr>
               </thead>
               <tbody>
-                @for (r of rows(); track r.entry.userId) {
+                @for (r of rows(); track r.entry.resultId) {
                   <tr [class.me]="r.me">
                     <td class="pos num">{{ r.entry.rank }}</td>
                     <td class="drv">
@@ -171,7 +171,7 @@ interface Row {
         }
 
         <p class="sheet-foot">
-          Each driver's best in a ranked run with a car on it. TrackPro leaves out runs with a GPS dropout or a clear drop in
+          Each car's best in a ranked run. TrackPro leaves out runs with a GPS dropout or a clear drop in
           elevation, but times are posted as the app uploads them and are not verified. Classes go by horsepower per tonne from
           the garage: D under 100, C under 150, B under 250, A under 400, S above.
           <span class="legend"><span class="swatch hl"></span> your line · <span class="ob">OB</span> overall best</span>
@@ -457,7 +457,7 @@ export class DragPage {
     }));
   });
 
-  protected readonly countLabel = computed(() => plural(this.rows().length, 'driver') + ' classified');
+  protected readonly countLabel = computed(() => plural(this.rows().length, 'car') + ' classified');
 
   /** The signed-in driver's standing when it falls below the printed rows. */
   protected readonly outsideMe = computed(() => {

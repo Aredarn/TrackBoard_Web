@@ -171,7 +171,7 @@ import { Stamp } from '../../ui/stamp';
 
         <p class="sheet-foot">
           @if (s.dragResults.length) {
-            Drag results reach the public board when the session is ranked and not voided and has a car on it. A board shows each driver's best, so a slower time here has no position.
+            Drag results reach the public board when the session is ranked and not voided and has a car on it. A board shows each car's best, so a slower time here has no position.
           } @else {
             SB = session best. PB = your best ranked lap on this track, the one on the board. Laps reach the public board when the session is ranked and not voided, the lap had no GPS
             signal gap, and the track is published.

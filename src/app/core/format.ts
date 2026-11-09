@@ -148,8 +148,17 @@ export function problemMessage(error: unknown, fallback = 'Something went wrong.
   const e = error as { status?: number; error?: unknown } | null;
   if (!e) return fallback;
   if (e.status === 0) return 'Could not reach the TrackBoard server. Check your connection and try again.';
-  if (e.status === 429) return 'Too many attempts in a minute. Wait a moment, then try again.';
-  const body = e.error as { detail?: string; title?: string; errors?: Record<string, string[]> } | null;
+  const body = e.error as {
+    code?: string;
+    detail?: string;
+    title?: string;
+    errors?: Record<string, string[]>;
+  } | null;
+  if (e.status === 429) {
+    // A locked account says how long; the plain rate limiter only asks for a moment.
+    if (body?.code === 'AccountLocked' && body.detail) return body.detail;
+    return 'Too many attempts in a minute. Wait a moment, then try again.';
+  }
   if (body && typeof body === 'object') {
     const firstField = body.errors ? Object.values(body.errors)[0]?.[0] : undefined;
     return firstField ?? body.detail ?? body.title ?? fallback;

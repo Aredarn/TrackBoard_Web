@@ -107,7 +107,7 @@ import { Stamp } from '../ui/stamp';
         <header class="intro sheet taped">
           <h1>Best laps, posted by the drivers who set them.</h1>
           <p>
-            Every track published from the TrackPro app keeps a classification of each driver's fastest ranked lap,
+            Every track published from the TrackPro app keeps a classification of each car's fastest ranked lap,
             timed by phone GPS or a DIY ESP32 rig. Track days get a live board of their own.
           </p>
           <div class="actions">
@@ -131,7 +131,7 @@ import { Stamp } from '../ui/stamp';
 
                   <tb-gate [status]="featureBoard.status()" [error]="featureBoard.error()" [empty]="(featureBoard.value()?.entries?.length ?? 0) === 0" (retry)="featureBoard.reload()">
                     <ol class="top">
-                      @for (e of featureBoard.value()?.entries; track e.userId) {
+                      @for (e of featureBoard.value()?.entries; track e.lapId) {
                         <li [class.me]="e.userId === myId()">
                           <span class="p">{{ e.rank }}</span>
                           <a [routerLink]="['/drivers', e.userId]" class="who">{{ e.displayName }}</a>

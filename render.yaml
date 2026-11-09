@@ -26,3 +26,27 @@ services:
       - path: /*
         name: Referrer-Policy
         value: strict-origin-when-cross-origin
+      # The web app only asks for the location on the tracks page ("near me").
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=(self)
+      # What the page may load and talk to. Scripts only from this site, which is the part
+      # that limits an XSS: a token in localStorage is only as safe as this header.
+      # style-src needs 'unsafe-inline' because Angular injects component styles at runtime
+      # and a static site has no per-request nonce to give them. The Supabase host serves
+      # profile and car photos (img-src) and takes the signed photo uploads (connect-src).
+      # If the API's address, or the Supabase project, ever changes, change it here too or
+      # the browser will block every call to it.
+      - path: /*
+        name: Content-Security-Policy
+        value: >-
+          default-src 'self';
+          script-src 'self';
+          style-src 'self' 'unsafe-inline';
+          img-src 'self' data: https://rfuuighpnorjqvgbvghb.supabase.co;
+          font-src 'self';
+          connect-src 'self' https://trackboard-backend.onrender.com https://rfuuighpnorjqvgbvghb.supabase.co;
+          object-src 'none';
+          base-uri 'self';
+          form-action 'self';
+          frame-ancestors 'none'

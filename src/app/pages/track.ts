@@ -107,7 +107,7 @@ interface Row {
             <h2 class="rubric">
               Classification
               <small>
-                {{ rowCountLabel() }} · best ranked lap each
+                {{ rowCountLabel() }} · best ranked lap of each car
                 @if (hasSectors()) {
                   · pick a row to shade the map, <span class="ob">violet</span> = fastest split
                 }
@@ -117,7 +117,7 @@ interface Row {
             <tb-gate [status]="board.status()" [error]="board.error()" [empty]="rows().length === 0" (retry)="board.reload()">
               <div class="table-wrap">
                 <table class="classification">
-                  <caption class="sr-only">Best lap per driver on {{ t.name }}, fastest first</caption>
+                  <caption class="sr-only">Best lap per car on {{ t.name }}, fastest first</caption>
                   <thead>
                     <tr>
                       <th scope="col" class="num">Pos</th>
@@ -134,18 +134,18 @@ interface Row {
                     </tr>
                   </thead>
                   <tbody>
-                    @for (r of rows(); track r.entry.userId) {
+                    @for (r of rows(); track r.entry.lapId) {
                       <tr
                         class="clickable"
                         [class.me]="r.me"
-                        [class.picked]="selected()?.entry?.userId === r.entry.userId"
+                        [class.picked]="selected()?.entry?.lapId === r.entry.lapId"
                         (click)="pick(r)"
                       >
                         <td class="pos num">
                           <button
                             type="button"
                             class="pick"
-                            [attr.aria-pressed]="selected()?.entry?.userId === r.entry.userId"
+                            [attr.aria-pressed]="selected()?.entry?.lapId === r.entry.lapId"
                             [attr.aria-label]="'Show sectors for P' + r.entry.rank + ' ' + r.entry.displayName + ' on the map'"
                             (click)="pick(r); $event.stopPropagation()"
                           >
@@ -657,7 +657,7 @@ export class TrackPage {
     }));
   });
 
-  protected readonly rowCountLabel = computed(() => plural(this.rows().length, 'driver') + ' classified');
+  protected readonly rowCountLabel = computed(() => plural(this.rows().length, 'car') + ' classified');
 
   /** The signed-in driver's standing when it falls below the printed rows. */
   protected readonly outsideMe = computed(() => {
@@ -669,7 +669,7 @@ export class TrackPage {
   protected readonly selected = linkedSignal<Row[], Row | null>({
     source: this.rows,
     computation: (rows, previous) =>
-      rows.find((r) => r.entry.userId === previous?.value?.entry.userId) ??
+      rows.find((r) => r.entry.lapId === previous?.value?.entry.lapId) ??
       rows.find((r) => r.me) ??
       rows[0] ??
       null,

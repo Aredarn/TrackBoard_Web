@@ -81,6 +81,7 @@ export interface LeaderboardVehicle {
 }
 
 export interface LeaderboardEntry {
+  lapId: string;
   rank: number;
   userId: string;
   displayName: string;

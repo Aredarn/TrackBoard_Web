@@ -91,6 +91,8 @@ export interface LeaderboardEntry {
   vehicle: LeaderboardVehicle | null;
   setAt: string;
   gpsSource: GpsSource;
+  /** Highest GPS speed on this lap, km/h. Absent from servers older than the field, null when not sent. */
+  topSpeedKmh?: number | null;
 }
 
 export type DragMetric = 'ZeroToHundred' | 'HundredToTwoHundred' | 'QuarterMile';

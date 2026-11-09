@@ -1,3 +1,4 @@
+import { DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, linkedSignal, signal } from '@angular/core';
 import { load } from '../core/load';
 import { Title } from '@angular/platform-browser';
@@ -23,7 +24,7 @@ interface Row {
 
 @Component({
   selector: 'tb-track-page',
-  imports: [RouterLink, Gate, CircuitMap, Stamp, Icon, ...TIMING_PIPES],
+  imports: [RouterLink, DecimalPipe, Gate, CircuitMap, Stamp, Icon, ...TIMING_PIPES],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
@@ -123,6 +124,7 @@ interface Row {
                       <th scope="col" class="num">Pos</th>
                       <th scope="col">Driver</th>
                       <th scope="col" class="c-wide">Car</th>
+                      <th scope="col" class="num c-wide"><abbr title="Highest GPS speed on that lap">Top speed</abbr></th>
                       <th scope="col" class="num">Best lap</th>
                       <th scope="col" class="num">Gap</th>
                       <th scope="col" class="num c-wide">Int.</th>
@@ -157,9 +159,18 @@ interface Row {
                           @if (r.me) {
                             <span class="tag">You</span>
                           }
-                          <span class="car-line dim">{{ r.entry.vehicle | car }} · {{ code(r.entry) }}</span>
+                          <span class="car-line dim">
+                            {{ r.entry.vehicle | car }} · {{ code(r.entry) }}@if (r.entry.topSpeedKmh != null) { · {{ r.entry.topSpeedKmh | number: '1.0-0' }} km/h}
+                          </span>
                         </td>
                         <td class="dim c-wide">{{ r.entry.vehicle | car }}</td>
+                        <td class="num c-wide">
+                          @if (r.entry.topSpeedKmh != null) {
+                            {{ r.entry.topSpeedKmh | number: '1.0-0' }} <span class="dim kmh">km/h</span>
+                          } @else {
+                            <span class="dim">—</span>
+                          }
+                        </td>
                         <td class="time num" [class.ob]="r.entry.rank === 1">
                           {{ r.entry.lapTimeMs | lap }}
                           @if (r.entry.rank === 1) {
@@ -387,6 +398,10 @@ interface Row {
     .split.ob {
       color: var(--stamp);
       font-weight: 700;
+    }
+
+    .kmh {
+      font-size: 0.78em;
     }
 
     .car-line {

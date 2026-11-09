@@ -93,7 +93,16 @@ type Notice = { ok: boolean; text: string } | null;
             <span>Type <strong class="typed">{{ p.displayName }}</strong> to confirm</span>
             <input name="confirm" autocomplete="off" [(ngModel)]="confirmText" />
           </label>
-          <button type="button" class="btn danger" [disabled]="confirmText !== p.displayName || deleting()" (click)="deleteAccount()">
+          <label class="field confirm">
+            <span>Your password</span>
+            <input name="deletePassword" type="password" autocomplete="current-password" [(ngModel)]="deletePassword" />
+          </label>
+          <button
+            type="button"
+            class="btn danger"
+            [disabled]="confirmText !== p.displayName || !deletePassword || deleting()"
+            (click)="deleteAccount()"
+          >
             {{ deleting() ? 'Deleting…' : 'Delete my account' }}
           </button>
           @if (deleteError()) {
@@ -225,6 +234,7 @@ export class AccountPage {
   protected country = '';
   protected bio = '';
   protected confirmText = '';
+  protected deletePassword = '';
 
   protected readonly saving = signal(false);
   protected readonly photoBusy = signal(false);
@@ -360,7 +370,7 @@ export class AccountPage {
   protected deleteAccount(): void {
     this.deleting.set(true);
     this.deleteError.set(null);
-    this.api.deleteAccount().subscribe({
+    this.api.deleteAccount(this.deletePassword).subscribe({
       next: () => {
         this.auth.clear();
         void this.router.navigateByUrl('/');

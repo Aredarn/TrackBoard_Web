@@ -1,3 +1,4 @@
+import { DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, linkedSignal, signal } from '@angular/core';
 import { load } from '../core/load';
 import { Title } from '@angular/platform-browser';
@@ -8,6 +9,7 @@ import { LeaderboardEntry } from '../core/api.types';
 import { AuthService } from '../core/auth.service';
 import { clock, gpsCode, gpsLabel, lapTime, plural } from '../core/format';
 import { CircuitMap, SectorMark } from '../ui/circuit-map';
+import { CarLink } from '../ui/car-link';
 import { Gate } from '../ui/gate';
 import { Icon } from '../ui/icon';
 import { TIMING_PIPES } from '../ui/pipes';
@@ -23,7 +25,7 @@ interface Row {
 
 @Component({
   selector: 'tb-track-page',
-  imports: [RouterLink, Gate, CircuitMap, Stamp, Icon, ...TIMING_PIPES],
+  imports: [RouterLink, DecimalPipe, Gate, CircuitMap, Stamp, Icon, CarLink, ...TIMING_PIPES],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
@@ -63,7 +65,7 @@ interface Row {
                     <span class="record-ink" aria-hidden="true"></span>
                     <span class="record-time"><span class="record-label">Lap record</span>{{ l.lapTimeMs | lap }}</span>
                     <span class="record-by">
-                      <a [routerLink]="['/drivers', l.userId]">{{ l.displayName }}</a> · {{ l.vehicle | car }} ·
+                      <a [routerLink]="['/drivers', l.userId]">{{ l.displayName }}</a> · <tb-car-link [vehicle]="l.vehicle" /> ·
                       {{ l.setAt | day }}
                     </span>
                   </div>
@@ -107,7 +109,7 @@ interface Row {
             <h2 class="rubric">
               Classification
               <small>
-                {{ rowCountLabel() }} · best ranked lap each
+                {{ rowCountLabel() }} · best ranked lap of each car
                 @if (hasSectors()) {
                   · pick a row to shade the map, <span class="ob">violet</span> = fastest split
                 }
@@ -117,12 +119,13 @@ interface Row {
             <tb-gate [status]="board.status()" [error]="board.error()" [empty]="rows().length === 0" (retry)="board.reload()">
               <div class="table-wrap">
                 <table class="classification">
-                  <caption class="sr-only">Best lap per driver on {{ t.name }}, fastest first</caption>
+                  <caption class="sr-only">Best lap per car on {{ t.name }}, fastest first</caption>
                   <thead>
                     <tr>
                       <th scope="col" class="num">Pos</th>
                       <th scope="col">Driver</th>
                       <th scope="col" class="c-wide">Car</th>
+                      <th scope="col" class="num c-wide"><abbr title="Highest GPS speed on that lap">Top speed</abbr></th>
                       <th scope="col" class="num">Best lap</th>
                       <th scope="col" class="num">Gap</th>
                       <th scope="col" class="num c-wide">Int.</th>
@@ -134,18 +137,18 @@ interface Row {
                     </tr>
                   </thead>
                   <tbody>
-                    @for (r of rows(); track r.entry.userId) {
+                    @for (r of rows(); track r.entry.lapId) {
                       <tr
                         class="clickable"
                         [class.me]="r.me"
-                        [class.picked]="selected()?.entry?.userId === r.entry.userId"
+                        [class.picked]="selected()?.entry?.lapId === r.entry.lapId"
                         (click)="pick(r)"
                       >
                         <td class="pos num">
                           <button
                             type="button"
                             class="pick"
-                            [attr.aria-pressed]="selected()?.entry?.userId === r.entry.userId"
+                            [attr.aria-pressed]="selected()?.entry?.lapId === r.entry.lapId"
                             [attr.aria-label]="'Show sectors for P' + r.entry.rank + ' ' + r.entry.displayName + ' on the map'"
                             (click)="pick(r); $event.stopPropagation()"
                           >
@@ -157,9 +160,18 @@ interface Row {
                           @if (r.me) {
                             <span class="tag">You</span>
                           }
-                          <span class="car-line dim">{{ r.entry.vehicle | car }} · {{ code(r.entry) }}</span>
+                          <span class="car-line dim">
+                            <tb-car-link [vehicle]="r.entry.vehicle" /> · {{ code(r.entry) }}@if (r.entry.topSpeedKmh != null) { · {{ r.entry.topSpeedKmh | number: '1.0-0' }} km/h}
+                          </span>
                         </td>
-                        <td class="dim c-wide">{{ r.entry.vehicle | car }}</td>
+                        <td class="dim c-wide"><tb-car-link [vehicle]="r.entry.vehicle" /></td>
+                        <td class="num c-wide">
+                          @if (r.entry.topSpeedKmh != null) {
+                            {{ r.entry.topSpeedKmh | number: '1.0-0' }} <span class="dim kmh">km/h</span>
+                          } @else {
+                            <span class="dim">—</span>
+                          }
+                        </td>
                         <td class="time num" [class.ob]="r.entry.rank === 1">
                           {{ r.entry.lapTimeMs | lap }}
                           @if (r.entry.rank === 1) {
@@ -387,6 +399,10 @@ interface Row {
     .split.ob {
       color: var(--stamp);
       font-weight: 700;
+    }
+
+    .kmh {
+      font-size: 0.78em;
     }
 
     .car-line {
@@ -657,7 +673,7 @@ export class TrackPage {
     }));
   });
 
-  protected readonly rowCountLabel = computed(() => plural(this.rows().length, 'driver') + ' classified');
+  protected readonly rowCountLabel = computed(() => plural(this.rows().length, 'car') + ' classified');
 
   /** The signed-in driver's standing when it falls below the printed rows. */
   protected readonly outsideMe = computed(() => {
@@ -669,7 +685,7 @@ export class TrackPage {
   protected readonly selected = linkedSignal<Row[], Row | null>({
     source: this.rows,
     computation: (rows, previous) =>
-      rows.find((r) => r.entry.userId === previous?.value?.entry.userId) ??
+      rows.find((r) => r.entry.lapId === previous?.value?.entry.lapId) ??
       rows.find((r) => r.me) ??
       rows[0] ??
       null,

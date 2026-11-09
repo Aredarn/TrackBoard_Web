@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../core/api.service';
 import { AuthService } from '../core/auth.service';
 import { gpsCode, gpsLabel, plural } from '../core/format';
+import { CarLink } from '../ui/car-link';
 import { Gate } from '../ui/gate';
 import { PhotoFrame } from '../ui/photo-frame';
 import { TIMING_PIPES } from '../ui/pipes';
@@ -12,7 +13,7 @@ import { Stamp } from '../ui/stamp';
 
 @Component({
   selector: 'tb-driver-page',
-  imports: [RouterLink, Gate, PhotoFrame, Stamp, ...TIMING_PIPES],
+  imports: [RouterLink, Gate, PhotoFrame, Stamp, CarLink, ...TIMING_PIPES],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
@@ -69,7 +70,7 @@ import { Stamp } from '../ui/stamp';
                         <td class="wrap">
                           <a [routerLink]="['/tracks', s.trackId]">{{ s.trackName }}</a>
                           <span class="dim"> · {{ s.country }}</span>
-                          <span class="sub-line typed">{{ s.vehicle | car }} · {{ code(s.gpsSource) }} · {{ s.setAt | day }}</span>
+                          <span class="sub-line typed"><tb-car-link [vehicle]="s.vehicle" /> · {{ code(s.gpsSource) }} · {{ s.setAt | day }}</span>
                         </td>
                         <td class="pos num">{{ s.rank }}<span class="of dim">/{{ s.fieldSize }}</span></td>
                         <td class="time num" [class.ob]="s.rank === 1">
@@ -79,7 +80,7 @@ import { Stamp } from '../ui/stamp';
                           }
                         </td>
                         <td class="num">{{ s.gapToLeaderMs | gap: '—' }}</td>
-                        <td class="dim c-wide">{{ s.vehicle | car }}</td>
+                        <td class="dim c-wide"><tb-car-link [vehicle]="s.vehicle" /></td>
                         <td class="typed c-wide" [attr.title]="rig(s.gpsSource)">{{ code(s.gpsSource) }}</td>
                         <td class="dim c-wide">{{ s.setAt | day }}</td>
                       </tr>

@@ -58,4 +58,15 @@ describe('problemMessage', () => {
     expect(problemMessage({ status: 0 })).toContain('Could not reach');
     expect(problemMessage({ status: 429 })).toContain('Too many attempts');
   });
+
+  it('tells a locked-out driver how long to wait, and a plain rate limit only to wait', () => {
+    const locked = {
+      status: 429,
+      error: { code: 'AccountLocked', detail: 'Too many failed attempts. Try again in 15 minutes.' },
+    };
+    expect(problemMessage(locked)).toBe('Too many failed attempts. Try again in 15 minutes.');
+
+    const limited = { status: 429, error: { detail: 'Rate limit exceeded. Retry after the interval.' } };
+    expect(problemMessage(limited)).toContain('Too many attempts in a minute');
+  });
 });

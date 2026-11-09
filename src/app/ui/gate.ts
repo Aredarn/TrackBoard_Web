@@ -128,6 +128,8 @@ export class Gate {
   readonly error = input<unknown>(undefined);
   readonly empty = input(false);
   readonly loadingLabel = input('Printing the sheet');
+  /** What a 404 means on this page, when the general wording would mislead. */
+  readonly notFoundMessage = input<string | undefined>(undefined);
   readonly retry = output<void>();
 
   protected readonly widths = [92, 78, 86, 64, 88, 71];
@@ -147,7 +149,7 @@ export class Gate {
 
   protected readonly message = computed(() =>
     this.notFound()
-      ? 'Nothing is posted under this address. It may have been unpublished or deleted.'
+      ? (this.notFoundMessage() ?? 'Nothing is posted under this address. It may have been unpublished or deleted.')
       : problemMessage(this.error(), 'The server answered with an error. Try again in a moment.'),
   );
 

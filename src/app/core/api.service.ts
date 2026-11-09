@@ -14,6 +14,7 @@ import {
   Paged,
   Profile,
   ProfileStats,
+  PublicCar,
   PublicDriver,
   Session,
   SessionSummary,
@@ -62,7 +63,7 @@ export class ApiService {
 
   leaderboard(trackId: string, limit = 100): Observable<Leaderboard> {
     return this.http.get<Leaderboard>(`${this.base}/tracks/${trackId}/leaderboard`, {
-      params: { limit },
+      params: { limit, perCar: true },
     });
   }
 
@@ -74,6 +75,10 @@ export class ApiService {
 
   driver(id: string): Observable<PublicDriver> {
     return this.http.get<PublicDriver>(`${this.base}/drivers/${id}`);
+  }
+
+  car(id: string): Observable<PublicCar> {
+    return this.http.get<PublicCar>(`${this.base}/cars/${id}`);
   }
 
   // ── Driver area ───────────────────────────────────────────────────────────
@@ -94,8 +99,9 @@ export class ApiService {
     return this.http.get(`${this.base}/me/export`, { responseType: 'blob' });
   }
 
-  deleteAccount(): Observable<void> {
-    return this.http.delete<void>(`${this.base}/me`);
+  /** Deleting is irreversible, so the API wants the password as well as the token. */
+  deleteAccount(password: string): Observable<void> {
+    return this.http.delete<void>(`${this.base}/me`, { body: { password } });
   }
 
   createAvatarUpload(contentType: 'image/jpeg' | 'image/webp'): Observable<UploadTarget> {

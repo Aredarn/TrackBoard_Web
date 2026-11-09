@@ -9,6 +9,7 @@ import { LeaderboardEntry } from '../core/api.types';
 import { AuthService } from '../core/auth.service';
 import { clock, gpsCode, gpsLabel, lapTime, plural } from '../core/format';
 import { CircuitMap, SectorMark } from '../ui/circuit-map';
+import { CarLink } from '../ui/car-link';
 import { Gate } from '../ui/gate';
 import { Icon } from '../ui/icon';
 import { TIMING_PIPES } from '../ui/pipes';
@@ -24,7 +25,7 @@ interface Row {
 
 @Component({
   selector: 'tb-track-page',
-  imports: [RouterLink, DecimalPipe, Gate, CircuitMap, Stamp, Icon, ...TIMING_PIPES],
+  imports: [RouterLink, DecimalPipe, Gate, CircuitMap, Stamp, Icon, CarLink, ...TIMING_PIPES],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
@@ -64,7 +65,7 @@ interface Row {
                     <span class="record-ink" aria-hidden="true"></span>
                     <span class="record-time"><span class="record-label">Lap record</span>{{ l.lapTimeMs | lap }}</span>
                     <span class="record-by">
-                      <a [routerLink]="['/drivers', l.userId]">{{ l.displayName }}</a> · {{ l.vehicle | car }} ·
+                      <a [routerLink]="['/drivers', l.userId]">{{ l.displayName }}</a> · <tb-car-link [vehicle]="l.vehicle" /> ·
                       {{ l.setAt | day }}
                     </span>
                   </div>
@@ -160,10 +161,10 @@ interface Row {
                             <span class="tag">You</span>
                           }
                           <span class="car-line dim">
-                            {{ r.entry.vehicle | car }} · {{ code(r.entry) }}@if (r.entry.topSpeedKmh != null) { · {{ r.entry.topSpeedKmh | number: '1.0-0' }} km/h}
+                            <tb-car-link [vehicle]="r.entry.vehicle" /> · {{ code(r.entry) }}@if (r.entry.topSpeedKmh != null) { · {{ r.entry.topSpeedKmh | number: '1.0-0' }} km/h}
                           </span>
                         </td>
-                        <td class="dim c-wide">{{ r.entry.vehicle | car }}</td>
+                        <td class="dim c-wide"><tb-car-link [vehicle]="r.entry.vehicle" /></td>
                         <td class="num c-wide">
                           @if (r.entry.topSpeedKmh != null) {
                             {{ r.entry.topSpeedKmh | number: '1.0-0' }} <span class="dim kmh">km/h</span>

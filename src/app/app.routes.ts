@@ -39,6 +39,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/driver').then((m) => m.DriverPage),
   },
   {
+    path: 'cars/:id',
+    title: 'Car — TrackBoard',
+    loadComponent: () => import('./pages/car').then((m) => m.CarPage),
+  },
+  {
     path: 'sign-in',
     title: 'Sign in — TrackBoard',
     canActivate: [signedOutGuard],

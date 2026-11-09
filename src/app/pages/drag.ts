@@ -7,6 +7,7 @@ import { ApiService } from '../core/api.service';
 import { DragClass, DragEntry, DragMetric } from '../core/api.types';
 import { AuthService } from '../core/auth.service';
 import { DRAG_CLASSES, DRAG_METRICS, clock, dragClassBand, dragMetricLabel, gpsCode, gpsLabel, plural } from '../core/format';
+import { CarLink } from '../ui/car-link';
 import { Gate } from '../ui/gate';
 import { TIMING_PIPES } from '../ui/pipes';
 import { Stamp } from '../ui/stamp';
@@ -19,7 +20,7 @@ interface Row {
 
 @Component({
   selector: 'tb-drag-page',
-  imports: [RouterLink, DecimalPipe, Gate, Stamp, ...TIMING_PIPES],
+  imports: [RouterLink, DecimalPipe, Gate, Stamp, CarLink, ...TIMING_PIPES],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
@@ -69,7 +70,7 @@ interface Row {
             <span class="record-ink" aria-hidden="true"></span>
             <span class="record-time"><span class="record-label">Record</span>{{ l.timeMs | lap }}</span>
             <span class="record-by">
-              <a [routerLink]="['/drivers', l.userId]">{{ l.displayName }}</a> · {{ l.vehicle | car }} · {{ l.setAt | day }}
+              <a [routerLink]="['/drivers', l.userId]">{{ l.displayName }}</a> · <tb-car-link [vehicle]="l.vehicle" /> · {{ l.setAt | day }}
             </span>
           </div>
         }
@@ -108,9 +109,9 @@ interface Row {
                       @if (r.me) {
                         <span class="tag">You</span>
                       }
-                      <span class="car-line dim">{{ r.entry.vehicle | car }} · {{ r.entry.carClass ?? '—' }} · {{ code(r.entry) }}</span>
+                      <span class="car-line dim"><tb-car-link [vehicle]="r.entry.vehicle" /> · {{ r.entry.carClass ?? '—' }} · {{ code(r.entry) }}</span>
                     </td>
-                    <td class="dim c-wide">{{ r.entry.vehicle | car }}</td>
+                    <td class="dim c-wide"><tb-car-link [vehicle]="r.entry.vehicle" /></td>
                     <td class="typed c-wide" [attr.title]="r.entry.carClass ? band(r.entry.carClass) : 'No power or weight on file'">
                       {{ r.entry.carClass ?? '—' }}
                     </td>

@@ -14,6 +14,7 @@ import {
   Paged,
   Profile,
   ProfileStats,
+  PublicCar,
   PublicDriver,
   Session,
   SessionSummary,
@@ -74,6 +75,10 @@ export class ApiService {
 
   driver(id: string): Observable<PublicDriver> {
     return this.http.get<PublicDriver>(`${this.base}/drivers/${id}`);
+  }
+
+  car(id: string): Observable<PublicCar> {
+    return this.http.get<PublicCar>(`${this.base}/cars/${id}`);
   }
 
   // ── Driver area ───────────────────────────────────────────────────────────

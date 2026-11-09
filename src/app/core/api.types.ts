@@ -78,6 +78,8 @@ export interface LeaderboardVehicle {
   manufacturer: string;
   model: string;
   year: number;
+  /** The car's public page id. Set on track and drag boards, absent on event boards. */
+  id?: string | null;
 }
 
 export interface LeaderboardEntry {
@@ -153,6 +155,56 @@ export interface PublicDriver {
   avatarUrl: string | null;
   memberSince: string;
   standings: PublicStanding[];
+}
+
+export interface CarTrackBest {
+  trackId: string;
+  trackName: string;
+  country: string;
+  trackType: TrackType;
+  rank: number;
+  fieldSize: number;
+  lapTimeMs: number;
+  gapToLeaderMs: number;
+  topSpeedKmh: number | null;
+  setAt: string;
+  gpsSource: GpsSource;
+}
+
+export interface CarDragBest {
+  metric: DragMetric;
+  rank: number;
+  fieldSize: number;
+  timeMs: number;
+  gapToLeaderMs: number;
+  trapSpeedKmh: number | null;
+  setAt: string;
+  gpsSource: GpsSource;
+}
+
+/** A car's public page: its garage entry and its place on every public board. */
+export interface PublicCar {
+  id: string;
+  ownerId: string;
+  ownerDisplayName: string;
+  manufacturer: string;
+  model: string;
+  year: number;
+  photoUrl: string | null;
+  engineType: string;
+  horsepower: number;
+  torque: number | null;
+  weight: number;
+  topSpeed: number | null;
+  acceleration: number | null;
+  drivetrain: string;
+  fuelType: string;
+  tireType: string;
+  transmission: string;
+  suspensionType: string | null;
+  carClass: DragClass | null;
+  trackBests: CarTrackBest[];
+  dragBests: CarDragBest[];
 }
 
 // ── Sessions ─────────────────────────────────────────────────────────────────
